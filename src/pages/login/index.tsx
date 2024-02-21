@@ -6,12 +6,13 @@ import React from "react";
 import InputComponent from "../../components/shared_components/custom_input";
 import { LoginDataType, useLoginCallback } from "../../connections/useauth";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
 
     const toast = useToast()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false)
     const { handleLogin } = useLoginCallback();
     const loginSchema = yup.object({
@@ -30,13 +31,38 @@ export default function LoginPage() {
     //API call to handle user login
     const loginMutation = useMutation(async (formData: LoginDataType) => {
         const response = await handleLogin(formData);
-        // localStorage.setItem("token", response.data.access_token);
-        // localStorage.setItem("refresh_token", response.data.refresh_token);
 
-        console.log(response);
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: "Login Successful",
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            localStorage.setItem("token", response.data?.data?.token);
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } else {
+            toast({
+                title: "Something went wrong",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        } 
 
 
-        return response;
     });
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,23 +85,14 @@ export default function LoginPage() {
 
         loginMutation.mutateAsync(loginData, {
             onSuccess: (data: any) => {
-                console.log(data?.data?.statusCode);
-                 if(data?.data?.statusCode){
-                    toast({
-                        title: "Something went wrong",
-                        status: "error",
-                        duration: 3000,
-                        position: "top",
-                    });
-                 } else {
-                    toast({
-                        title: "Login Successful",
-                        status: "success",
-                        duration: 3000,
-                        position: "top",
-                    });
-                 }
-                
+                console.log(data?.data?.data?.details?.email);
+                if (data) { 
+                    localStorage.setItem("email", data?.data?.data?.details?.email);
+                    localStorage.setItem("phone", data?.data?.data?.details?.phone);
+                    localStorage.setItem("id", data?.data?.data?.details?.id);
+                    navigate("/dashboard")
+                }  
+
             },
         })
             .catch(() => {
@@ -103,7 +120,7 @@ export default function LoginPage() {
                         error={formik.errors.email}
                         type="email" placeholder="Email Address" />
                 </Box>
-                <Box> 
+                <Box>
                     <Text fontSize={"14px"} fontWeight={"600"} mb={"1"} >Email Address</Text>
                     <InputComponent
                         name="password"
