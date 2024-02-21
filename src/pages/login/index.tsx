@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
 
     const toast = useToast()
-    const navigate = useNavigate()
-    const [loading, setLoading] = React.useState(false)
+    const navigate = useNavigate() 
     const { handleLogin } = useLoginCallback();
     const loginSchema = yup.object({
         email: yup.string().email('This email is not valid').required('Your email is required'),
