@@ -10,6 +10,8 @@ function Navbar(props: Props) {
 
     const path = useLocation()
 
+    let name = localStorage.getItem("name") as string
+
     return (
         <Flex px={"6"} py={"4"} width={"full"} alignItems={"center"} justifyContent={"space-between"} >
             <Flex alignItems={"center"} gap={"2"} >
@@ -21,12 +23,15 @@ function Navbar(props: Props) {
                     {path.pathname === "/dashboard/elibrary" && (
                         "E-Library"
                     )}
+                    {path.pathname === "/dashboard/user" && (
+                        "User"
+                    )}
                 </Text>
             </Flex>
             <Flex alignItems={"center"} >
                 <Notification />
                 <Box width={"36px"} height={"36px"} rounded={"full"} bgColor={"#D9D9D9"} ml={"6"} />
-                <Text color={"#010203"} lineHeight={"19.36px"} ml={"2"} >Henry Ugo</Text>
+                <Text color={"#010203"} lineHeight={"19.36px"} ml={"2"} >{name?.length > 12 ? name?.slice(0, 12)+"..." : name}</Text>
             </Flex>
         </Flex>
     )
