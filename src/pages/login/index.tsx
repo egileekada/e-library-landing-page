@@ -86,6 +86,7 @@ export default function LoginPage() {
                     localStorage.setItem("phone", data?.data?.data?.details?.phone);
                     localStorage.setItem("id", data?.data?.data?.details?.id);
                     localStorage.setItem("name", data?.data?.data?.details?.name);
+                    localStorage.setItem("notoken", "");
                     navigate("/dashboard")
                 }  
 
@@ -102,7 +103,7 @@ export default function LoginPage() {
     }
 
     useEffect(()=> {
-        if(localStorage.getItem("token") === "true"){ 
+        if(localStorage.getItem("notoken") === "true"){ 
             toast({
                 title: "Token expire, please login",
                 status: "error",
