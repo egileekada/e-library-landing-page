@@ -1,14 +1,13 @@
  import axios from "../util/apiclient" 
 
-
-
 export interface LoginDataType {
   email: string;
   password: string;
 }
 
 export function useLoginCallback() {
-  const handleLogin = async (postData: any): Promise<any> => {    
+  
+  const handleLogin = async (postData: LoginDataType): Promise<any> => {    
     try{ 
         const response = await axios.post('/admin/login', postData,
         {
@@ -16,6 +15,8 @@ export function useLoginCallback() {
         }); 
         return response       
     } catch(err: any) { 
+      console.log(err);
+      
       return err?.response    
     }     
   }
