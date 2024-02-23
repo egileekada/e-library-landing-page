@@ -24,8 +24,7 @@ export default function ModalLayout(props: Props) {
         close,
         size,
         title, 
-        children,
-        height, 
+        children, 
     } = props; 
 
 
@@ -40,7 +39,7 @@ export default function ModalLayout(props: Props) {
                     </>
                 )}
                 <ModalBody bgColor="#FFFFFF" padding="6" borderBottomRadius="8px" >
-                    <div className={size === "full" ? " " : !height ? " overflow-y-auto lg:max-h-[60vh] max-h-auto relative  " : " overflow-y-auto  relative  "} >
+                    <div >
                         {children}
                     </div>
                 </ModalBody>
