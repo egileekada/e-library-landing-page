@@ -17,6 +17,8 @@ instance.interceptors.request.use(
     if (error.response.status === 500) {
       error.response.data.message = "Something wrong has happened. Try again later."
     }
+    console.log(error);
+    
     return Promise.reject(error)
   },
 )

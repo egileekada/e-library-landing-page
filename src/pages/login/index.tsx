@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { useFormik } from 'formik';
 import * as yup from 'yup'
-import React from "react";
+import React, { useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import InputComponent from "../../components/shared_components/custom_input";
 import { LoginDataType, useLoginCallback } from "../../connections/useauth";
@@ -25,7 +25,6 @@ export default function LoginPage() {
         validationSchema: loginSchema,
         onSubmit: () => { },
     });
-
 
     //API call to handle user login
     const loginMutation = useMutation(async (formData: LoginDataType) => {
@@ -60,8 +59,6 @@ export default function LoginPage() {
             });
             return
         } 
-
-
     });
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,12 +80,12 @@ export default function LoginPage() {
         };
 
         loginMutation.mutateAsync(loginData, {
-            onSuccess: (data: any) => {
-                console.log(data?.data?.data?.details?.email);
+            onSuccess: (data: any) => { 
                 if (data) { 
                     localStorage.setItem("email", data?.data?.data?.details?.email);
                     localStorage.setItem("phone", data?.data?.data?.details?.phone);
                     localStorage.setItem("id", data?.data?.data?.details?.id);
+                    localStorage.setItem("name", data?.data?.data?.details?.name);
                     navigate("/dashboard")
                 }  
 
@@ -103,6 +100,17 @@ export default function LoginPage() {
                 });
             });
     }
+
+    useEffect(()=> {
+        if(localStorage.getItem("token") === "true"){ 
+            toast({
+                title: "Token expire, please login",
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+        }
+    }, [])
 
     return (
         <Flex w={"full"} h={"100vh"} p={"6"} justifyContent={"center"} alignItems={"center"} >
