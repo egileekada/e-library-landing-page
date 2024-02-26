@@ -74,10 +74,10 @@ function Usertable(props: Props) {
                                     <Td>
                                         <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
                                     </Td>
-                                    <Td>{item?.name}</Td>
+                                    <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12)+"..." : item?.name}</Td>
                                     <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
                                     <Td>{item?.staffId ? item?.staffId : "Guest"}</Td>
-                                    <Td>{item?.email}</Td>
+                                    <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12)+"..." : item?.email}</Td>
                                     <Td>{item?.phone}</Td>
                                 </Tr>
                             )
