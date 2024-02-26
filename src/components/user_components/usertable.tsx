@@ -7,6 +7,7 @@ import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 
 interface Props {
+    tableRef: any
     page: number;
     setPage: (by: number) => void;
     limit: number;
@@ -16,6 +17,7 @@ interface Props {
 
 function Usertable(props: Props) {
     const {
+        tableRef,
         limit,
         page,
         setPage,
@@ -52,7 +54,7 @@ function Usertable(props: Props) {
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
             <TableContainer>
-                <Table variant='simple'>
+                <Table ref={tableRef} variant='simple'>
                     <Thead>
                         <Tr>
                             <Th><Checkbox size={"lg"} /></Th>
