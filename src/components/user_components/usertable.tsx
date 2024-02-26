@@ -5,6 +5,7 @@ import { IUserData } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     tableRef: any
@@ -27,6 +28,7 @@ function Usertable(props: Props) {
 
     const [data, setData] = useState([] as any)
     const toast = useToast()
+    const navigate = useNavigate()
 
     const { search } = filterdata((state) => state);
 
@@ -51,6 +53,11 @@ function Usertable(props: Props) {
         }
     })
 
+    const clickHandler =(item: string)=> {
+        localStorage.setItem("currentuser", item)
+        navigate("/dashboard/user/info")
+    }
+
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
             <TableContainer>
@@ -70,7 +77,7 @@ function Usertable(props: Props) {
                     <Tbody>
                         {data?.map((item: IUserData, index: number) => {
                             return (
-                                <Tr fontSize={"14px"} key={index} >
+                                <Tr role='button' onClick={()=> clickHandler(item?.id+"")} fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id}</Td>
                                     <Td>

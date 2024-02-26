@@ -8,8 +8,8 @@ import Adduserbtn from '../../user_components/adduserbtn'
 import { DownloadTableExcel } from 'react-export-table-to-excel'
 
 interface Props {
-    name: string,
-    tableRef: any
+    name?: string,
+    tableRef?: any
 }
 
 function Filter(props: Props) {

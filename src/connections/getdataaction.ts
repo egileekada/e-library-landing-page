@@ -2,7 +2,7 @@
 import axios from "../util/apiclient"
 
 
-const getservicedata = async (url: string, params: any) => { 
+const getservicedata = async (url: string, params?: any) => { 
 
     try { 
         const response = await axios.get(url, {

@@ -4,6 +4,7 @@ import DashboardLayout from './components/shared_components/dashboard_layout';
 import Elibrary from './pages/e_library';
 import LoginPage from './pages/login';
 import UserPage from './pages/user';
+import UserInfo from './pages/user_info';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path='/dashboard/elibrary' element={<Elibrary />} />
           <Route path='/dashboard/user' element={<UserPage />} />
+          <Route path='/dashboard/user/info' element={<UserInfo />} />
         </Route>
       </Route>
     )

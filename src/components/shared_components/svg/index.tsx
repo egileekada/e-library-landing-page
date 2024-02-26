@@ -96,6 +96,14 @@ export function Menu() {
     )
 }
 
+export function RightArrow() {
+    return (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.08331 15.8332L12.9166 9.99984L7.08331 4.1665" stroke="black" stroke-width="1.5" stroke-linecap="square" />
+        </svg>
+    )
+}
+
 export function FilterIcon() {
 
     return (
