@@ -70,7 +70,7 @@ function Usertable(props: Props) {
                             return (
                                 <Tr fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
-                                    <Td>{item?.adminId}</Td>
+                                    <Td>{item?.id}</Td>
                                     <Td>
                                         <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
                                     </Td>

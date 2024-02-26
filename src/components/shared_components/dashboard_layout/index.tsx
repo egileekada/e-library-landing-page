@@ -12,7 +12,7 @@ function DashboardLayout() {
                 <Sidebar />
             </Box>
             <Flex position={"relative"} flexDir={"column"} w={"full"} h={"100vh"} overflowY={"auto"} >
-                <Box position={"sticky"} top={"0px"} >
+                <Box position={"sticky"} bg={"white"} zIndex={"30"} top={"0px"} >
                     <Navbar />
                 </Box>
                 <Flex flex={"1"} flexDir={"column"} px={"6"} > 

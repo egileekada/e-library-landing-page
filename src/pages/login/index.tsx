@@ -7,6 +7,7 @@ import InputComponent from "../../components/shared_components/custom_input";
 import { LoginDataType, useLoginCallback } from "../../connections/useauth";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { Eye, Lock, Logo, Mail } from "../../components/shared_components/svg";
 
 
 export default function LoginPage() {
@@ -114,12 +115,21 @@ export default function LoginPage() {
     }, [])
 
     return (
-        <Flex w={"full"} h={"100vh"} p={"6"} justifyContent={"center"} alignItems={"center"} >
-            <form onSubmit={(e) => submit(e)} style={{ maxWidth: "350px", width: "100%", display: "flex", flexDirection: "column", gap: "16px" }} >
+        <Flex w={"full"} h={"100vh"} py={"9"} px={"6"} overflowY={"auto"} flexDir={"column"} gap={"4"} alignItems={"center"} >
+            <Flex alignItems={"center"} mb={"2"} flexDir={"column"} maxW={"500px"} >
+                <Logo />
+                <Text fontSize={"40px"} textAlign={"center"} lineHeight={"55.17px"} fontWeight={"600"} color={"#1E1B39"} >NDDC Library Management System</Text>
+            </Flex>
+            <form onSubmit={(e) => submit(e)} style={{ maxWidth: "500px", width: "100%", display: "flex", flexDirection: "column", gap: "16px", border: "1px solid #1B3A88", borderRadius: "30px", padding: "50px" }} >
+                <Text fontSize={"35px"} lineHeight={"42.36px"} textAlign={"center"} fontWeight={"bold"} >Log In</Text>
                 <Box>
                     <Text fontSize={"14px"} fontWeight={"600"} mb={"1"} >Email Address</Text>
                     <InputComponent
                         name="email"
+                        left={true}
+                        leftIcon={
+                            <Mail />
+                        }
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("email", true, true)
@@ -132,11 +142,18 @@ export default function LoginPage() {
                     <Text fontSize={"14px"} fontWeight={"600"} mb={"1"} >Email Address</Text>
                     <InputComponent
                         name="password"
+                        left={true}
+                        leftIcon={
+                            <Lock />
+                        }
+                        right={true}
+                        rightIcon={
+                            <Eye />
+                        }
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("password", true, true)
-                        }
-                        right={true}
+                        } 
                         touch={formik.touched.password}
                         error={formik.errors.password}
                         type="password" placeholder="Password" />

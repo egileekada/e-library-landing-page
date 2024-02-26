@@ -23,7 +23,7 @@ function LoadingAnimation(props: Props) {
 
     return (
         <>
-            {!loading && (
+            {(!loading && !refeching) && (
                 <>
                     {children} 
                     {(!loading && refeching)&& (
@@ -43,7 +43,7 @@ function LoadingAnimation(props: Props) {
                     )}
                 </>
             )}
-            {loading && (
+            {(loading || refeching) && (
                 <Flex width={"full"} justifyContent={"center"} fontSize={"20px"} py={"8"}  >
                     <Spinner size={["md", "sm"]} color={color? color : 'black'} />
                 </Flex>
