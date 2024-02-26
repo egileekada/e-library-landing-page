@@ -17,7 +17,7 @@ function Borrowtable(props: Props) {
 
     const Overdue = (item?: boolean) => {
         return (
-            <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
+            <Box mt={"1"} bgColor={"#FFDEDE"} color={"#450000"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                 {!item ? "Overdue" : "Damaged"}
             </Box>
         )
@@ -25,7 +25,7 @@ function Borrowtable(props: Props) {
 
     const Returned = (item: boolean) => {
         return (
-            <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
+            <Box mt={"1"} bgColor={"#DEFFF1"} color={"#004530"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                 {item ? "Returned" : "Satisfactory"}
             </Box>
         )
@@ -33,7 +33,7 @@ function Borrowtable(props: Props) {
 
     const Borrowed = () => {
         return (
-            <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
+            <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} w={"fit-content"} fontSize={"14px"} color={"#452500"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                 Borrowed
             </Box>
         )
@@ -59,7 +59,7 @@ function Borrowtable(props: Props) {
                                     <Td>{item?.record?.name}</Td>
                                     <Td>{dateFormat(item?.startDate)}</Td>
                                     <Td>{dateFormat(item?.endDate)}</Td>
-                                    <Td>
+                                    <Td >
                                         {item?.status === "BORROWED" && (
                                             <Borrowed />
                                         )}
