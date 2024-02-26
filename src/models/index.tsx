@@ -5,7 +5,8 @@ export interface IUserData {
     id: number | string;
     name: string;
     phone: string;
-    staffId: string
+    staffId: string;
+    profilePicture?: string
 } 
 
 
@@ -13,5 +14,6 @@ export interface ICreateUser {
     name: string,
     email: string,
     phone: string,
-    staffId: string
+    staffId: string,
+    profilePicture?: string
 }

@@ -1,8 +1,8 @@
-import { Box, Checkbox, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
-import { useQuery } from 'react-query'; 
+import { Box, Checkbox, Image, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
+import { useQuery } from 'react-query';
 import { useState } from 'react';
 import { IUserData } from '../../models';
-import LoadingAnimation from '../shared_components/loading_animation'; 
+import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 
@@ -25,7 +25,7 @@ function Usertable(props: Props) {
 
     const [data, setData] = useState([] as any)
     const toast = useToast()
-     
+
     const { search } = filterdata((state) => state);
 
     const { isLoading, isRefetching } = useQuery(['usertable', search, page, limit], () => actionService.getservicedata(search ? `/user/search?keyword=${search}` : "/user",
@@ -72,12 +72,20 @@ function Usertable(props: Props) {
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id}</Td>
                                     <Td>
-                                        <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
+                                        {item?.profilePicture && (
+                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} > 
+                                                <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture} objectFit={"cover"} alt='image' />
+                                            </Box>
+                                        )}
+
+                                        {!item?.profilePicture && (
+                                            <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
+                                        )}
                                     </Td>
-                                    <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12)+"..." : item?.name}</Td>
+                                    <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
                                     <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
                                     <Td>{item?.staffId ? item?.staffId : "Guest"}</Td>
-                                    <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12)+"..." : item?.email}</Td>
+                                    <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
                                     <Td>{item?.phone}</Td>
                                 </Tr>
                             )

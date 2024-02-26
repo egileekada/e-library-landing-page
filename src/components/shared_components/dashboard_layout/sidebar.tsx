@@ -57,9 +57,10 @@ function Sidebar(props: Props) {
 
     return (
         <Flex w={"300px"} flexDir={"column"} h={"100vh"} py={"7"} px={"4"} >
-            <Box w={"full"} px={"2"} >
+            <Flex w={"full"} px={"2"} alignItems={"center"} justifyContent={"space-between"} >
                 <Box bgColor={"#D9D9D9"} width={"179px"} height={"59px"} />
-            </Box>
+                
+            </Flex>
             <Flex w={"full"} py={"8"} flexDir={"column"} gap={"3"} >
                 {menulist?.map((item: { name: string, router: string }, index: number) => {
                     return (

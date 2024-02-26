@@ -16,6 +16,23 @@ export function useAddUserCallback() {
   return { handleAddUser }
 } 
  
+export function useUploaderCallback() {
+  const handleUploader = async (postData: any, image: any): Promise<any> => {    
+    try{ 
+        const response = await axios.post('/file-upload/upload', postData,
+        {
+          headers: {
+            'Content-Type': image.type, 
+          }, 
+        }); 
+        return response       
+    } catch(err: any) {                  
+      return err?.response    
+    }     
+  }
+  return { handleUploader }
+} 
+ 
 export function useGetDataCallback() {
     const handleGetData = async (url: string, params?: any): Promise<any> => {    
       try{ 

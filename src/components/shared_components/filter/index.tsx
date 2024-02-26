@@ -18,8 +18,10 @@ function Filter(props: Props) {
             <Flex gap={"4"} width={"full"} >
                 <Box w={"50%"} >
                     <Searchbar />
-                </Box>
-                <Otherfilter />
+                </Box> 
+                {path?.pathname === "/dashboard/library" && (
+                    <Otherfilter />
+                )}
             </Flex>
             <Box width={"fit-content"} >
                 {path?.pathname === "/dashboard/elibrary" && (
