@@ -46,9 +46,7 @@ function Userform(props: Props) {
 
     //API call to handle adding user
     const addUserMutation = useMutation(async (formData: ICreateUser) => {
-        const response = await handleAddUser(formData);
-
-        console.log(response?.data?.message);
+        const response = await handleAddUser(formData); 
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -70,15 +68,7 @@ function Userform(props: Props) {
                 position: "top",
             });
             return
-        } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        }
+        }  
     });
 
     //API call to handle adding user
@@ -87,19 +77,16 @@ function Userform(props: Props) {
         let formData = new FormData()
         formData.append("file", imageFile)
 
-        const response = await handleUploader(formData, imageFile);
-
-        console.log(response?.data?.data);
-
+        const response = await handleUploader(formData, imageFile); 
 
         if (response?.status === 201 || response?.status === 200) {
 
-            toast({
-                title: response?.data?.message,
-                status: "success",
-                duration: 3000,
-                position: "top",
-            });
+            // toast({
+            //     title: response?.data?.message,
+            //     status: "success",
+            //     duration: 3000,
+            //     position: "top",
+            // });
 
             addUserMutation.mutateAsync({...userdata, profilePicture: response?.data?.data}, {
                 onSuccess: (data: any) => {
@@ -127,15 +114,7 @@ function Userform(props: Props) {
                 position: "top",
             });
             return
-        } else {
-            toast({
-                title: "Something went wrong",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return
-        }
+        }  
     });
 
 

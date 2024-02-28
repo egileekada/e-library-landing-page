@@ -38,7 +38,7 @@ export default function ModalLayout(props: Props) {
                         <ModalCloseButton color={"#000000"} />
                     </>
                 )}
-                <ModalBody bgColor="#FFFFFF" padding="6" borderBottomRadius="8px" >
+                <ModalBody bgColor="#FFFFFF" pt={"3"} pb={"4"} paddingX="6" borderBottomRadius="8px" >
                     <div >
                         {children}
                     </div>

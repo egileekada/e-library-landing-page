@@ -24,3 +24,29 @@ export interface IBorrowData {
     record: {name: string}, 
     endDate: string
 }
+ 
+export interface IGadgetData {
+    count: number,
+    manufacturer: string,
+    picture: string,
+    state: string, 
+    type: string, 
+    id: string
+} 
+ 
+export interface ICreateGadget  {
+    type: string,
+    picture?: string,
+    manufacturer: string,
+    count: number,
+    state?: string 
+    id?: string
+}
+ 
+export interface ICreateEquipment  {
+    type: string,
+    picture?: string, 
+    count: number,
+    state?: string, 
+    id?: string
+}

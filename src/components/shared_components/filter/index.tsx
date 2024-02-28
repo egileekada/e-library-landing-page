@@ -6,6 +6,8 @@ import Portalbtn from '../../elibrary_components/portalbtn'
 import { useLocation } from 'react-router-dom'
 import Adduserbtn from '../../user_components/adduserbtn'
 import { DownloadTableExcel } from 'react-export-table-to-excel'
+import Gadgetbtn from '../../gadget_compnonents/gadgetbtn'
+import Equipmentbtn from '../../equipment_compnonents/equipmentbtn'
 
 interface Props {
     name?: string,
@@ -26,19 +28,20 @@ function Filter(props: Props) {
                 <Box w={"50%"} >
                     <Searchbar />
                 </Box>
-                {path?.pathname === "/dashboard/library" && (
-                    <Otherfilter />
+                {(path?.pathname === "/dashboard/library" || path?.pathname === "/dashboard/inventory/gadgets" || path?.pathname === "/dashboard/inventory/equipments" ) && (
+                    <Otherfilter type={path?.pathname === "/dashboard/inventory/gadgets" ? "Gadget" : path?.pathname === "/dashboard/inventory/equipments" ? "Equipment" : "Library"} />
                 )}
-
-                <DownloadTableExcel
-                    filename={name + " Table"}
-                    sheet="users"
-                    currentTableRef={tableRef.current}
-                >
-                    <Button w={"140px"} height={"45px"} bgColor={"white"} gap={"2"} fontSize={"16px"} fontWeight={"medium"} lineHeight={"24.3px"} display={"flex"} alignItems={"center"} justifyContent={"center"} rounded={"5px"} color={"#333333"} border={"1px solid #828282"} >
-                        Export XLS
-                    </Button> 
-                </DownloadTableExcel>
+                {path?.pathname !== "/dashboard/elibrary" && ( 
+                    <DownloadTableExcel
+                        filename={name + " Table"}
+                        sheet="users"
+                        currentTableRef={tableRef.current}
+                    >
+                        <Button w={"140px"} height={"45px"} bgColor={"white"} gap={"2"} fontSize={"16px"} fontWeight={"medium"} lineHeight={"24.3px"} display={"flex"} alignItems={"center"} justifyContent={"center"} rounded={"5px"} color={"#333333"} border={"1px solid #828282"} >
+                            Export XLS
+                        </Button>
+                    </DownloadTableExcel>
+                )}
             </Flex>
             <Box width={"fit-content"} >
                 {path?.pathname === "/dashboard/elibrary" && (
@@ -46,6 +49,12 @@ function Filter(props: Props) {
                 )}
                 {path?.pathname === "/dashboard/user" && (
                     <Adduserbtn />
+                )}
+                {path?.pathname === "/dashboard/inventory/gadgets" && (
+                    <Gadgetbtn />
+                )}
+                {path?.pathname === "/dashboard/inventory/equipments" && (
+                    <Equipmentbtn />
                 )}
             </Box>
         </Flex>

@@ -18,7 +18,7 @@ function Sidebar(props: Props) {
     const menulist = [
         {
             name: "Dashboard",
-            router: "/dashboard"
+            router: "/dashboard/home"
         },
         {
             name: "Inventory",
@@ -71,22 +71,22 @@ function Sidebar(props: Props) {
                     <Flex w={"full"} py={"8"} flexDir={"column"} gap={"3"} >
                         {menulist?.map((item: { name: string, router: string }, index: number) => {
                             return (
-                                <Flex onClick={() => clickHandler(item?.router)} as={"button"} key={index} w={"full"} h={"45px"} px={"4"} gap={"2"} alignItems={"center"} bgColor={item?.router === activeTab ? "#1F7CFF1A" : ""} rounded={"3px"} >
+                                <Flex onClick={() => clickHandler(item?.router)} as={"button"} key={index} w={"full"} h={"45px"} px={"4"} gap={"2"} alignItems={"center"} bgColor={item?.router.includes(activeTab) ? "#1F7CFF1A" : ""} rounded={"3px"} >
                                     <Box width={"25px"}>
                                         {item?.name === "Dashboard" && (
-                                            <Home color={item?.router === activeTab ? "#114EA3" : ""} />
+                                            <Home color={item?.router.includes(activeTab) ? "#114EA3" : ""} />
                                         )}
                                         {(item?.name === "Inventory" || item?.name === "E-Library" || item?.name === "Personnel") && (
-                                            <FileIcon color={item?.router === activeTab ? "#114EA3" : ""} />
+                                            <FileIcon color={item?.router.includes(activeTab) ? "#114EA3" : ""} />
                                         )}
                                         {item?.name === "User" && (
-                                            <User color={item?.router === activeTab ? "#114EA3" : ""} />
+                                            <User color={item?.router.includes(activeTab) ? "#114EA3" : ""} />
                                         )}
                                         {item?.name === "Library" && (
-                                            <Library color={item?.router === activeTab ? "#114EA3" : ""} />
+                                            <Library color={item?.router.includes(activeTab) ? "#114EA3" : ""} />
                                         )}
                                     </Box>
-                                    <Text color={item?.router === activeTab ? "#114EA3" : "#8C8C8C"} fontWeight={"medium"} lineHeight={"16.94px"} fontSize={"14px"} >{item.name}</Text>
+                                    <Text color={item?.router.includes(activeTab) ? "#114EA3" : "#8C8C8C"} fontWeight={"medium"} lineHeight={"16.94px"} fontSize={"14px"} >{item.name}</Text>
                                 </Flex>
                             )
                         })}

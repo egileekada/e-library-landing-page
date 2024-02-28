@@ -2,19 +2,23 @@ import { create } from 'zustand';
 
 type State = {
     search: string,
-    event_category: string,
+    filter: {
+        status?: string
+    },
 } 
 
 type Action = {
     setSearchValue: (data: State['search']) => void 
-    setEventCategory: (data: State['event_category']) => void 
+    setFilter: (data: State['filter']) => void 
 }
 
 const filterdata = create<State & Action>((set) => ({
     search: "", 
-    event_category: "",
+    filter: {
+        status: ""
+    },
     setSearchValue: (data) => set(() => ({ search: data })),
-    setEventCategory: (data) => set(() => ({ event_category: data })),
+    setFilter: (data) => set(() => ({ filter: data })),
 }));
 
 

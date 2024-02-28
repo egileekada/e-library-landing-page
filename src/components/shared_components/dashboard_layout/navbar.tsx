@@ -29,6 +29,15 @@ function Navbar(props: Props) {
                     {path.pathname === "/dashboard/user/info" && (
                         "User"
                     )}
+                    {path.pathname === "/dashboard/inventory" && (
+                        "Inventory"
+                    )}
+                    {path.pathname === "/dashboard/inventory/gadgets" && (
+                        "Gadgets"
+                    )}
+                    {path.pathname === "/dashboard/inventory/equipments" && (
+                        "Equipments"
+                    )}
                 </Text>
             </Flex>
             <Flex alignItems={"center"} >
