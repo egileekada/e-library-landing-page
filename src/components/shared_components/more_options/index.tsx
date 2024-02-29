@@ -22,8 +22,8 @@ function MoreOption(props: Props) {
     const [open, setOpen] = useState(false) 
     const [tab, setTab] = useState(false)
 
-    const clickHandler = () => {
-        setTab(true)
+    const clickHandler = (item: boolean) => {
+        setTab(item)
         setOpen(true)
     }
 
@@ -50,10 +50,10 @@ function MoreOption(props: Props) {
                             <MoreIcon />
                         </MenuButton>
                         <MenuList>
-                            <MenuItem onClick={() => setOpen(true)}>
+                            <MenuItem onClick={() => clickHandler(false)}>
                                 <Text lineHeight={"19.36px"} fontWeight={"500"} >Edit {name}</Text>
                             </MenuItem>
-                            <MenuItem onClick={() => clickHandler()} >
+                            <MenuItem onClick={() => clickHandler(true)} >
                                 <Text lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
                             </MenuItem>
                             <MenuItem isDisabled={true} >
