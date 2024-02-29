@@ -15,7 +15,20 @@ export function useAddUserCallback() {
   return { handleAddUser }
 }
 
-
+export function useAddAdminCallback() {
+  const handleAddAdmin = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/admin/create-admin", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddAdmin }
+}
 
 export function useAddGadgetCallback() {
   const handleAddGadget = async (postData: object): Promise<any> => {

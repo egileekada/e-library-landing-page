@@ -22,7 +22,9 @@ export default function InputComponent({ left, leftIcon, right, rightIcon, type,
     const ViewPassword = () => {
         if (intialType === "text") {
             setIntialType("password")
-        } else {
+        } else if (intialType === "password") {
+            setIntialType("text")
+        }  else {
             setIntialType(type)
         }
     }

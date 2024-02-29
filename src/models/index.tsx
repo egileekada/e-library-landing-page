@@ -49,4 +49,14 @@ export interface ICreateEquipment  {
     count: number,
     state?: string, 
     id?: string
-}
+} 
+
+export interface IAdmin {
+    email: string,
+    name: string, 
+    profilePicture?: string,
+    phone: string, 
+    id?: string | number,
+    createdAt?: string,
+    password?: string
+} 

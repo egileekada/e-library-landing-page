@@ -8,6 +8,7 @@ import Adduserbtn from '../../user_components/adduserbtn'
 import { DownloadTableExcel } from 'react-export-table-to-excel'
 import Gadgetbtn from '../../gadget_compnonents/gadgetbtn'
 import Equipmentbtn from '../../equipment_compnonents/equipmentbtn'
+import AddPersonnelbtn from '../../personnel_components/addpersonnelbtn'
 
 interface Props {
     name?: string,
@@ -28,10 +29,10 @@ function Filter(props: Props) {
                 <Box w={"50%"} >
                     <Searchbar />
                 </Box>
-                {(path?.pathname === "/dashboard/library" || path?.pathname === "/dashboard/inventory/gadgets" || path?.pathname === "/dashboard/inventory/equipments" ) && (
+                {(path?.pathname === "/dashboard/library" || path?.pathname === "/dashboard/inventory/gadgets" || path?.pathname === "/dashboard/inventory/equipments") && (
                     <Otherfilter type={path?.pathname === "/dashboard/inventory/gadgets" ? "Gadget" : path?.pathname === "/dashboard/inventory/equipments" ? "Equipment" : "Library"} />
                 )}
-                {path?.pathname !== "/dashboard/elibrary" && ( 
+                {path?.pathname !== "/dashboard/elibrary" && (
                     <DownloadTableExcel
                         filename={name + " Table"}
                         sheet="users"
@@ -55,7 +56,11 @@ function Filter(props: Props) {
                 )}
                 {path?.pathname === "/dashboard/inventory/equipments" && (
                     <Equipmentbtn />
+                )} 
+                {path?.pathname === "/dashboard/personnel" && (
+                    <AddPersonnelbtn />
                 )}
+                
             </Box>
         </Flex>
     )

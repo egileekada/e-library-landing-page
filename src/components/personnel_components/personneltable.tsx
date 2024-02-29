@@ -1,7 +1,7 @@
 import { Box, Checkbox, Image, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 import { focusManager, useQuery } from 'react-query';
 import { useState } from 'react';
-import { IUserData } from '../../models';
+import { IAdmin } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
@@ -16,29 +16,30 @@ interface Props {
     setTotal: (by: number) => void;
 }
 
-function Usertable(props: Props) {
+function Admintable(props: Props) {
     const {
         tableRef,
         limit,
         page,
-        setPage,
-        setLimit,
-        setTotal
+        // setPage,
+        // setLimit,
+        // setTotal
     } = props
 
     const [data, setData] = useState([] as any)
     const toast = useToast()
     const navigate = useNavigate()
 
-    const { search } = filterdata((state) => state);
-
     focusManager.setFocused(false)
 
-    const { isLoading, isRefetching } = useQuery(['usertable', search, page, limit], () => actionService.getservicedata(search ? `/user/search?keyword=${search}` : "/user",
-        {
-            page: page,
-            limit: limit
-        }), {
+    const { search } = filterdata((state) => state);
+
+    const { isLoading, isRefetching } = useQuery(['admintable', search, page, limit], () => actionService.getservicedata(`/admin/get-all-admin`,
+        // {
+        //     page: page,
+        //     limit: limit
+        // }
+        ), {
         onError: (error: any) => {
             toast({
                 status: "error",
@@ -48,10 +49,12 @@ function Usertable(props: Props) {
 
         },
         onSuccess: (data: any) => {
-            setPage(data?.data?.page)
-            setLimit(data?.data?.limit)
-            setTotal(data?.data?.total)
-            setData(data?.data?.data);
+            // setPage(data?.data?.page)
+            // setLimit(data?.data?.limit)
+            // setTotal(data?.data?.total)
+            // setData(data?.data?.data);
+            setData(data?.data);
+            
         }
     })
 
@@ -69,15 +72,13 @@ function Usertable(props: Props) {
                             <Th><Checkbox size={"lg"} /></Th>
                             <Th>ID</Th>
                             <Th>Image</Th>
-                            <Th>Name</Th>
-                            <Th>Role</Th>
-                            <Th>Staff ID</Th>
+                            <Th>Name</Th> 
                             <Th>Email</Th>
                             <Th>Phone No.</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data?.map((item: IUserData, index: number) => {
+                        {data?.map((item: IAdmin, index: number) => {
                             return (
                                 <Tr role='button' onClick={()=> clickHandler(item?.id+"")} fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
@@ -94,8 +95,8 @@ function Usertable(props: Props) {
                                         )}
                                     </Td>
                                     <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
-                                    <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
-                                    <Td>{item?.staffId ? item?.staffId : "Guest"}</Td>
+                                    {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
+                                    <Td>{item?.staffId ? item?.staffId : "Guest"}</Td> */}
                                     <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
                                     <Td>{item?.phone}</Td>
                                 </Tr>
@@ -108,4 +109,4 @@ function Usertable(props: Props) {
     )
 }
 
-export default Usertable
+export default Admintable

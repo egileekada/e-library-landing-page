@@ -8,6 +8,7 @@ import UserInfo from './pages/user_info';
 import InventoryPage from './pages/inventory';
 import GadgetsPage from './pages/gadgets';
 import EquipmentPage from './pages/equipment';
+import AdminPage from './pages/personnel';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/dashboard/home' element={<DashboardPage />} />
           <Route path='/dashboard/elibrary' element={<Elibrary />} />
           <Route path='/dashboard/user' element={<UserPage />} />
+          <Route path='/dashboard/personnel' element={<AdminPage />} />
           <Route path='/dashboard/inventory' element={<InventoryPage />} />
           <Route path='/dashboard/inventory/gadgets' element={<GadgetsPage />} />
           <Route path='/dashboard/inventory/equipments' element={<EquipmentPage />} />

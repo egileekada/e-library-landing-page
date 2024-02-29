@@ -37,13 +37,16 @@ function Navbar(props: Props) {
                     )}
                     {path.pathname === "/dashboard/inventory/equipments" && (
                         "Equipments"
+                    )} 
+                    {path?.pathname === "/dashboard/personnel" && (
+                        "Personnel"
                     )}
                 </Text>
             </Flex>
             <Flex alignItems={"center"} >
                 <Notification />
                 <Box width={"36px"} height={"36px"} rounded={"full"} bgColor={"#D9D9D9"} ml={"6"} />
-                <Text color={"#010203"} lineHeight={"19.36px"} ml={"2"} >{name?.length > 12 ? name?.slice(0, 12)+"..." : name}</Text>
+                <Text color={"#010203"} lineHeight={"19.36px"} ml={"2"} >{name?.length > 12 ? name?.slice(0, 12) + "..." : name}</Text>
             </Flex>
         </Flex>
     )
