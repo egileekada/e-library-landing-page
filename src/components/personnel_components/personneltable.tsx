@@ -21,9 +21,9 @@ function Admintable(props: Props) {
         tableRef,
         limit,
         page,
-        // setPage,
-        // setLimit,
-        // setTotal
+        setPage,
+        setLimit,
+        setTotal
     } = props
 
     const [data, setData] = useState([] as any)
@@ -35,11 +35,11 @@ function Admintable(props: Props) {
     const { search } = filterdata((state) => state);
 
     const { isLoading, isRefetching } = useQuery(['admintable', search, page, limit], () => actionService.getservicedata(`/admin/get-all-admin`,
-        // {
-        //     page: page,
-        //     limit: limit
-        // }
-        ), {
+        {
+            page: page,
+            limit: limit
+        }
+    ), {
         onError: (error: any) => {
             toast({
                 status: "error",
@@ -49,19 +49,18 @@ function Admintable(props: Props) {
 
         },
         onSuccess: (data: any) => {
-            // setPage(data?.data?.page)
-            // setLimit(data?.data?.limit)
-            // setTotal(data?.data?.total)
-            // setData(data?.data?.data);
-            setData(data?.data);
-            
+            setPage(data?.data?.page)
+            setLimit(data?.data?.limit)
+            setTotal(data?.data?.total)
+            setData(data?.data?.data);
+            // console.log(data?.data?.data); 
         }
     })
 
-    const clickHandler =(item: string)=> {
-        localStorage.setItem("currentuser", item)
-        navigate("/dashboard/user/info")
-    }
+    // const clickHandler = (item: string) => {
+    //     localStorage.setItem("currentuser", item)
+    //     navigate("/dashboard/user/info")
+    // }
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
@@ -72,20 +71,21 @@ function Admintable(props: Props) {
                             <Th><Checkbox size={"lg"} /></Th>
                             <Th>ID</Th>
                             <Th>Image</Th>
-                            <Th>Name</Th> 
+                            <Th>Name</Th>
                             <Th>Email</Th>
+                            <Th>Staff Id</Th>
                             <Th>Phone No.</Th>
                         </Tr>
                     </Thead>
-                    <Tbody>
+                    <Tbody> 
                         {data?.map((item: IAdmin, index: number) => {
                             return (
-                                <Tr role='button' onClick={()=> clickHandler(item?.id+"")} fontSize={"14px"} key={index} >
+                                <Tr fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id}</Td>
                                     <Td>
                                         {item?.profilePicture && (
-                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} > 
+                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} >
                                                 <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture} objectFit={"cover"} alt='image' />
                                             </Box>
                                         )}
@@ -95,9 +95,9 @@ function Admintable(props: Props) {
                                         )}
                                     </Td>
                                     <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
-                                    {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
-                                    <Td>{item?.staffId ? item?.staffId : "Guest"}</Td> */}
+                                    {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td> */}
                                     <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
+                                    <Td>{item?.staffId}</Td>
                                     <Td>{item?.phone}</Td>
                                 </Tr>
                             )

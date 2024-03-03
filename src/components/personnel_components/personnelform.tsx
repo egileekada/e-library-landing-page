@@ -32,7 +32,8 @@ function Adminform(props: Props) {
         email: yup.string().email('This email is not valid').required('Your email is required'),
         name: yup.string().required('required'),
         phone: yup.string().required('required'),
-        password:  yup.string().required('Your password is required').min(6, 'A minimium of 6 characters')
+        staffId: yup.string().required('required'),
+        password: yup.string().required('Your password is required').min(6, 'A minimium of 6 characters')
     })
 
     // formik
@@ -41,6 +42,7 @@ function Adminform(props: Props) {
             name: "",
             email: "",
             phone: "",
+            staffId: "",
             password: ""
         },
         validationSchema: loginSchema,
@@ -49,7 +51,7 @@ function Adminform(props: Props) {
 
     //API call to handle adding user
     const addAdminMutation = useMutation(async (formData: IAdmin) => {
-        const response = await handleAddAdmin(formData); 
+        const response = await handleAddAdmin(formData);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -71,7 +73,7 @@ function Adminform(props: Props) {
                 position: "top",
             });
             return
-        }  
+        }
     });
 
     //API call to handle adding user
@@ -80,18 +82,11 @@ function Adminform(props: Props) {
         let formData = new FormData()
         // formData.append("file", imageFile)
 
-        const response = await handleUploader(formData, ""); 
+        const response = await handleUploader(formData, "");
 
-        if (response?.status === 201 || response?.status === 200) {
+        if (response?.status === 201 || response?.status === 200) { 
 
-            // toast({
-            //     title: response?.data?.message,
-            //     status: "success",
-            //     duration: 3000,
-            //     position: "top",
-            // });
-
-            addAdminMutation.mutateAsync({...userdata, profilePicture: response?.data?.data}, {
+            addAdminMutation.mutateAsync({ ...userdata, profilePicture: response?.data?.data }, {
                 onSuccess: (data: any) => {
                     if (data) {
                         close(false)
@@ -106,7 +101,7 @@ function Adminform(props: Props) {
                         position: "top",
                     });
                 });
- 
+
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -117,7 +112,7 @@ function Adminform(props: Props) {
                 position: "top",
             });
             return
-        }  
+        }
     });
 
 
@@ -132,57 +127,32 @@ function Adminform(props: Props) {
                 position: "top",
             });
             return;
-        } 
-        // else if (!role) {
-        //     toast({
-        //         title: "Select user's role",
-        //         status: "error",
-        //         duration: 3000,
-        //         position: "top",
-        //     });
-        //     return;
-        // }
-
+        }
 
         const userData = {
             email: formik.values.email.toLocaleLowerCase().trim(),
             name: formik.values.name,
             phone: formik.values.phone,
             password: formik.values.password,
-            // staffId: staffId.toString(),
-            // department: department.toString(),
+            staffId: formik.values.staffId, 
         };
 
         // if (!imageFile) {
-            addAdminMutation.mutateAsync(userData, {
-                onSuccess: (data: any) => {
-                    if (data) {
-                        close(false)
-                    }
-                },
-            })
-                .catch(() => {
-                    toast({
-                        title: "Something went wrong",
-                        status: "error",
-                        duration: 3000,
-                        position: "top",
-                    });
+        addAdminMutation.mutateAsync(userData, {
+            onSuccess: (data: any) => {
+                if (data) {
+                    close(false)
+                }
+            },
+        })
+            .catch(() => {
+                toast({
+                    title: "Something went wrong",
+                    status: "error",
+                    duration: 3000,
+                    position: "top",
                 });
-        // } else {
-
-        //     uploaderMutation.mutateAsync(userData)
-        //         .catch(() => {
-        //             toast({
-        //                 title: "Something went wrong",
-        //                 status: "error",
-        //                 duration: 3000,
-        //                 position: "top",
-        //             });
-        //         });
-        // }
-
-
+            });
     }
 
     return (
@@ -200,17 +170,28 @@ function Adminform(props: Props) {
                         error={formik.errors.name}
                         type='text' />
                 </Box>
+                <Box w={"full"} >
+                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Email Address</Text>
+                    <InputComponent
+                        name="email"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("email", true, true)
+                        }
+                        touch={formik.touched.email}
+                        error={formik.errors.email} type='email' />
+                </Box>
                 <Flex gap={"4"} >
                     <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Email</Text>
+                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Staff ID</Text>
                         <InputComponent
-                            name="email"
+                            name="staffId"
                             onChange={formik.handleChange}
                             onFocus={() =>
-                                formik.setFieldTouched("email", true, true)
+                                formik.setFieldTouched("staffId", true, true)
                             }
-                            touch={formik.touched.email}
-                            error={formik.errors.email} type='email' />
+                            touch={formik.touched.staffId}
+                            error={formik.errors.staffId} type='text' />
                     </Box>
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Phone Number</Text>
@@ -225,7 +206,7 @@ function Adminform(props: Props) {
                     </Box>
                 </Flex>
                 <Box>
-                    <Text fontSize={"14px"} fontWeight={"600"} mb={"1"} >Email Address</Text>
+                    <Text fontSize={"14px"} fontWeight={"600"} mb={"1"} >Password</Text>
                     <InputComponent
                         name="password"
                         left={true}
@@ -239,7 +220,7 @@ function Adminform(props: Props) {
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("password", true, true)
-                        } 
+                        }
                         touch={formik.touched.password}
                         error={formik.errors.password}
                         type="password" placeholder="Password" />

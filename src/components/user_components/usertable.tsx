@@ -26,7 +26,7 @@ function Usertable(props: Props) {
         setTotal
     } = props
 
-    const [data, setData] = useState([] as any)
+    const [data, setData] = useState([] as Array<IUserData>)
     const toast = useToast()
     const navigate = useNavigate()
 
