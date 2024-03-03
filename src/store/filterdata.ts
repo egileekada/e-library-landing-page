@@ -4,6 +4,11 @@ type State = {
     search: string,
     filter: {
         status?: string
+        state?: string
+        isbn?: string
+        issn?: string
+        publicationYear?: string
+        author?: string 
     },
 } 
 
@@ -15,7 +20,7 @@ type Action = {
 const filterdata = create<State & Action>((set) => ({
     search: "", 
     filter: {
-        status: ""
+        status: "", 
     },
     setSearchValue: (data) => set(() => ({ search: data })),
     setFilter: (data) => set(() => ({ filter: data })),
