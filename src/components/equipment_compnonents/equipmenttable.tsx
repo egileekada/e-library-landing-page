@@ -65,10 +65,16 @@ function EquipmentTable(props: Props) {
                     Active
                 </Flex>
             )
-        } else {
+        } else if (item === "TEMPORARILY_DISABLED") {
             return (
                 <Flex width={"180px"} rounded={"10px"} color={"#3F4010"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"#E7DD84"} >
                     Temporarily disabled
+                </Flex>
+            )
+        } else {
+            return (
+                <Flex width={"180px"} rounded={"10px"} color={"#3F4010"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"red"} >
+                    Permanently disabled
                 </Flex>
             )
         }

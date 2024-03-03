@@ -111,6 +111,8 @@ function Gadgetform(props: Props) {
 
             queryClient.invalidateQueries(['gadgettable'])
 
+            close(false)
+
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({

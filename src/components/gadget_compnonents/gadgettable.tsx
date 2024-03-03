@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IGadgetData } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
-import filterdata from '../../store/filterdata'; 
+import filterdata from '../../store/filterdata';
 import MoreOption from '../shared_components/more_options';
 // import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ function GadgetTable(props: Props) {
     } = props
 
     const [data, setData] = useState([] as any)
-    const toast = useToast() 
+    const toast = useToast()
 
     focusManager.setFocused(false)
 
@@ -38,7 +38,7 @@ function GadgetTable(props: Props) {
         {
             page: page,
             limit: limit,
-            manufacturer: search, 
+            manufacturer: search,
             state: filter.status
         }), {
         onError: (error: any) => {
@@ -50,24 +50,30 @@ function GadgetTable(props: Props) {
 
         },
         onSuccess: (data: any) => {
-            setPage(data?.data?.page) 
+            setPage(data?.data?.page)
             setLimit(data?.data?.limit)
             setTotal(data?.data?.total)
             setData(data?.data?.data);
         }
     }) 
 
-    const statuscomponent =(item: string)=> {
-        if(item === "ACTIVE"){
-            return(
+    const statuscomponent = (item: string) => {
+        if (item === "ACTIVE") {
+            return (
                 <Flex width={"180px"} rounded={"10px"} color={"#1B4332"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"#A7D5C0"} >
                     Active
                 </Flex>
             )
-        } else { 
-            return(
+        } else if (item === "TEMPORARILY_DISABLED") {
+            return (
                 <Flex width={"180px"} rounded={"10px"} color={"#3F4010"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"#E7DD84"} >
                     Temporarily disabled
+                </Flex>
+            )
+        } else {
+            return (
+                <Flex width={"180px"} rounded={"10px"} color={"#3F4010"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"red"} >
+                    Permanently disabled
                 </Flex>
             )
         }
@@ -85,7 +91,7 @@ function GadgetTable(props: Props) {
                             <Th>Equipment</Th>
                             <Th>Manufacturer</Th>
                             <Th>Quantity</Th>
-                            <Th>Status</Th> 
+                            <Th>Status</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -96,7 +102,7 @@ function GadgetTable(props: Props) {
                                     <Td>{item?.id?.length > 12 ? item?.id.slice(0, 12) + "..." : item?.id}</Td>
                                     <Td>
                                         {item?.picture && (
-                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"4px"} > 
+                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"4px"} >
                                                 <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture} objectFit={"cover"} alt='image' />
                                             </Box>
                                         )}
@@ -104,7 +110,7 @@ function GadgetTable(props: Props) {
                                         {!item?.picture && (
                                             <Box w={"48px"} h={"48px"} rounded={"4px"} bgColor={"grey"} />
                                         )}
-                                    </Td> 
+                                    </Td>
                                     <Td>{item?.type?.length > 12 ? item?.type.slice(0, 12) + "..." : item?.type}</Td>
                                     <Td>{item?.manufacturer?.length > 12 ? item?.manufacturer.slice(0, 12) + "..." : item?.manufacturer}</Td>
                                     <Td>{item?.count}</Td>
@@ -113,13 +119,13 @@ function GadgetTable(props: Props) {
                                             {statuscomponent(item?.state)}
                                             <MoreOption name='Gadget' data={item} />
                                         </Flex>
-                                    </Td> 
+                                    </Td>
                                 </Tr>
                             )
                         })}
                     </Tbody>
                 </Table>
-            </TableContainer> 
+            </TableContainer>
         </LoadingAnimation>
     )
 }

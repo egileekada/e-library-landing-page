@@ -108,8 +108,8 @@ function Equipmentform(props: Props) {
                 position: "top",
             });
 
-            queryClient.invalidateQueries(['gadgettable'])
-
+            queryClient.invalidateQueries(['equipmenttable'])
+            close(false)
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -284,7 +284,7 @@ function Equipmentform(props: Props) {
                     </Box>
                 )}
 
-                <Button type="submit" isLoading={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading} isDisabled={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+                <Button type="submit" isLoading={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} isDisabled={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
                     Add Equipment
                 </Button>
             </Flex>
