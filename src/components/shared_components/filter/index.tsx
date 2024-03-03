@@ -9,6 +9,7 @@ import { DownloadTableExcel } from 'react-export-table-to-excel'
 import Gadgetbtn from '../../gadget_compnonents/gadgetbtn'
 import Equipmentbtn from '../../equipment_compnonents/equipmentbtn'
 import AddPersonnelbtn from '../../personnel_components/addpersonnelbtn'
+import Librarybtn from '../../library_components/librarybtn'
 
 interface Props {
     name?: string,
@@ -25,7 +26,7 @@ function Filter(props: Props) {
 
     return (
         <Flex pt={"6"} pb={"4"} w={"full"} alignItems={"center"} >
-            <Flex gap={"4"} width={"full"} >
+            <Flex gap={"2"} width={"full"} >
                 <Box w={"50%"} >
                     <Searchbar />
                 </Box>
@@ -44,7 +45,7 @@ function Filter(props: Props) {
                     </DownloadTableExcel>
                 )}
             </Flex>
-            <Box width={"fit-content"} >
+            <Box width={"fit-content"} pl={"2"} >
                 {path?.pathname === "/dashboard/elibrary" && (
                     <Portalbtn />
                 )}
@@ -59,6 +60,9 @@ function Filter(props: Props) {
                 )} 
                 {path?.pathname === "/dashboard/personnel" && (
                     <AddPersonnelbtn />
+                )}
+                {path?.pathname === "/dashboard/library" && (
+                    <Librarybtn />
                 )}
                 
             </Box>
