@@ -20,7 +20,7 @@ function Portalbtn(props: Props) {
                 Create Partner Portal
             </Button>
             <ModalLayout size={"md"} open={open} close={setOpen} title={"Create Partner Portal"} >
-                <Portalform />
+                <Portalform close={setOpen} />
             </ModalLayout>
         </>
     )
