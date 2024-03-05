@@ -21,6 +21,7 @@ const filterdata = create<State & Action>((set) => ({
     search: "", 
     filter: {
         status: "", 
+        state: "ALL"
     },
     setSearchValue: (data) => set(() => ({ search: data })),
     setFilter: (data) => set(() => ({ filter: data })),

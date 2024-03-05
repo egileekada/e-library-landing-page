@@ -45,6 +45,95 @@ export function useAddGadgetCallback() {
   return { handleAddGadget }
 }
 
+export function useAddPartnerCallback() {
+  const handleAddPartner = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/partner/create", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddPartner }
+}
+
+export function useAddBookCallback() {
+  const handleAddBook = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/record/create-book", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddBook }
+}
+
+export function useAddJornalCallback() {
+  const handleAddJornal = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/record/create-journal", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddJornal }
+}
+
+export function useAddReportCallback() {
+  const handleAddReport = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/record/create-report", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleAddReport }
+}
+
+export function useRecordBorrowCallback() {
+  const handleRecordBorrow = async (postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/record/borrow", postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleRecordBorrow }
+}
+
+export function useReturnRecordCallback() {
+  const handleReturnRecord = async (id: string | number, postData: object): Promise<any> => {
+    try {
+      const response = await axios.put("/record/return/"+id, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleReturnRecord }
+}
 
 export function useUpdateGadgetCallback() {
   const handleUpdateGadget = async (postData: {

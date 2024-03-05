@@ -23,7 +23,7 @@ function UserInfo(props: Props) {
 
     // const param
 
-    const { isLoading, isRefetching } = useQuery(['usertable', userId], () => actionService.getservicedata(`/user/${userId}`), {
+    const { isLoading, isRefetching } = useQuery(['userindex', userId], () => actionService.getservicedata(`/user/singleUser/${userId}`), {
         onError: (error: any) => {
             toast({
                 status: "error",
@@ -61,8 +61,7 @@ function UserInfo(props: Props) {
                             <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
                             <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                                 Borrowed
-                            </Box>
-
+                            </Box> 
                         </Flex>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >Joined: <span style={{ fontWeight: "600" }} >{dateFormat(data?.createdAt)}</span></Text>
                         <Text fontSize={"16px"} lineHeight={"32.4px"} >Borrowed: <span style={{ fontWeight: "600" }} >---</span></Text>

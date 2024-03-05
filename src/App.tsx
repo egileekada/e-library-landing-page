@@ -9,6 +9,8 @@ import InventoryPage from './pages/inventory';
 import GadgetsPage from './pages/gadgets';
 import EquipmentPage from './pages/equipment';
 import AdminPage from './pages/personnel';
+import LibraryPage from './pages/library';
+import LibraryInfo from './pages/library_info';
 
 function App() {
 
@@ -20,12 +22,14 @@ function App() {
         <Route path='/dashboard' element={<DashboardLayout />} >
           <Route path='/dashboard/home' element={<DashboardPage />} />
           <Route path='/dashboard/elibrary' element={<Elibrary />} />
+          <Route path='/dashboard/library' element={<LibraryPage />} />
           <Route path='/dashboard/user' element={<UserPage />} />
           <Route path='/dashboard/personnel' element={<AdminPage />} />
           <Route path='/dashboard/inventory' element={<InventoryPage />} />
           <Route path='/dashboard/inventory/gadgets' element={<GadgetsPage />} />
           <Route path='/dashboard/inventory/equipments' element={<EquipmentPage />} />
           <Route path='/dashboard/user/info' element={<UserInfo />} />
+          <Route path='/dashboard/library/info' element={<LibraryInfo />} />
         </Route>
       </Route>
     )

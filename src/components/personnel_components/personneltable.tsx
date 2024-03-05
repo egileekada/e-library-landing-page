@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { IAdmin } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
-import filterdata from '../../store/filterdata';
-import { useNavigate } from 'react-router-dom';
+import filterdata from '../../store/filterdata'; 
 
 interface Props {
     tableRef: any
@@ -27,8 +26,7 @@ function Admintable(props: Props) {
     } = props
 
     const [data, setData] = useState([] as any)
-    const toast = useToast()
-    const navigate = useNavigate()
+    const toast = useToast() 
 
     focusManager.setFocused(false)
 
@@ -55,12 +53,7 @@ function Admintable(props: Props) {
             setData(data?.data?.data);
             // console.log(data?.data?.data); 
         }
-    })
-
-    // const clickHandler = (item: string) => {
-    //     localStorage.setItem("currentuser", item)
-    //     navigate("/dashboard/user/info")
-    // }
+    }) 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >

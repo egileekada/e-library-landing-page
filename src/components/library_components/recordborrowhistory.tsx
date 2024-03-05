@@ -1,19 +1,29 @@
-import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Flex } from '@chakra-ui/react'
-// import React from 'react'
-import { IBorrowData } from '../../models'
+// import React, { useState } from 'react'
+// import { useQuery } from 'react-query'
+// import { useNavigate } from 'react-router-dom'
+// import actionService from '../../connections/getdataaction'
+import { Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { BorrowData, ILibrary } from '../../models'
 import { dateFormat } from '../../util/dateFormat'
 import LoadingAnimation from '../shared_components/loading_animation'
+import Returnbtn from './returnbtn'
+import { useState } from 'react'
+import ModalLayout from '../shared_components/modal_layout'
+import Qrcode from '../shared_components/qrcode'
 
 interface Props {
-    tableRef?: any,
-    data: any
+    info: ILibrary
+    data: Array<BorrowData>
 }
 
-function Borrowtable(props: Props) {
+function Recordborrowhistory(props: Props) {
     const {
-        tableRef,
-        data
+        data,
+        info
     } = props
+
+
+    const [open, setOpen] = useState(false)
 
     const statuscomponent = (item: string) => {
         if (item === "RETURNED") {
@@ -60,24 +70,29 @@ function Borrowtable(props: Props) {
         }
     }
 
+
     return (
-        <LoadingAnimation loading={false} length={data?.length} > 
+
+        <LoadingAnimation loading={false} length={data?.length} >
             <TableContainer>
-                <Table ref={tableRef} variant='simple'>
+                <Table variant='simple'>
                     <Thead>
                         <Tr>
-                            <Th>Literature</Th>
+                            <Th>Name</Th>
+                            <Th>Email</Th>
                             <Th>Borrowed</Th>
                             <Th>Returned</Th>
                             <Th>Status</Th>
                             <Th>Condition</Th>
+                            <Th>action</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data?.map((item: IBorrowData, index: number) => {
+                        {data?.map((item: BorrowData, index: number) => {
                             return (
                                 <Tr role='button' fontSize={"14px"} key={index} >
-                                    <Td>{item?.record?.name}</Td>
+                                    <Td>{item?.user?.name}</Td>
+                                    <Td>{item?.user?.email}</Td>
                                     <Td>{dateFormat(item?.startDate)}</Td>
                                     <Td>{dateFormat(item?.endDate)}</Td>
                                     <Td>
@@ -85,7 +100,28 @@ function Borrowtable(props: Props) {
                                     </Td>
                                     <Td >
                                         {!item?.return_state && "-"}
-                                        {item?.return_state  && statecomponent(item?.return_state)} 
+                                        {item?.return_state && statecomponent(item?.return_state)}
+                                    </Td>
+                                    <Td>
+
+                                        <Flex justifyContent={"center"} gap={"4"} >
+
+                                            {item?.status !== "RETURNED" && (
+                                                <Returnbtn table={true} {...info} borrowId={item?.id} />
+                                            )}
+
+                                            {item?.status !== "RETURNED" && (
+                                                <Text as={"button"} onClick={()=> setOpen(true)} ml={"3"} lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
+                                            )}
+
+
+                                        </Flex>
+
+                                        <ModalLayout size={"md"} open={open} close={setOpen} title={""} >
+
+                                            <Qrcode setOpen={setOpen} type={info?.name ? info?.name : ""} id={item?.id ? item?.id : "" as any} />
+
+                                        </ModalLayout>
                                     </Td>
                                 </Tr>
                             )
@@ -97,4 +133,4 @@ function Borrowtable(props: Props) {
     )
 }
 
-export default Borrowtable
+export default Recordborrowhistory

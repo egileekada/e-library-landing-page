@@ -22,7 +22,8 @@ export interface IBorrowData {
     startDate: string,
     status: string,
     record: {name: string}, 
-    endDate: string
+    endDate: string,
+    return_state?: string
 }
  
 export interface IGadgetData {
@@ -58,5 +59,52 @@ export interface IAdmin {
     phone: string, 
     id?: string | number,
     createdAt?: string,
-    password?: string
+    password?: string,
+    staffId?: string
 } 
+
+export interface IPartner {
+    partnerName: string,
+    partnerResourceName: string, 
+    partnerResourceUrl?: string,
+    imageUrl?: string, 
+    id?: string | number
+}  
+
+export interface IBorrow {
+    userId: string | number,
+    recordId: string | number, 
+    startDate: string,
+    endDate: string,  
+}   
+
+export interface ILibrary {
+    name: string,
+    description: string, 
+    author?: string,
+    thumbnail?: string, 
+    authors?: Array<string>, 
+    count?: string, 
+    publicationYear?: string, 
+    language?: string, 
+    category?: string, 
+    ISBN?: string,  
+    IDNumber?: string,  
+    projectYear?: string,  
+    projectLocation?: string,  
+    value?: string | number,
+    id?: string | number,
+    status?: string,
+    Borrowing?: Array<BorrowData>
+    borrowId?: string | number,
+    table?: boolean
+}  
+
+export interface BorrowData {
+    user?: IUserData,
+    id?: string | number,
+    return_state: string,
+    startDate: string,
+    endDate: string,
+    status: string
+}

@@ -12,6 +12,8 @@ function Navbar(props: Props) {
 
     let name = localStorage.getItem("name") as string
 
+    
+
     return (
         <Flex px={"6"} py={"4"} width={"full"} alignItems={"center"} justifyContent={"space-between"} >
             <Flex alignItems={"center"} gap={"2"} >
@@ -41,6 +43,13 @@ function Navbar(props: Props) {
                     {path?.pathname === "/dashboard/personnel" && (
                         "Personnel"
                     )}
+                    {path?.pathname === "/dashboard/library" && (
+                        "Library"
+                    )}
+                    {path?.pathname === "/dashboard/library/info" && (
+                        "Library"
+                    )}
+                    
                 </Text>
             </Flex>
             <Flex alignItems={"center"} >
