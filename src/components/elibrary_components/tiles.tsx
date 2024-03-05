@@ -9,7 +9,7 @@ function Tiles(props: IPartner) {
         partnerName,
         partnerResourceName,
         partnerResourceUrl,
-        id
+        // id
     } = props
 
     return (
