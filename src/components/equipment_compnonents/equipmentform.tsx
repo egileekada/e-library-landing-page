@@ -33,8 +33,7 @@ function Equipmentform(props: Props) {
     const { handleUploader } = useUploaderCallback()
     const [imageFile, setImageFile] = useState("");
     const loginSchema = yup.object({
-        type: yup.string().required('required'),
-        manufacturer: yup.string().required('required'),
+        type: yup.string().required('required'), 
         count: yup.number().required('required'),
         state: yup.string().required('required'),
     })
@@ -42,8 +41,7 @@ function Equipmentform(props: Props) {
     // formik
     const formik = useFormik({
         initialValues: {
-            type: "",
-            picture: "",
+            type: "", 
             count: 0,
             state: ""
         },
@@ -259,7 +257,7 @@ function Equipmentform(props: Props) {
                             touch={formik.touched.count}
                             error={formik.errors.count} type='number' />
                     </Box>
-                    {edit && (
+                    {/* {edit && ( */}
                         <Box w={"full"} >
                             <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
                             <Select
@@ -274,7 +272,7 @@ function Equipmentform(props: Props) {
                                 <option>PERMANENTLY_DISABLED</option>
                             </Select>
                         </Box>
-                    )}
+                    {/* )} */}
                 </Flex>
                 
                 {!edit && ( 
