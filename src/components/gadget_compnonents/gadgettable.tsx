@@ -1,6 +1,6 @@
 import { Box, Checkbox, Flex, Image, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 import { focusManager, useQuery } from 'react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IGadgetData } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
@@ -34,12 +34,34 @@ function GadgetTable(props: Props) {
 
     const { search, filter } = filterdata((state) => state);
 
+
+    function clean(obj: any) {
+        for (var propName in obj) {
+            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "") {
+                delete obj[propName];
+            } 
+        }
+
+        setNewFilter(obj)
+
+        return obj
+
+    }
+
+    useEffect(()=> {
+        clean(filter)
+    }, [filter])
+    
+
+    const [newfilter, setNewFilter] = useState({} as any)
+
     const { isLoading, isRefetching } = useQuery(['gadgettable', search, page, limit, filter?.status], () => actionService.getservicedata(`/hardware/gadget`,
         {
             page: page,
             limit: limit,
-            manufacturer: search,
-            state: filter.status
+            manufacturer: search ? search : null,
+            type: search ? search : null,
+            ...newfilter
         }), {
         onError: (error: any) => {
             toast({

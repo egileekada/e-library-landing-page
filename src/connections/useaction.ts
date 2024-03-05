@@ -121,9 +121,12 @@ export function useRecordBorrowCallback() {
 }
 
 export function useReturnRecordCallback() {
-  const handleReturnRecord = async (id: string | number, postData: object): Promise<any> => {
+  const handleReturnRecord = async (postData: {
+    recordId: string,
+    return_state: string,
+  }): Promise<any> => {
     try {
-      const response = await axios.put("/record/return/"+id, postData,
+      const response = await axios.put("/record/return/" + postData?.recordId +"?return_state="+postData?.return_state, {},
         {
           headers: { 'Content-Type': 'application/json' },
         });

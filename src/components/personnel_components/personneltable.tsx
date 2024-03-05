@@ -35,7 +35,10 @@ function Admintable(props: Props) {
     const { isLoading, isRefetching } = useQuery(['admintable', search, page, limit], () => actionService.getservicedata(`/admin/get-all-admin`,
         {
             page: page,
-            limit: limit
+            limit: limit,
+            name: search,
+            staffId: search,
+            email: search
         }
     ), {
         onError: (error: any) => {

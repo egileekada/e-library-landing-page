@@ -79,7 +79,7 @@ function Returnbtn(props: ILibrary) {
     //API call to handle adding user
     const addMutation = useMutation(async () => {
 
-        let response = await handleReturnRecord(formik?.values?.recordId, formik?.values);
+        let response = await handleReturnRecord(formik?.values);
  
 
         if (response?.status === 201 || response?.status === 200) {

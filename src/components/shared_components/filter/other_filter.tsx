@@ -67,7 +67,7 @@ function Otherfilter(props: Props) {
         if(path?.pathname !== "/dashboard/library"){
             setInitialFilter({...filter, status: "ACTIVE"})
         } else {
-            setInitialFilter({...filter, state: "ALL"})
+            setInitialFilter({} as any)
         }
     }, []) 
  

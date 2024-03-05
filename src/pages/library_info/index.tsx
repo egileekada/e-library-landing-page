@@ -83,7 +83,7 @@ function LibraryInfo(props: Props) {
                             {status(data?.status)}
 
                         </Flex>
-                        <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by Samantha Reynolds  -  2019</Text>
+                        <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ?  data?.publicationYear : data?.projectYear}</Text>
 
                         <Box mt={"auto"} > 
                             <Returnbtn {...data} />
