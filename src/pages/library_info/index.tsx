@@ -101,8 +101,8 @@ function LibraryInfo(props: Props) {
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} color={"#4F4F4F"} borderColor={"#BDBDBD"} >
                     <Text fontSize={"14px"} lineHeight={"20.3px"} fontWeight={"600"} color={"#4F4F4F"} >Description</Text>
                     <Text fontSize={"16px"} lineHeight={"24px"} fontWeight={"400"} color={"#333333"} >{data?.description}</Text>
-                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Genre: <span style={{ fontWeight: "400" }} >{data?.category}</span></Text>
-                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Publisher: <span style={{ fontWeight: "400" }} >{data?.author}</span></Text>
+                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Category: <span style={{ fontWeight: "400" }} >{data?.category}</span></Text>
+                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Author: <span style={{ fontWeight: "400" }} >{data?.author}</span></Text>
                     <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Number Of Copies: <span style={{ fontWeight: "400" }} >{data?.count}</span></Text>
                 </Flex>
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} color={"#4F4F4F"} borderColor={"#BDBDBD"} >

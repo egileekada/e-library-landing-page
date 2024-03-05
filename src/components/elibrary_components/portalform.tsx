@@ -176,7 +176,7 @@ function Portalform(props: Props) {
                             formik.setFieldTouched("partnerResourceName", true, true)
                         }
                         touch={formik.touched.partnerResourceName}
-                        error={formik.errors.partnerResourceName} placeholder="Partner Name" type='text' />
+                        error={formik.errors.partnerResourceName} placeholder="Partner ResourceName" type='text' />
                 </Box>
                 <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Partner Link</Text>
