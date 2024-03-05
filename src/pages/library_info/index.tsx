@@ -52,18 +52,22 @@ function LibraryInfo(props: Props) {
     const status = (item: any) => {
         if (item === "AVAILABLE") {
             return (
-                <Flex bgColor={"#DEFFEB"} h={"fit-content"} gap={"2"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text>
+                <Flex bgColor={"#DEFFEB"} h={"fit-content"} gap={"3"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
+                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text> 
+                    {data?.count}
                 </Flex>
             )
         } else {
             return (
-                <Flex bgColor={"#FFF8DE"} h={"fit-content"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
+                <Flex fontSize={"14px"} lineHeight={"20.3px"} bgColor={"#FFF8DE"} h={"fit-content"} mt={"1"} gap={"3"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
                     <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Borrowed</Text>
+                    {data?.count}
                 </Flex>
             )
         }
     }
+
+    // Total books: 12 No.books available: 6 No. Books borrowed: 6
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >

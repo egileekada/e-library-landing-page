@@ -178,6 +178,7 @@ function Adminform(props: Props) {
                         onFocus={() =>
                             formik.setFieldTouched("email", true, true)
                         }
+                        autoComplete="off"
                         touch={formik.touched.email}
                         error={formik.errors.email} type='email' />
                 </Box>
@@ -217,6 +218,7 @@ function Adminform(props: Props) {
                         rightIcon={
                             <Eye />
                         }
+                        autoComplete="off"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("password", true, true)
