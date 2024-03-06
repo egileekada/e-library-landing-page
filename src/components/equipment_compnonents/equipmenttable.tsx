@@ -38,7 +38,7 @@ function EquipmentTable(props: Props) {
 
     const { search, filter } = filterdata((state) => state);
 
-    const { isLoading, isRefetching } = useQuery(['equipmenttable', search, page, limit, filter?.status], () => actionService.getservicedata(`/hardware/equipment`,
+    const { isLoading, isRefetching } = useQuery(['equipmenttable', search, page, limit, filter?.state], () => actionService.getservicedata(`/hardware/equipment`,
         {
             ...cleanup(filter),
             page: page,
@@ -77,7 +77,7 @@ function EquipmentTable(props: Props) {
             )
         } else {
             return (
-                <Flex width={"180px"} rounded={"10px"} color={"#3F4010"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"red"} >
+                <Flex width={"180px"} rounded={"10px"} color={"#450000"} height={"30px"} lineHeight={"16.94px"} fontSize={"14px"} justifyContent={"center"} alignItems={"center"} bgColor={"#FFDEDE"} >
                     Permanently disabled
                 </Flex>
             )

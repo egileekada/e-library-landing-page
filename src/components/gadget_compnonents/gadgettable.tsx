@@ -37,7 +37,7 @@ function GadgetTable(props: Props) {
 
     const { search, filter } = filterdata((state) => state); 
 
-    const { isLoading, isRefetching } = useQuery(['gadgettable', search, page, limit, filter?.status], () => actionService.getservicedata(`/hardware/gadget`,
+    const { isLoading, isRefetching } = useQuery(['gadgettable', search, page, limit, filter?.state], () => actionService.getservicedata(`/hardware/gadget`,
         {
             ...cleanup(filter),
             page: page,
