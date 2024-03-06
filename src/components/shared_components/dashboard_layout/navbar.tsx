@@ -19,7 +19,7 @@ function Navbar(props: Props) {
             <Flex alignItems={"center"} gap={"2"} >
                 <FileColored />
                 <Text color={"#333333"} lineHeight={"24.2px"} fontWeight={"medium"} fontSize={"20px"} >
-                    {path.pathname === "/dashboard" && (
+                    {path.pathname === "/dashboard/home" && (
                         "Dashboard"
                     )}
                     {path.pathname === "/dashboard/elibrary" && (
