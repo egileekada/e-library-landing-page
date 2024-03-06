@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react' 
+import { useState } from 'react' 
 import Filter from '../../components/shared_components/filter'
 import Pagination from '../../components/shared_components/pagination'
 import { Box, Flex } from '@chakra-ui/react'
@@ -11,13 +11,11 @@ function LibraryPage(props: Props) {
 
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
-    const [totalItem, setTotalItem] = useState(0)
+    const [totalItem, setTotalItem] = useState(0) 
 
-    const tableRef: any = useRef();
-    
     return (
         <Flex width={"full"} h={"full"} flexDir={"column"} >
-            <Filter tableRef={tableRef} />
+            <Filter data={[]} />
             <Librarytable setLimit={setLimit} setPage={setPage} setTotal={setTotalItem} limit={limit} page={page} />
             <Box mt={"auto"} pt={"12"} > 
                 <Pagination  setLimit={setLimit} setPage={setPage} setTotal={setTotalItem} limit={limit} page={page} totalItem={totalItem}  />

@@ -55,7 +55,7 @@ function Usertable(props: Props) {
         }
     })
 
-    const clickHandler =(item: string)=> {
+    const clickHandler = (item: string) => {
         localStorage.setItem("currentuser", item)
         navigate("/dashboard/user/info")
     }
@@ -79,19 +79,13 @@ function Usertable(props: Props) {
                     <Tbody>
                         {data?.map((item: IUserData, index: number) => {
                             return (
-                                <Tr role='button' onClick={()=> clickHandler(item?.id+"")} fontSize={"14px"} key={index} >
+                                <Tr role='button' onClick={() => clickHandler(item?.id + "")} fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id}</Td>
                                     <Td>
-                                        {item?.profilePicture && (
-                                            <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} > 
-                                                <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture} objectFit={"cover"} alt='image' />
-                                            </Box>
-                                        )}
-
-                                        {!item?.profilePicture && (
-                                            <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
-                                        )}
+                                        <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} >
+                                            <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture ? item?.profilePicture : "/avatar.png"} objectFit={"cover"} alt='image' />
+                                        </Box>
                                     </Td>
                                     <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
                                     <Td>{item?.staffId ? "Staff" : "Guest"}</Td>

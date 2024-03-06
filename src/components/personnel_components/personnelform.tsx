@@ -20,10 +20,7 @@ function Adminform(props: Props) {
 
 
     const queryClient = useQueryClient()
-
-    // const [role, setRole] = useState("")
-    // const [staffId, setStaffId] = useState("")
-    // const [department, setDepartment] = useState("")
+ 
     const toast = useToast()
     const { handleAddAdmin } = useAddAdminCallback();
     const { handleUploader } = useUploaderCallback()
@@ -227,35 +224,6 @@ function Adminform(props: Props) {
                         error={formik.errors.password}
                         type="password" placeholder="Password" />
                 </Box>
-
-                {/* <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Role</Text>
-                    <Select placeholder='Select Role' onChange={(e: any) => setRole(e.target.value)} fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                        <option>Guest</option>
-                        <option>Staff</option>
-                    </Select>
-                </Box> */}
-                {/* {role === "Staff" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Staff ID</Text>
-                        <InputComponent placeholder="000-000-000"
-                            onChange={(e: any) => setStaffId(e.target.value)}
-                            type='text' />
-                    </Box>
-                )} */}
-                {/* {role === "Staff" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Department</Text>
-                        <InputComponent placeholder="Enter Department"
-                            onChange={(e: any) => setDepartment(e.target.value)}
-                            type='text' />
-                    </Box>
-                )} */}
-                {/* <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
-                    <ImageSelector setImage={setImageFile} />
-                </Box> */}
-
                 <Button type="submit" isLoading={addAdminMutation?.isLoading || uploaderMutation?.isLoading} isDisabled={addAdminMutation?.isLoading || uploaderMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
                     Add Admin
                 </Button>

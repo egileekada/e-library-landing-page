@@ -15,6 +15,7 @@ interface Props {
     limit: number;
     setLimit: (by: number) => void;
     setTotal: (by: number) => void;
+    setDataInfo: (by: Array<any>) => void;
 }
 
 function EquipmentTable(props: Props) {
@@ -24,7 +25,8 @@ function EquipmentTable(props: Props) {
         page,
         setPage,
         setLimit,
-        setTotal
+        setTotal,
+        setDataInfo
     } = props
 
     const [data, setData] = useState([] as any)
@@ -55,6 +57,7 @@ function EquipmentTable(props: Props) {
             setLimit(data?.data?.limit)
             setTotal(data?.data?.total)
             setData(data?.data?.data);
+            setDataInfo(data?.data?.data);
         }
     }) 
 
@@ -101,15 +104,15 @@ function EquipmentTable(props: Props) {
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id?.length > 12 ? item?.id.slice(0, 12) + "..." : item?.id}</Td>
                                     <Td>
-                                        {item?.picture && (
+                                        {/* {item?.picture && ( */}
                                             <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"4px"} >
-                                                <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture} objectFit={"cover"} alt='image' />
+                                                <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture ? item?.picture : "/placeholder.png"} objectFit={"cover"} alt='image' />
                                             </Box>
-                                        )}
+                                        {/* )} */}
 
-                                        {!item?.picture && (
+                                        {/* {!item?.picture && (
                                             <Box w={"48px"} h={"48px"} rounded={"4px"} bgColor={"grey"} />
-                                        )}
+                                        )} */}
                                     </Td>
                                     <Td>{item?.type?.length > 12 ? item?.type.slice(0, 12) + "..." : item?.type}</Td> 
                                     <Td>{item?.count}</Td>

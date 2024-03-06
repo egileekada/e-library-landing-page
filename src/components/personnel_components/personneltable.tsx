@@ -13,20 +13,22 @@ interface Props {
     limit: number;
     setLimit: (by: number) => void;
     setTotal: (by: number) => void;
+    setDataInfo: (by: Array<any>) => void;
 }
 
 function Admintable(props: Props) {
     const {
-        tableRef,
+        // tableRef,
         limit,
         page,
         setPage,
         setLimit,
-        setTotal
+        setTotal,
+        setDataInfo
     } = props
 
-    const [data, setData] = useState([] as any)
-    const toast = useToast() 
+    const [data, setData] = useState([] as Array<IAdmin>)
+    const toast = useToast()
 
     focusManager.setFocused(false)
 
@@ -54,14 +56,14 @@ function Admintable(props: Props) {
             setLimit(data?.data?.limit)
             setTotal(data?.data?.total)
             setData(data?.data?.data);
-            // console.log(data?.data?.data); 
+            setDataInfo(data?.data?.data); 
         }
     }) 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
-            <TableContainer>
-                <Table ref={tableRef} variant='simple'>
+            <TableContainer  >
+                <Table variant='simple'>
                     <Thead>
                         <Tr>
                             <Th><Checkbox size={"lg"} /></Th>
@@ -73,22 +75,18 @@ function Admintable(props: Props) {
                             <Th>Phone No.</Th>
                         </Tr>
                     </Thead>
-                    <Tbody> 
+                    <Tbody>
                         {data?.map((item: IAdmin, index: number) => {
                             return (
                                 <Tr fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id}</Td>
                                     <Td>
-                                        {item?.profilePicture && (
+                                        {/* {item?.profilePicture && ( */}
                                             <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"full"} >
-                                                <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture} objectFit={"cover"} alt='image' />
+                                                <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture ? item?.profilePicture : "/avatar.png"} objectFit={"cover"} alt='image' />
                                             </Box>
-                                        )}
-
-                                        {!item?.profilePicture && (
-                                            <Box w={"48px"} h={"48px"} rounded={"full"} bgColor={"grey"} />
-                                        )}
+                                        {/* // )}  */}
                                     </Td>
                                     <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
                                     {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td> */}

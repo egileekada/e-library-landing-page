@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useToast } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { RightArrow } from '../../components/shared_components/svg'
 import { useQuery } from 'react-query'
@@ -40,8 +40,8 @@ function UserInfo(props: Props) {
         }
     })
 
-    useEffect(()=> {
-        if(!userId){
+    useEffect(() => {
+        if (!userId) {
             navigate("/dashboard/user")
         }
     }, [])
@@ -50,18 +50,20 @@ function UserInfo(props: Props) {
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
             <Flex width={"full"} height={"full"} flexDir={"column"} pt={"8"} pb={"4"} >
                 <Flex gap={"2px"} alignItems={"center"} >
-                    <Text role='button' onClick={()=> navigate("/dashboard/user")} color={"#114EA3"} lineHeight={"19.36px"} >Users</Text>
+                    <Text role='button' onClick={() => navigate("/dashboard/user")} color={"#114EA3"} lineHeight={"19.36px"} >Users</Text>
                     <RightArrow />
                     <Text color={"#515151"} lineHeight={"19.36px"} >{data?.name}</Text>
                 </Flex>
                 <Flex gap={"8"} pt={"10"} alignItems={"center"} >
-                    <Box width={"231px"} h={"225px"} rounded={"2px"} bgColor={"grey"} />
+                    <Box width={"231px"} h={"225px"} rounded={"2px"}  >
+                        <Image w={"full"} h={"full"} rounded={"2px"} src={data?.profilePicture ? data?.profilePicture : "/avatar.png"} objectFit={"cover"} alt='image' />
+                    </Box>
                     <Box>
                         <Flex gap={"3"} >
                             <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
                             <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                                 Borrowed
-                            </Box> 
+                            </Box>
                         </Flex>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >Joined: <span style={{ fontWeight: "600" }} >{dateFormat(data?.createdAt)}</span></Text>
                         <Text fontSize={"16px"} lineHeight={"32.4px"} >Borrowed: <span style={{ fontWeight: "600" }} >---</span></Text>

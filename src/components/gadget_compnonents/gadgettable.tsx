@@ -15,6 +15,7 @@ interface Props {
     limit: number;
     setLimit: (by: number) => void;
     setTotal: (by: number) => void;
+    setDataInfo: (by: Array<any>) => void;
 }
 
 function GadgetTable(props: Props) {
@@ -24,7 +25,8 @@ function GadgetTable(props: Props) {
         page,
         setPage,
         setLimit,
-        setTotal
+        setTotal,
+        setDataInfo
     } = props
 
     const [data, setData] = useState([] as any)
@@ -76,6 +78,7 @@ function GadgetTable(props: Props) {
             setLimit(data?.data?.limit)
             setTotal(data?.data?.total)
             setData(data?.data?.data);
+            setDataInfo(data?.data?.data);
         }
     }) 
 
@@ -103,8 +106,8 @@ function GadgetTable(props: Props) {
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
-            <TableContainer>
-                <Table ref={tableRef} variant='simple'>
+            <TableContainer ref={tableRef} >
+                <Table variant='simple'>
                     <Thead>
                         <Tr>
                             <Th><Checkbox size={"lg"} /></Th>
@@ -122,16 +125,10 @@ function GadgetTable(props: Props) {
                                 <Tr fontSize={"14px"} key={index} >
                                     <Td><Checkbox size={"lg"} /></Td>
                                     <Td>{item?.id?.length > 12 ? item?.id.slice(0, 12) + "..." : item?.id}</Td>
-                                    <Td>
-                                        {item?.picture && (
+                                    <Td> 
                                             <Box w={"48px"} h={"48px"} borderWidth={"3px"} rounded={"4px"} >
-                                                <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture} objectFit={"cover"} alt='image' />
-                                            </Box>
-                                        )}
-
-                                        {!item?.picture && (
-                                            <Box w={"48px"} h={"48px"} rounded={"4px"} bgColor={"grey"} />
-                                        )}
+                                                <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture ? item?.picture : "/placeholder.png"} objectFit={"cover"} alt='image' />
+                                            </Box> 
                                     </Td>
                                     <Td>{item?.type?.length > 12 ? item?.type.slice(0, 12) + "..." : item?.type}</Td>
                                     <Td>{item?.manufacturer?.length > 12 ? item?.manufacturer.slice(0, 12) + "..." : item?.manufacturer}</Td>
