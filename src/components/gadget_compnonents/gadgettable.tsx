@@ -1,11 +1,12 @@
 import { Box, Checkbox, Flex, Image, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 import { focusManager, useQuery } from 'react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IGadgetData } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 import MoreOption from '../shared_components/more_options';
+import { cleanup } from '../../util/cleanup';
 // import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -34,36 +35,15 @@ function GadgetTable(props: Props) {
 
     focusManager.setFocused(false)
 
-    const { search, filter } = filterdata((state) => state);
-
-
-    function clean(obj: any) {
-        for (var propName in obj) {
-            if (obj[propName] === null || obj[propName] === undefined || obj[propName] === "") {
-                delete obj[propName];
-            } 
-        }
-
-        setNewFilter(obj)
-
-        return obj
-
-    }
-
-    useEffect(()=> {
-        clean(filter)
-    }, [filter])
-    
-
-    const [newfilter, setNewFilter] = useState({} as any)
+    const { search, filter } = filterdata((state) => state); 
 
     const { isLoading, isRefetching } = useQuery(['gadgettable', search, page, limit, filter?.status], () => actionService.getservicedata(`/hardware/gadget`,
         {
+            ...cleanup(filter),
             page: page,
             limit: limit,
             manufacturer: search ? search : null,
-            type: search ? search : null,
-            ...newfilter
+            type: search ? search : null, 
         }), {
         onError: (error: any) => {
             toast({

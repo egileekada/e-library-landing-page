@@ -18,7 +18,7 @@ function UserPage(props: Props) {
 
     return (
         <Flex width={"full"} height={"full"} flexDir={"column"} pb={"4"} >
-            <Filter tableRef={tableRef} name={'User'} />
+            <Filter data={[]} name={'User'} />
             <Usertable  tableRef={tableRef} setLimit={setLimit} setPage={setPage} setTotal={setTotalItem} limit={limit} page={page}  />
             <Box mt={"auto"} pt={"12"} > 
                 <Pagination  setLimit={setLimit} setPage={setPage} setTotal={setTotalItem} limit={limit} page={page} totalItem={totalItem}  />

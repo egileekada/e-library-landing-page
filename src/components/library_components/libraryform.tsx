@@ -269,16 +269,7 @@ function Libraryform(props: Props) {
                             formik.setFieldTouched("category", true, true)
                         }
                         touch={formik.touched.category}
-                        error={formik.errors.category} placeholder="" type='text' />
-                    {/* <Select
-                        name="category"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("category", true, true)
-                        } fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                        <option value={""} >Select Language</option>
-                        <option>English</option>
-                    </Select> */}
+                        error={formik.errors.category} placeholder="" type='text' /> 
                 </Box>
                 {type === "Book" && (
                     <Box w={"full"} >
@@ -298,15 +289,15 @@ function Libraryform(props: Props) {
                         })} placeholder="" type='text' />
                     </Box>
                 )}
-                {/* {type !== "Report" && (
+                {type === "Journal" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
                         <InputComponent onChange={(e: any) => setOtherData({
                             ...otherData,
-                            ISBN: e.target.value
+                            DOI: e.target.value
                         })} placeholder="" type='text' />
                     </Box>
-                )} */}
+                )}
                 {type === "Report" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ID Number</Text>

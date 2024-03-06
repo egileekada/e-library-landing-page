@@ -3,29 +3,34 @@ import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react'
 import InputComponent from '../shared_components/custom_input'
 import ImageSelector from '../shared_components/image_selector'
 import * as yup from 'yup'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useQueryClient, useMutation } from 'react-query';
-import { useAddPartnerCallback, useUploaderCallback } from '../../connections/useaction';
+import { useAddPartnerCallback, useUpdatePartnerCallback, useUploaderCallback } from '../../connections/useaction';
 import { IPartner } from '../../models';
 
 interface Props {
     close: (by: boolean) => void
+    edit?: boolean,
+    data?: IPartner
 }
 
 function Portalform(props: Props) {
     const {
-        close
+        close,
+        edit,
+        data
     } = props
 
     const [imageFile, setImageFile] = useState("");
-
+    const [imageName, setImageName] = useState("");
 
 
     const queryClient = useQueryClient()
 
     const toast = useToast()
     const { handleAddPartner } = useAddPartnerCallback();
+    const { handleUpdatePartner } = useUpdatePartnerCallback();
 
     const { handleUploader } = useUploaderCallback()
     const partnerSchema = yup.object({
@@ -75,6 +80,34 @@ function Portalform(props: Props) {
     });
 
     //API call to handle adding user
+    const updatePartnerMutation = useMutation(async (formData: IPartner) => {
+        const response = await handleUpdatePartner(data?.id ? data?.id : "", formData);
+ 
+        if (response?.status === 201 || response?.status === 200) {
+
+            toast({
+                title: response?.data?.message,
+                status: "success",
+                duration: 3000,
+                position: "top",
+            });
+
+            queryClient.invalidateQueries(['partnertable'])
+            close(false)
+
+            return response;
+        } else if (response?.data?.statusCode === 400) {
+            toast({
+                title: response?.data?.message,
+                status: "error",
+                duration: 3000,
+                position: "top",
+            });
+            return
+        }
+    });
+
+    //API call to handle adding user
     const uploaderMutation = useMutation(async (partnerdata: IPartner) => {
 
         let formData = new FormData()
@@ -83,6 +116,21 @@ function Portalform(props: Props) {
         const response = await handleUploader(formData, imageFile);
 
         if (response?.status === 201 || response?.status === 200) {
+
+            if (edit) {
+                updatePartnerMutation.mutateAsync({ ...partnerdata, imageUrl: response?.data?.data })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+
+            } else {
+
+            }
 
             addPartnerMutation.mutateAsync({ ...partnerdata, imageUrl: response?.data?.data }, {
                 onSuccess: (data: any) => {
@@ -131,27 +179,60 @@ function Portalform(props: Props) {
                 position: "top",
             });
             return;
-        } else if (!imageFile) {
-            toast({
-                title: "Add an image",
-                status: "error",
-                duration: 3000,
-                position: "top",
-            });
-            return;
         }
-        uploaderMutation.mutateAsync(partnerData)
-            .catch(() => {
+        if (edit) {
+
+            if (!imageFile) {
+                updatePartnerMutation.mutateAsync(partnerData)
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+            } else {
+                uploaderMutation.mutateAsync(partnerData)
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
+                    });
+            }
+
+        } else {
+            if (!imageFile) {
                 toast({
-                    title: "Something went wrong",
+                    title: "Add an image",
                     status: "error",
                     duration: 3000,
                     position: "top",
                 });
-            });
+                return;
+            }
+            uploaderMutation.mutateAsync(partnerData)
+                .catch(() => {
+                    toast({
+                        title: "Something went wrong",
+                        status: "error",
+                        duration: 3000,
+                        position: "top",
+                    });
+                });
+        }
 
     }
 
+    useEffect(() => {
+        formik.setFieldValue("", data?.partnerName)
+        formik.setFieldValue("", data?.partnerResourceName)
+        formik.setFieldValue("", data?.partnerResourceUrl)
+        setImageName(data?.imageUrl ? data?.imageUrl : "")
+    }, [])
 
     return (
         <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
@@ -191,7 +272,7 @@ function Portalform(props: Props) {
                 </Box>
                 <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
-                    <ImageSelector setImage={setImageFile} />
+                    <ImageSelector imageInfo={imageName} setImage={setImageFile} />
                 </Box>
 
                 <Button isLoading={uploaderMutation?.isLoading || addPartnerMutation?.isLoading} isDisabled={uploaderMutation?.isLoading || addPartnerMutation?.isLoading} type="submit" h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >

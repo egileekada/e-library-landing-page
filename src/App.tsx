@@ -11,6 +11,7 @@ import EquipmentPage from './pages/equipment';
 import AdminPage from './pages/personnel';
 import LibraryPage from './pages/library';
 import LibraryInfo from './pages/library_info';
+import PartnerInfo from './pages/partner_info';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path='/dashboard/inventory/equipments' element={<EquipmentPage />} />
           <Route path='/dashboard/user/info' element={<UserInfo />} />
           <Route path='/dashboard/library/info' element={<LibraryInfo />} />
+          <Route path='/dashboard/elibrary/info' element={<PartnerInfo />} />
         </Route>
       </Route>
     )

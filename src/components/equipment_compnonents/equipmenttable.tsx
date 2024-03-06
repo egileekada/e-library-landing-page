@@ -6,6 +6,7 @@ import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 import MoreOption from '../shared_components/more_options';
+import { cleanup } from '../../util/cleanup';
 // import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -39,10 +40,10 @@ function EquipmentTable(props: Props) {
 
     const { isLoading, isRefetching } = useQuery(['equipmenttable', search, page, limit, filter?.status], () => actionService.getservicedata(`/hardware/equipment`,
         {
+            ...cleanup(filter),
             page: page,
             limit: limit,
             type: search,
-            state: filter.status
         }), {
         onError: (error: any) => {
             toast({

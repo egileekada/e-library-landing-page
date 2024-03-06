@@ -60,6 +60,21 @@ export function useAddPartnerCallback() {
   return { handleAddPartner }
 }
 
+export function useUpdatePartnerCallback() {
+  const handleUpdatePartner = async (index: string | number, postData: object): Promise<any> => {
+    try {
+      const response = await axios.post("/partner/"+index, postData,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleUpdatePartner }
+}
+
 export function useAddBookCallback() {
   const handleAddBook = async (postData: object): Promise<any> => {
     try {

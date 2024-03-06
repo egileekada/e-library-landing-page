@@ -5,12 +5,14 @@ import { useState } from 'react';
 interface Props { 
     image?: string
     setImage: (by: string) => void
+    imageInfo?: string, 
 }
 
 function ImageSelector(props: Props) {
     const {
         image,
-        setImage
+        setImage,
+        imageInfo
     } = props
 
     const [imageName, setImageName] = useState("");
@@ -25,14 +27,14 @@ function ImageSelector(props: Props) {
         } else {
             console.log('Error')
         }
-    }
+    } 
 
     return (
         <Flex h={"45px"} w={"full"} rounded={"5px"} justifyContent={"center"} alignItems={"center"} borderStyle={"dashed"} borderWidth={"1px"} borderColor={"#ADADAD"}  >
 
             <label role='button' style={{ width: "100%", height: "45px", borderRadius: "5px", justifyContent: "center", alignItems: "center", display: "flex" }}  >
                 <input type="file" onChange={handleImageChange} style={{ display: "none" }} />
-                <Text color={imageName ? "name" : "#909090"} lineHeight={"20.3px"} textAlign={"center"} fontSize={"14px"} >{image ? image : imageName ? imageName : "Click to upload"}</Text>
+                <Text color={imageName ? "name" : "#909090"} lineHeight={"20.3px"} textAlign={"center"} fontSize={"14px"} >{image ? image : imageName ? imageName: imageInfo ? imageInfo : "Click to upload"}</Text>
             </label>
         </Flex>
     )
