@@ -158,6 +158,7 @@ function Libraryform(props: Props) {
             language: formik.values.language,
             category: formik.values.category, 
             ISSN: otherData?.ISSN, 
+            DOI: otherData?.DOI
         };
 
         const BookData = {

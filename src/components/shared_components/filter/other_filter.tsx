@@ -22,6 +22,10 @@ function Otherfilter(props: Props) {
 
     const datastatus = [ 
         {
+            name: "all",
+            value: ""
+        },
+        {
             name: "active",
             value: "ACTIVE"
         },
@@ -85,8 +89,8 @@ function Otherfilter(props: Props) {
                         <Text fontWeight={"700"} textAlign={"left"} >Status</Text>
                         <Flex mt={"1"} justifyContent={"center"} flexWrap={"wrap"} gap={"3"} >
                             <Select
-                                onChange={(e) => setInitialFilter({ ...initialFilter, status: e.target.value })}
-                                fontSize={"14px"} value={initialFilter?.status} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                onChange={(e) => setInitialFilter({ ...initialFilter, state: e.target.value })}
+                                fontSize={"14px"} value={initialFilter?.state} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
                                 {/* <option value={""} >Select Status</option> */}
                                 {datastatus?.map((item: {
                                     name: string,

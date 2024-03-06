@@ -97,7 +97,8 @@ export interface ILibrary {
     status?: string,
     Borrowing?: Array<BorrowData>
     borrowId?: string | number,
-    table?: boolean
+    table?: boolean,
+    totalCount?: number
 }  
 
 export interface BorrowData {
