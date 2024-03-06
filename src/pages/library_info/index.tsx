@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { ILibrary } from '../../models'
 import Recordborrowhistory from '../../components/library_components/recordborrowhistory'
 import Returnbtn from '../../components/library_components/returnbtn' 
+import DeleteRecords from '../../components/library_components/delete_records'
 
 interface Props { }
 
@@ -67,12 +68,13 @@ function LibraryInfo(props: Props) {
                         <Flex gap={"3"} pt={"6"} alignItems={"center"} >
                             <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text> 
                         </Flex>
-                            <Text><span style={{ fontWeight: "bold" }} >Total books:</span> {data?.totalCount} No.books available: {data?.count} No. Books borrowed: {Number(data?.totalCount) - Number(data?.count)}</Text>
+                            <Text mt={"2"} ><span style={{ fontWeight: "bold" }} >Total books:</span> {data?.totalCount} <span style={{ fontWeight: "bold" }} >No.books available:</span> {data?.count} <span style={{ fontWeight: "bold" }} >No. Books borrowed:</span> {Number(data?.totalCount) - Number(data?.count)}</Text>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ?  data?.publicationYear : data?.projectYear}</Text>
 
-                        <Box mt={"auto"} > 
+                        <Flex mt={"auto"} alignItems={"center"} justifyItems={"center"} gap={"4"} > 
                             <Returnbtn {...data} />
-                        </Box>
+                            <DeleteRecords id={data?.id} />
+                        </Flex>
                     </Flex>
                 </Flex>
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} borderColor={"#BDBDBD"} >

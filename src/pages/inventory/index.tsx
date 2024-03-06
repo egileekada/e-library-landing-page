@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Flex, Image, Text } from '@chakra-ui/react'
 import { ForwardArrow } from '../../components/shared_components/svg'
 import { useNavigate } from 'react-router-dom'
 // import React from 'react'
@@ -13,10 +13,8 @@ function InventoryPage(props: Props) {
     return (
         <Flex width={"full"} gap={"6"} pt={"8"} >
             <Flex onClick={()=> navigate("/dashboard/library")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"} >
-                    <Box width={"full"} height={"full"} bgColor={"#E9F2FF"} />
-                    <Box width={"full"} height={"full"} bgColor={"#E9F2FF"} />
-                    <Box width={"full"} height={"full"} bgColor={"#E9F2FF"} />
+                <Flex height={"162px"} w={"full"} gap={"2"}  justifyContent={"center"} alignItems={"center"} > 
+                    <Image alt='equipment' src='/literature.jpeg' rounded={"md"} width={"60%"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
                     <Text fontWeight={"700"} fontSize={"18px"} color={"#1E1B39"} >Literature</Text>
@@ -24,10 +22,8 @@ function InventoryPage(props: Props) {
                 </Flex>
             </Flex>
             <Flex onClick={()=> navigate("/dashboard/inventory/equipments")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"} >
-                    <Box width={"full"} height={"full"} bgColor={"#EFE9FF"} />
-                    <Box width={"full"} height={"full"} bgColor={"#EFE9FF"} />
-                    <Box width={"full"} height={"full"} bgColor={"#EFE9FF"} />
+                <Flex height={"162px"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
+                    <Image alt='equipment' src='/placeholder.png' rounded={"full"} width={"60%"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
                     <Text fontWeight={"700"} fontSize={"18px"} color={"#1E1B39"} >Equipment</Text>
@@ -35,10 +31,8 @@ function InventoryPage(props: Props) {
                 </Flex>
             </Flex>
             <Flex onClick={()=> navigate("/dashboard/inventory/gadgets")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"} >
-                    <Box width={"full"} height={"full"} bgColor={"#E8F1E6"} />
-                    <Box width={"full"} height={"full"} bgColor={"#E8F1E6"} />
-                    <Box width={"full"} height={"full"} bgColor={"#E8F1E6"} />
+                <Flex height={"162px"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
+                    <Image alt='equipment' src='/gadget.png' rounded={"md"} width={"60%"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
                 <Text fontWeight={"700"} fontSize={"18px"} color={"#1E1B39"} >Gadgets</Text>

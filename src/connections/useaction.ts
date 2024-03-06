@@ -75,6 +75,21 @@ export function useUpdatePartnerCallback() {
   return { handleUpdatePartner }
 }
 
+export function useDeleteRecordCallback() {
+  const handleDeleteRecord = async (index: string | number): Promise<any> => {
+    try {
+      const response = await axios.delete("/record/"+index,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handleDeleteRecord }
+}
+
 export function useAddBookCallback() {
   const handleAddBook = async (postData: object): Promise<any> => {
     try {
