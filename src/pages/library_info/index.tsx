@@ -38,6 +38,8 @@ function LibraryInfo(props: Props) {
         },
         onSuccess: (data: any) => {
             setData(data?.data?.data);
+            console.log(data?.data?.data);
+            
         }
     })
 
@@ -49,23 +51,21 @@ function LibraryInfo(props: Props) {
 
 
 
-    const status = (item: any) => {
-        if (item === "AVAILABLE") {
-            return (
-                <Flex bgColor={"#DEFFEB"} h={"fit-content"} gap={"3"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text> 
-                    {data?.count}
-                </Flex>
-            )
-        } else {
-            return (
-                <Flex fontSize={"14px"} lineHeight={"20.3px"} bgColor={"#FFF8DE"} h={"fit-content"} mt={"1"} gap={"3"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Borrowed</Text>
-                    {data?.count}
-                </Flex>
-            )
-        }
-    }
+    // const status = (item: any) => {
+    //     if (item === "AVAILABLE") {
+    //         return (
+    //             <Flex bgColor={"#DEFFEB"} h={"fit-content"} gap={"3"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
+    //                 <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text>  
+    //             </Flex>
+    //         )
+    //     } else {
+    //         return (
+    //             <Flex fontSize={"14px"} lineHeight={"20.3px"} bgColor={"#FFF8DE"} h={"fit-content"} mt={"1"} gap={"3"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
+    //                 <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Borrowed</Text> 
+    //             </Flex>
+    //         )
+    //     }
+    // }
 
     // Total books: 12 No.books available: 6 No. Books borrowed: 6
 
@@ -82,9 +82,10 @@ function LibraryInfo(props: Props) {
                         <Image src={data?.thumbnail} alt='image' h={"full"} w={"full"} objectFit={"cover"} rounded={"16px"} />
                     </Box>
                     <Flex flexDir={"column"} >
-                        <Flex gap={"3"} pt={"6"} >
+                        <Flex gap={"3"} pt={"6"} alignItems={"center"} >
                             <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
-                            {status(data?.status)}
+                            {/* {status(data?.status)} */}
+                            <Text>Total books: 12 No.books available: 6 No. Books borrowed: 6</Text>
 
                         </Flex>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ?  data?.publicationYear : data?.projectYear}</Text>

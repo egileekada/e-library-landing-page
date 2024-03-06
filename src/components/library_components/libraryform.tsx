@@ -156,10 +156,20 @@ function Libraryform(props: Props) {
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
+            category: formik.values.category, 
+            ISSN: otherData?.ISSN, 
+        };
+
+        const BookData = {
+            name: formik.values.name,
+            description: formik.values.description,
+            author: formik.values.author,
+            count: formik.values.count,
+            value: formik.values.value,
+            publicationYear: formik.values.publicationYear,
+            language: formik.values.language,
             category: formik.values.category,
-            ISBN: otherData?.ISBN,
-            ISSN: otherData?.ISBN,
-            DOI: otherData?.ISBN,
+            ISBN: otherData?.ISBN, 
         };
 
         const reportData = {
@@ -193,7 +203,7 @@ function Libraryform(props: Props) {
             });
             return;
         }
-        uploaderMutation.mutateAsync(type !== "Report" ? literatureData : reportData)
+        uploaderMutation.mutateAsync(type === "Report" ? reportData : type === "Book" ? BookData : literatureData)
             .catch(() => {
                 toast({
                     title: "Something went wrong",
@@ -252,7 +262,15 @@ function Libraryform(props: Props) {
                 </Box>
                 <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Category</Text>
-                    <Select
+                    <InputComponent
+                        name="category"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("category", true, true)
+                        }
+                        touch={formik.touched.category}
+                        error={formik.errors.category} placeholder="" type='text' />
+                    {/* <Select
                         name="category"
                         onChange={formik.handleChange}
                         onFocus={() =>
@@ -260,9 +278,9 @@ function Libraryform(props: Props) {
                         } fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
                         <option value={""} >Select Language</option>
                         <option>English</option>
-                    </Select>
+                    </Select> */}
                 </Box>
-                {type !== "Report" && (
+                {type === "Book" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISBN</Text>
                         <InputComponent onChange={(e: any) => setOtherData({
@@ -271,16 +289,16 @@ function Libraryform(props: Props) {
                         })} placeholder="" type='text' />
                     </Box>
                 )}
-                {type !== "Report" && (
+                {type === "Journal" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISSN</Text>
                         <InputComponent onChange={(e: any) => setOtherData({
                             ...otherData,
-                            ISBN: e.target.value
+                            ISSN: e.target.value
                         })} placeholder="" type='text' />
                     </Box>
                 )}
-                {type !== "Report" && (
+                {/* {type !== "Report" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
                         <InputComponent onChange={(e: any) => setOtherData({
@@ -288,7 +306,7 @@ function Libraryform(props: Props) {
                             ISBN: e.target.value
                         })} placeholder="" type='text' />
                     </Box>
-                )}
+                )} */}
                 {type === "Report" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ID Number</Text>
@@ -301,10 +319,7 @@ function Libraryform(props: Props) {
                 {type === "Report" && (
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter Project Year</Text>
-                        {/* <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            projectYear: e.target.value
-                        })} placeholder="" type='text' /> */}
+                         
                         <Yearselector onChange={(e: any) => setOtherData({
                             ...otherData,
                             projectYear: e.target.value
@@ -341,7 +356,7 @@ function Libraryform(props: Props) {
                             formik.setFieldTouched("author", true, true)
                         }
                         touch={formik.touched.author}
-                        error={formik.errors.author} placeholder="Partner Name" type='text' />
+                        error={formik.errors.author} placeholder="Author Name" type='text' />
                 </Box>
                 <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Language</Text>
