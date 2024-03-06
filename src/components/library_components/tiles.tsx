@@ -48,9 +48,15 @@ function Tiles(props: ILibrary) {
                 <PinIcon />
             </Box>
             <Flex gap={"2"} alignItems={"end"} >
-                <Box w={"80px"} h={"80px"} bgColor="gray" >
+
+                <Flex w={"full"} gap={"2"} alignItems={"end"} >
+                    <Box w={"80px"} h={"80px"} bgColor="gray" borderWidth={"3px"} rounded={"4px"}  >
+                        <Image w={"full"} h={"full"} rounded={"4px"} src={thumbnail} objectFit={"cover"} alt='parnter' />
+                    </Box>
+                </Flex>
+                {/* <Box w={"80px"} h={"80px"} bgColor="gray" >
                     <Image w={"full"} h={"full"} objectFit={"cover"} alt='library' src={thumbnail} />
-                </Box>
+                </Box> */}
                 {statuscomponent(status ? status : "")}
             </Flex>
             <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{name}</Text>
@@ -64,14 +70,16 @@ function Tiles(props: ILibrary) {
             <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Value: ₦{value}</Text>
             <Flex gap={"4"} >
                 <Button onClick={clickHandler} h={"45px"} gap={"3"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF0D"} _hover={{ backgroundColor: "#1F7CFF0D" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#597AB8"} >
-                    <EyeArrow />
+                    <Box w={"fit-content"} >
+                        <EyeArrow />
+                    </Box>
                     View
                 </Button>
                 {status === "AVAILABLE" && (
                     <Borrowbtn {...props} />
                 )}
-                {status !== "AVAILABLE" && ( 
-                    <Returnbtn {...props}/>
+                {status !== "AVAILABLE" && (
+                    <Returnbtn {...props} />
                 )}
             </Flex>
         </Box>
