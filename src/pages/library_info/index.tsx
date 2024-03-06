@@ -49,25 +49,7 @@ function LibraryInfo(props: Props) {
         }
     }, [])
 
-
-
-    // const status = (item: any) => {
-    //     if (item === "AVAILABLE") {
-    //         return (
-    //             <Flex bgColor={"#DEFFEB"} h={"fit-content"} gap={"3"} mt={"1"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-    //                 <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text>  
-    //             </Flex>
-    //         )
-    //     } else {
-    //         return (
-    //             <Flex fontSize={"14px"} lineHeight={"20.3px"} bgColor={"#FFF8DE"} h={"fit-content"} mt={"1"} gap={"3"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-    //                 <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Borrowed</Text> 
-    //             </Flex>
-    //         )
-    //     }
-    // }
-
-    // Total books: 12 No.books available: 6 No. Books borrowed: 6
+ 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
@@ -83,11 +65,9 @@ function LibraryInfo(props: Props) {
                     </Box>
                     <Flex flexDir={"column"} >
                         <Flex gap={"3"} pt={"6"} alignItems={"center"} >
-                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
-                            {/* {status(data?.status)} */}
-
+                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text> 
                         </Flex>
-                            <Text>Total books: {data?.totalCount} No.books available: {data?.count} No. Books borrowed: {Number(data?.totalCount) - Number(data?.count)}</Text>
+                            <Text><span style={{ fontWeight: "bold" }} >Total books:</span> {data?.totalCount} No.books available: {data?.count} No. Books borrowed: {Number(data?.totalCount) - Number(data?.count)}</Text>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ?  data?.publicationYear : data?.projectYear}</Text>
 
                         <Box mt={"auto"} > 
@@ -108,7 +88,7 @@ function LibraryInfo(props: Props) {
                     <Text fontSize={"16px"} lineHeight={"24px"} fontWeight={"400"} color={"#333333"} >{data?.description}</Text>
                     <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Category: <span style={{ fontWeight: "400" }} >{data?.category}</span></Text>
                     <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Author: <span style={{ fontWeight: "400" }} >{data?.author}</span></Text>
-                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Number Of Copies: <span style={{ fontWeight: "400" }} >{data?.totalCount}</span></Text>
+                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Total Number Of Copies: <span style={{ fontWeight: "400" }} >{data?.totalCount}</span></Text>
                 </Flex>
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} color={"#4F4F4F"} borderColor={"#BDBDBD"} >
                     <Recordborrowhistory info={data} data={data?.Borrowing ? data?.Borrowing : []} />

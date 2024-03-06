@@ -44,7 +44,7 @@ function Sidebar(props: Props) {
 
     useEffect(() => {
         setActiveTab(path.pathname)
-    }, [])
+    }, [path])
 
     const clickHandler = (item: string) => {
         navigate(item)
@@ -63,7 +63,7 @@ function Sidebar(props: Props) {
             {!show && (
                 <Flex w={"300px"} flexDir={"column"} h={"100vh"} py={"7"} px={"4"} >
                     <Flex w={"full"} px={"2"} alignItems={"center"} justifyContent={"space-between"} >
-                        <Box bgColor={"#D9D9D9"} width={"179px"} height={"59px"} />
+                        <Text fontWeight={"600"} fontSize={"20px"} >NDDC Library</Text>
                         <Flex onClick={() => setShow((prev) => !prev)} as={"button"} justifyContent={"center"} alignItems={"center"} height={"59px"} px={"4"}  >
                             <Menu />
                         </Flex>

@@ -10,7 +10,7 @@ import GadgetsPage from './pages/gadgets';
 import EquipmentPage from './pages/equipment';
 import AdminPage from './pages/personnel';
 import LibraryPage from './pages/library';
-import LibraryInfo from './pages/library_info';
+import LibraryInfo from './pages/library_info'; 
 import PartnerInfo from './pages/partner_info';
 
 function App() {

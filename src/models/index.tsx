@@ -68,7 +68,8 @@ export interface IPartner {
     partnerResourceName: string, 
     partnerResourceUrl?: string,
     imageUrl?: string, 
-    id?: string | number
+    id?: string | number,
+    createdAt?: string
 }  
 
 export interface IBorrow {

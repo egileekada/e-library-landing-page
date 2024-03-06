@@ -82,7 +82,7 @@ function Portalform(props: Props) {
     //API call to handle adding user
     const updatePartnerMutation = useMutation(async (formData: IPartner) => {
         const response = await handleUpdatePartner(data?.id ? data?.id : "", formData);
- 
+
         if (response?.status === 201 || response?.status === 200) {
 
             toast({
@@ -130,23 +130,23 @@ function Portalform(props: Props) {
 
             } else {
 
-            }
-
-            addPartnerMutation.mutateAsync({ ...partnerdata, imageUrl: response?.data?.data }, {
-                onSuccess: (data: any) => {
-                    if (data) {
-                        close(false)
-                    }
-                },
-            })
-                .catch(() => {
-                    toast({
-                        title: "Something went wrong",
-                        status: "error",
-                        duration: 3000,
-                        position: "top",
+                addPartnerMutation.mutateAsync({ ...partnerdata, imageUrl: response?.data?.data }, {
+                    onSuccess: (data: any) => {
+                        if (data) {
+                            close(false)
+                        }
+                    },
+                })
+                    .catch(() => {
+                        toast({
+                            title: "Something went wrong",
+                            status: "error",
+                            duration: 3000,
+                            position: "top",
+                        });
                     });
-                });
+
+            }
 
 
             return response;
@@ -183,7 +183,7 @@ function Portalform(props: Props) {
         if (edit) {
 
             if (!imageFile) {
-                updatePartnerMutation.mutateAsync(partnerData)
+                updatePartnerMutation.mutateAsync({ ...partnerData, imageUrl: imageName ?? "" })
                     .catch(() => {
                         toast({
                             title: "Something went wrong",
@@ -227,12 +227,18 @@ function Portalform(props: Props) {
 
     }
 
-    useEffect(() => {
-        formik.setFieldValue("", data?.partnerName)
-        formik.setFieldValue("", data?.partnerResourceName)
-        formik.setFieldValue("", data?.partnerResourceUrl)
-        setImageName(data?.imageUrl ? data?.imageUrl : "")
-    }, [])
+    useEffect(() => { 
+
+        if (edit) {
+            formik.setFieldValue("partnerName", data?.partnerName)
+            formik.setFieldValue("partnerResourceName", data?.partnerResourceName)
+            formik.setFieldValue("partnerResourceUrl", data?.partnerResourceUrl)
+            setImageName(data?.imageUrl ? data?.imageUrl : "")
+        }
+    }, [data])
+
+    console.log(formik?.values);
+    
 
     return (
         <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
@@ -245,6 +251,7 @@ function Portalform(props: Props) {
                         onFocus={() =>
                             formik.setFieldTouched("partnerName", true, true)
                         }
+                        value={formik?.values?.partnerName}
                         touch={formik.touched.partnerName}
                         error={formik.errors.partnerName} placeholder="Partner Name" type='text' />
                 </Box>
@@ -256,6 +263,7 @@ function Portalform(props: Props) {
                         onFocus={() =>
                             formik.setFieldTouched("partnerResourceName", true, true)
                         }
+                        value={formik?.values?.partnerResourceName}
                         touch={formik.touched.partnerResourceName}
                         error={formik.errors.partnerResourceName} placeholder="Partner ResourceName" type='text' />
                 </Box>
@@ -267,6 +275,7 @@ function Portalform(props: Props) {
                         onFocus={() =>
                             formik.setFieldTouched("partnerResourceUrl", true, true)
                         }
+                        value={formik?.values?.partnerResourceUrl}
                         touch={formik.touched.partnerResourceUrl}
                         error={formik.errors.partnerResourceUrl} placeholder="https://xyz.com" type='text' />
                 </Box>
@@ -275,8 +284,8 @@ function Portalform(props: Props) {
                     <ImageSelector imageInfo={imageName} setImage={setImageFile} />
                 </Box>
 
-                <Button isLoading={uploaderMutation?.isLoading || addPartnerMutation?.isLoading} isDisabled={uploaderMutation?.isLoading || addPartnerMutation?.isLoading} type="submit" h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
-                    Create
+                <Button isLoading={uploaderMutation?.isLoading || addPartnerMutation?.isLoading || updatePartnerMutation.isLoading} isDisabled={uploaderMutation?.isLoading || addPartnerMutation?.isLoading || updatePartnerMutation?.isLoading} type="submit" h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+                    {edit ? "Update Partner" : "Create Partner"}
                 </Button>
             </Flex>
         </form>

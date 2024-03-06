@@ -63,7 +63,7 @@ export function useAddPartnerCallback() {
 export function useUpdatePartnerCallback() {
   const handleUpdatePartner = async (index: string | number, postData: object): Promise<any> => {
     try {
-      const response = await axios.post("/partner/"+index, postData,
+      const response = await axios.put("/partner/"+index, postData,
         {
           headers: { 'Content-Type': 'application/json' },
         });

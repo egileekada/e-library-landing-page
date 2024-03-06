@@ -21,7 +21,7 @@ function Updateform(props: Props) {
                 Edit Partner
             </Button>
 
-            <ModalLayout size={"md"} open={open} close={setOpen} title={"Create Partner Portal"} >
+            <ModalLayout size={"md"} open={open} close={setOpen} title={"Edit Partner"} >
                 <Portalform data={data} edit={true} close={setOpen} />
             </ModalLayout>
         </>

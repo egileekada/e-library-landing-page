@@ -12,7 +12,7 @@ function InventoryPage(props: Props) {
 
     return (
         <Flex width={"full"} gap={"6"} pt={"8"} >
-            <Flex onClick={()=> navigate("/dashboard/inventory")} disabled={true} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
+            <Flex onClick={()=> navigate("/dashboard/library")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
                 <Flex height={"162px"} w={"full"} gap={"2"} >
                     <Box width={"full"} height={"full"} bgColor={"#E9F2FF"} />
                     <Box width={"full"} height={"full"} bgColor={"#E9F2FF"} />
