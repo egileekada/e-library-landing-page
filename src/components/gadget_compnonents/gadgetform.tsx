@@ -36,7 +36,7 @@ function Gadgetform(props: Props) {
         serialNumber: yup.string().required('required'),
         state: yup.string().required('required'),
     })
-    
+
     // formik
     const formik = useFormik({
         initialValues: {
@@ -44,7 +44,7 @@ function Gadgetform(props: Props) {
             picture: "",
             manufacturer: "",
             count: 1,
-            state: "",
+            state: "ACTIVE",
             serialNumber: ""
         },
         validationSchema: loginSchema,
@@ -53,8 +53,6 @@ function Gadgetform(props: Props) {
 
     useEffect(() => {
         if (edit) {
-            console.log(data);
-
             formik.setFieldValue("count", data?.count)
             formik.setFieldValue("manufacturer", data?.manufacturer)
             formik.setFieldValue("state", data?.state)
@@ -69,7 +67,7 @@ function Gadgetform(props: Props) {
     const addGadgetMutation = useMutation(async (formData: ICreateGadget) => {
         const response = await handleAddGadget(formData);
 
-        console.log(response?.data?.message);
+        console.log(response);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -96,7 +94,7 @@ function Gadgetform(props: Props) {
 
 
     //API call to handle adding user
-    const updateGadgetMutation = useMutation(async (formData: {state: string; }) => {
+    const updateGadgetMutation = useMutation(async (formData: { state: string; }) => {
         const response = await handleUpdateGadget(formData, data?.id ? data?.id : "");
 
         console.log(response?.data?.message);
@@ -139,7 +137,7 @@ function Gadgetform(props: Props) {
             addGadgetMutation.mutateAsync({ ...gadgetdata, picture: response?.data?.data }, {
                 onSuccess: (data: any) => {
                     if (data) {
-                        close(false)
+                        // close(false)
                     }
                 },
             })
@@ -280,20 +278,22 @@ function Gadgetform(props: Props) {
                             touch={formik.touched.serialNumber}
                             error={formik.errors.serialNumber} type='text' />
                     </Box>
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
-                        <Select
-                            name="state"
-                            onChange={formik.handleChange}
-                            value={formik?.values.state}
-                            onFocus={() =>
-                                formik.setFieldTouched("state", true, true)
-                            } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                            <option>ACTIVE</option>
-                            <option>TEMPORARILY_DISABLED</option>
-                            <option>PERMANENTLY_DISABLED</option>
-                        </Select>
-                    </Box>
+                    {edit && ( 
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
+                            <Select
+                                name="state"
+                                onChange={formik.handleChange}
+                                value={formik?.values.state}
+                                onFocus={() =>
+                                    formik.setFieldTouched("state", true, true)
+                                } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                <option>ACTIVE</option>
+                                <option>TEMPORARILY_DISABLED</option>
+                                <option>PERMANENTLY_DISABLED</option>
+                            </Select>
+                        </Box>
+                    )}
                 </Flex>
                 {!edit && (
                     <Box w={"full"} >
