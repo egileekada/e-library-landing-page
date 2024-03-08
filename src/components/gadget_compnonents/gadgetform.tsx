@@ -33,7 +33,7 @@ function Gadgetform(props: Props) {
     const loginSchema = yup.object({
         type: yup.string().required('required'),
         manufacturer: yup.string().required('required'),
-        count: yup.number().required('required'),
+        serialNumber: yup.string().required('required'),
         state: yup.string().required('required'),
     })
     
@@ -43,8 +43,9 @@ function Gadgetform(props: Props) {
             type: "",
             picture: "",
             manufacturer: "",
-            count: 0,
-            state: ""
+            count: 1,
+            state: "",
+            serialNumber: ""
         },
         validationSchema: loginSchema,
         onSubmit: () => { },
@@ -95,7 +96,7 @@ function Gadgetform(props: Props) {
 
 
     //API call to handle adding user
-    const updateGadgetMutation = useMutation(async (formData: { count: number; state: string; }) => {
+    const updateGadgetMutation = useMutation(async (formData: {state: string; }) => {
         const response = await handleUpdateGadget(formData, data?.id ? data?.id : "");
 
         console.log(response?.data?.message);
@@ -173,6 +174,7 @@ function Gadgetform(props: Props) {
             type: formik.values.type,
             manufacturer: formik.values.manufacturer,
             count: Number(formik.values.count),
+            serialNumber: (formik.values.serialNumber).toString(),
         };
 
         const updateData = {
@@ -266,16 +268,17 @@ function Gadgetform(props: Props) {
                 </Box>
                 <Flex gap={"4"} >
                     <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Qty</Text>
+                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Serial Number</Text>
                         <InputComponent
-                            name="count"
+                            name="serialNumber"
                             onChange={formik.handleChange}
                             onFocus={() =>
-                                formik.setFieldTouched("count", true, true)
+                                formik.setFieldTouched("serialNumber", true, true)
                             }
-                            value={formik?.values.count}
-                            touch={formik.touched.count}
-                            error={formik.errors.count} type='number' />
+                            isDisabled={edit}
+                            value={formik?.values.serialNumber}
+                            touch={formik.touched.serialNumber}
+                            error={formik.errors.serialNumber} type='text' />
                     </Box>
                     <Box w={"full"} >
                         <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>

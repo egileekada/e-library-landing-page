@@ -95,7 +95,7 @@ function GadgetTable(props: Props) {
                             <Th>Image</Th>
                             <Th>Equipment</Th>
                             <Th>Manufacturer</Th>
-                            <Th>Quantity</Th>
+                            <Th>Serial Number</Th>
                             <Th>Status</Th>
                         </Tr>
                     </Thead>
@@ -112,7 +112,7 @@ function GadgetTable(props: Props) {
                                     </Td>
                                     <Td>{item?.type?.length > 12 ? item?.type.slice(0, 12) + "..." : item?.type}</Td>
                                     <Td>{item?.manufacturer?.length > 12 ? item?.manufacturer.slice(0, 12) + "..." : item?.manufacturer}</Td>
-                                    <Td>{item?.count}</Td>
+                                    <Td>{item?.serialNumber}</Td>
                                     <Td>
                                         <Flex gap={"3"} alignItems={"center"} >
                                             {statuscomponent(item?.state)}

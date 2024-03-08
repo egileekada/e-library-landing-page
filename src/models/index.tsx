@@ -32,7 +32,8 @@ export interface IGadgetData {
     picture: string,
     state: string, 
     type: string, 
-    id: string
+    id: string,
+    serialNumber?: number
 } 
  
 export interface ICreateGadget  {
@@ -41,7 +42,8 @@ export interface ICreateGadget  {
     manufacturer: string,
     count: number,
     state?: string 
-    id?: string
+    id?: string,
+    serialNumber?: string | number
 }
  
 export interface ICreateEquipment  {

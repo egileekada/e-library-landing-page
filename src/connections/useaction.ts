@@ -170,7 +170,7 @@ export function useReturnRecordCallback() {
 
 export function useUpdateGadgetCallback() {
   const handleUpdateGadget = async (postData: {
-    count: number,
+    count?: number,
     state: string
   }, id: string): Promise<any> => {
     try {
