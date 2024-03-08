@@ -13,7 +13,7 @@ function InventoryPage(props: Props) {
     return (
         <Flex width={"full"} gap={"6"} pt={"8"} >
             <Flex onClick={()=> navigate("/dashboard/library")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"}  justifyContent={"center"} alignItems={"center"} > 
+                <Flex height={"auto"} py={"4"} w={"full"} gap={"2"}  justifyContent={"center"} alignItems={"center"} > 
                     <Image alt='equipment' src='/literature.jpeg' rounded={"md"} height={"162px"} width={"auto"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
@@ -22,7 +22,7 @@ function InventoryPage(props: Props) {
                 </Flex>
             </Flex>
             <Flex onClick={()=> navigate("/dashboard/inventory/equipments")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
+                <Flex height={"auto"} py={"4"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
                     <Image alt='equipment' src='/equipment.jpeg' rounded={"md"} height={"162px"} width={"auto"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
@@ -31,7 +31,7 @@ function InventoryPage(props: Props) {
                 </Flex>
             </Flex>
             <Flex onClick={()=> navigate("/dashboard/inventory/gadgets")} as='button' width={"full"} border={"1px solid #BDBDBD"} bgColor={"#FCFCFC"} px={"4"} py={"6"} rounded={"10px"} flexDir={"column"} >
-                <Flex height={"162px"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
+                <Flex height={"auto"} py={"4"} w={"full"} gap={"2"} justifyContent={"center"} alignItems={"center"} > 
                     <Image alt='equipment' src='/gadgets.jpeg' rounded={"md"} height={"162px"} width={"auto"} />
                 </Flex>
                 <Flex pt={"5"} width={"full"} justifyContent={"space-between"} alignItems={"center"} >
