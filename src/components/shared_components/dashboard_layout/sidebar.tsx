@@ -63,7 +63,12 @@ function Sidebar(props: Props) {
             {!show && (
                 <Flex w={"300px"} flexDir={"column"} h={"100vh"} py={"7"} px={"4"} >
                     <Flex w={"full"} px={"2"} alignItems={"center"} justifyContent={"space-between"} >
-                        <Text fontWeight={"600"} fontSize={"20px"} >NDDC Library</Text>
+                        <Flex alignItems={"center"} gap={"2"} >
+                            <Box width={"50px"} >
+                                <img alt='image' src='/logo.svg' className=' w-full ' />
+                            </Box>
+                            <Text fontWeight={"600"} fontSize={"16px"} >NDDC Library</Text>
+                        </Flex>
                         <Flex onClick={() => setShow((prev) => !prev)} as={"button"} justifyContent={"center"} alignItems={"center"} height={"59px"} px={"4"}  >
                             <Menu />
                         </Flex>

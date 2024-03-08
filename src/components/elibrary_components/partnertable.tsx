@@ -31,10 +31,11 @@ function Partnertable(props: Props) {
 
     focusManager.setFocused(false)
 
-    const { isLoading, isRefetching } = useQuery(['partnertable', search, page, limit], () => actionService.getservicedata(search ? `/partner/search?keyword=${search}` : "/partner/filter",
+    const { isLoading, isRefetching } = useQuery(['partnertable', search, page, limit], () => actionService.getservicedata( `${search ? "/partner" : "/partner/filter"}`,
         {
             page: page,
-            limit: limit
+            limit: limit,
+            keyword: search ? search : null
         }), {
         onError: (error: any) => {
             toast({

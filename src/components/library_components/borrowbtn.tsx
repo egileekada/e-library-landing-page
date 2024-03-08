@@ -111,7 +111,7 @@ function Borrowbtn(props: ILibrary) {
 
     return (
         <>
-            <Button onClick={() => setOpen(true)} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+            <Button onClick={() => setOpen(true)} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
                 Borrow
             </Button>
             {open && (

@@ -27,9 +27,13 @@ function Tiles(props: IPartner) {
                 <PinIcon />
             </Box>
             <Flex w={"full"} gap={"2"} alignItems={"end"} >
-                <Box w={"80px"} h={"80px"} bgColor="gray" borderWidth={"3px"} rounded={"4px"}  > 
-                    <Image w={"full"} h={"full"} rounded={"4px"} src={imageUrl} objectFit={"cover"} alt='parnter' /> 
+
+                <Box w={"80px"} h={"auto"} bgColor="gray" borderWidth={"3px"} rounded={"12px"}  >
+                    <Image w={"full"} h={"full"} rounded={"12px"} src={imageUrl} objectFit={"contain"} alt='parnter' />
                 </Box>
+                {/* <Box w={"80px"} h={"80px"} bgColor="gray" borderWidth={"3px"} rounded={"4px"}  >
+                    <Image w={"full"} h={"full"} rounded={"4px"} src={imageUrl} objectFit={"cover"} alt='parnter' />
+                </Box> */}
             </Flex>
             <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{partnerName}</Text>
             <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {partnerResourceName}</Text>

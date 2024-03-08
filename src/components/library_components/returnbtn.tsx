@@ -147,7 +147,7 @@ function Returnbtn(props: ILibrary) {
                 <Text fontWeight={"600"} color={"#1F7CFF"} onClick={() => setOpen(true)} >Return</Text>
             )}
             {!table && (
-                <Button onClick={() => clickHandler()} h={"45px"} gap={"2"} rounded={"5px"} width={"fit-content"} px={"8"} fontWeight={"600"} fontSize={"14px"} bgColor={"#FFF"} border={"2px solid #1F7CFF"} _hover={{ backgroundColor: "#FFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#1F7CFF"} >
+                <Button onClick={() => clickHandler()} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} px={"8"} fontWeight={"600"} fontSize={"14px"} bgColor={"#FFF"} border={"2px solid #1F7CFF"} _hover={{ backgroundColor: "#FFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#1F7CFF"} >
                     Return
                 </Button>
             )}

@@ -250,7 +250,7 @@ function Libraryform(props: Props) {
                         touch={formik.touched.value}
                         error={formik.errors.value} placeholder="" type='text' />
                 </Box>
-                <Box w={"full"} >
+                {/* <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Number of Books</Text>
                     <InputComponent
                         name="count"
@@ -260,7 +260,7 @@ function Libraryform(props: Props) {
                         }
                         touch={formik.touched.count}
                         error={formik.errors.count} placeholder="" type='number' />
-                </Box>
+                </Box> */}
                 <Box w={"full"} >
                     <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Category</Text>
                     <InputComponent

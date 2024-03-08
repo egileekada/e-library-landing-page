@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
-import { EyeArrow, PinIcon } from '../shared_components/svg'
+import { EyeArrow } from '../shared_components/svg'
 import { ILibrary } from '../../models'
 import Borrowbtn from './borrowbtn'
 import { useNavigate } from 'react-router-dom'
@@ -25,13 +25,13 @@ function Tiles(props: ILibrary) {
         if (item === "AVAILABLE") {
             return (
                 <Flex bgColor={"#DEFFEB"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text>
+                    <Text fontSize={"12px"} lineHeight={"20.3px"} color={"#00451C"} >Available</Text>
                 </Flex>
             )
         } else {
             return (
                 <Flex bgColor={"#FFDCDC"} rounded={"20px"} px={"12px"} py={"4px"} justifyContent={"center"} alignItems={"center"} >
-                    <Text fontSize={"14px"} lineHeight={"20.3px"} color={"#C50000"} >Unavailable</Text>
+                    <Text fontSize={"12px"} lineHeight={"20.3px"} color={"#C50000"} >Unavailable</Text>
                 </Flex>
             )
         }
@@ -43,20 +43,14 @@ function Tiles(props: ILibrary) {
     }
 
     return (
-        <Box textAlign={"left"} w={"full"} pos={"relative"} p={"4"} >
-            <Box w={"fit-content"} position={"absolute"} right={"3"} top={"3"} >
-                <PinIcon />
-            </Box>
+        <Flex textAlign={"left"} w={"full"} h={"full"} flexDir={"column"} pos={"relative"} p={"4"} > 
             <Flex gap={"2"} alignItems={"end"} >
 
                 <Flex w={"full"} gap={"2"} alignItems={"end"} >
-                    <Box w={"80px"} h={"80px"} bgColor="gray" borderWidth={"3px"} rounded={"4px"}  >
-                        <Image w={"full"} h={"full"} rounded={"4px"} src={thumbnail} objectFit={"cover"} alt='parnter' />
+                    <Box w={"80px"} h={"auto"} bgColor="gray" borderWidth={"3px"} rounded={"12px"}  >
+                        <Image w={"full"} h={"full"} rounded={"12px"} src={thumbnail} objectFit={"contain"} alt='parnter' />
                     </Box>
-                </Flex>
-                {/* <Box w={"80px"} h={"80px"} bgColor="gray" >
-                    <Image w={"full"} h={"full"} objectFit={"cover"} alt='library' src={thumbnail} />
-                </Box> */}
+                </Flex> 
                 {statuscomponent(status ? status : "")}
             </Flex>
             <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{name}</Text>
@@ -68,8 +62,8 @@ function Tiles(props: ILibrary) {
                 <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >ID Number: {IDNumber}</Text>
             )}
             <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Value: ₦{value}</Text>
-            <Flex gap={"4"} >
-                <Button onClick={clickHandler} h={"45px"} gap={"3"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF0D"} _hover={{ backgroundColor: "#1F7CFF0D" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#597AB8"} >
+            <Flex gap={"4"} h={"60px"} alignItems={"end"} mt={"auto"} >
+                <Button onClick={clickHandler} h={"45px"} gap={"3"} rounded={"5px"} width={"full"} bgColor={"#1F7CFF0D"} _hover={{ backgroundColor: "#1F7CFF0D" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#597AB8"} >
                     <Box w={"fit-content"} >
                         <EyeArrow />
                     </Box>
@@ -82,7 +76,7 @@ function Tiles(props: ILibrary) {
                     <Returnbtn {...props} />
                 )}
             </Flex>
-        </Box>
+        </Flex>
     )
 }
 
