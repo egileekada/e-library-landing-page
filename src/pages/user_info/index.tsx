@@ -7,6 +7,7 @@ import LoadingAnimation from '../../components/shared_components/loading_animati
 import Borrowtable from '../../components/user_components/borrowtable'
 import { dateFormat } from '../../util/dateFormat'
 import { useNavigate } from 'react-router-dom'
+import { capitalizeFLetter } from '../../util/capitalLetter'
 
 interface Props { }
 
@@ -41,10 +42,7 @@ function UserInfo(props: Props) {
         if (!userId) {
             navigate("/dashboard/user")
         }
-    }, [])
-
-    console.log(data);
-
+    }, []) 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
@@ -60,7 +58,7 @@ function UserInfo(props: Props) {
                     </Box>
                     <Box>
                         <Flex gap={"3"} >
-                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
+                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{capitalizeFLetter(data?.name)}</Text>
                             <Box mt={"1"} bgColor={"#FFF8DE"} h={"fit-content"} fontSize={"14px"} lineHeight={"20.3px"} py={"4px"} px={"12px"} rounded={"20px"} >
                                 Borrowed
                             </Box>

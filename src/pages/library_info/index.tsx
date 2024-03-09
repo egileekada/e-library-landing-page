@@ -13,6 +13,7 @@ import Returnbtn from '../../components/library_components/returnbtn'
 import DeleteRecords from '../../components/library_components/delete_records'
 import ModalLayout from '../../components/shared_components/modal_layout'
 import Qrcode from '../../components/shared_components/qrcode'
+import { capitalizeFLetter } from '../../util/capitalLetter'
 
 interface Props { }
 
@@ -70,7 +71,7 @@ function LibraryInfo(props: Props) {
                     </Box>
                     <Flex flexDir={"column"} >
                         <Flex gap={"3"} pt={"6"} alignItems={"center"} >
-                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
+                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{capitalizeFLetter(data?.name)}</Text>
                         </Flex>
                         <Text fontSize={"16px"} mt={"2"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ? data?.publicationYear : data?.projectYear}</Text>
 

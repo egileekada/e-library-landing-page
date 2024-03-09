@@ -8,6 +8,7 @@ import LoadingAnimation from '../../components/shared_components/loading_animati
 import { dateFormat } from '../../util/dateFormat'
 import { useNavigate } from 'react-router-dom'
 import { IPartner } from '../../models'
+import { capitalizeFLetter } from '../../util/capitalLetter'
 
 interface Props { }
 
@@ -61,7 +62,7 @@ function PartnerInfo(props: Props) {
                     </Box>
                     <Box pt={"4"} >
                         <Flex gap={"3"} >
-                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.partnerName}</Text> 
+                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{capitalizeFLetter(data?.partnerName)}</Text> 
                         </Flex>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >Joined: <span style={{ fontWeight: "600" }} >{dateFormat(data?.createdAt)}</span></Text>
                         <Text fontSize={"16px"} lineHeight={"32.4px"} >Partner Resource Name: <span style={{ fontWeight: "600" }} >{data?.partnerResourceName}</span></Text> 

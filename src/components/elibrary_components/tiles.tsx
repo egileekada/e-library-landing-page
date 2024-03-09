@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Updateform from './update_form'
 import { usePinCallback } from '../../connections/useaction'
 import { useMutation, useQueryClient } from 'react-query'
+import { capitalizeFLetter } from '../../util/capitalLetter'
 // import React from 'react' 
 
 function Tiles(props: IPartner) {
@@ -87,7 +88,7 @@ function Tiles(props: IPartner) {
                     <Image w={"full"} h={"full"} rounded={"12px"} src={imageUrl} objectFit={"contain"} alt='parnter' />
                 </Box> 
             </Flex>
-            <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{partnerName}</Text>
+            <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{capitalizeFLetter(partnerName)}</Text>
             <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {partnerResourceName}</Text>
             {/* <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >PID Number: {id}</Text> */}
             <Flex w={"full"} gap={"4"} >

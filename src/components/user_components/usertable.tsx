@@ -6,6 +6,7 @@ import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 import { useNavigate } from 'react-router-dom';
+import { capitalizeFLetter } from '../../util/capitalLetter';
 
 interface Props {
     tableRef: any
@@ -87,7 +88,7 @@ function Usertable(props: Props) {
                                             <Image w={"full"} h={"full"} rounded={"full"} src={item?.profilePicture ? item?.profilePicture : "/avatar.png"} objectFit={"cover"} alt='image' />
                                         </Box>
                                     </Td>
-                                    <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
+                                    <Td>{item?.name?.length > 12 ? capitalizeFLetter(item?.name.slice(0, 12)) + "..." : capitalizeFLetter(item?.name)}</Td>
                                     <Td>{item?.staffId ? "Staff" : "Guest"}</Td>
                                     <Td>{item?.staffId ? item?.staffId : "Guest"}</Td>
                                     <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
