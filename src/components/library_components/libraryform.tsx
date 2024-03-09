@@ -292,7 +292,7 @@ function Libraryform(props: Props) {
                         )}
                         {type === "Journal" && (
                             <Box w={"full"} >
-                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI(optional)</Text>
                                 <InputComponent onChange={(e: any) => setOtherData({
                                     ...otherData,
                                     DOI: e.target.value
