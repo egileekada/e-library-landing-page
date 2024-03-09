@@ -153,7 +153,7 @@ function Borrowbtn(props: ILibrary) {
                             <Box mt={"4"} w={"full"} >
                                 <Flex w={"full"} justifyContent={"space-between"} >
                                     <Text mt={"3"} mb={"1"} color={"#101928"} fontSize={"14px"} fontWeight={"500"} lineHeight={"20.3px"} >Add User</Text>
-                                    <Text onClick={() => setShow(true)} as={"button"} mt={"3"} mb={"1"} color={"#010203"} fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >+Create New User</Text>
+                                    <Text onClick={() => setShow(true)} as={"button"} type="button" mt={"3"} mb={"1"} color={"#010203"} fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >+Create New User</Text>
                                 </Flex>
                                 <UserSearch setuserInfo={setUserData} userInfo={userData} />
                             </Box>

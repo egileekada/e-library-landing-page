@@ -18,7 +18,7 @@ function Gadgetbtn(props: Props) {
                 Add Gadget
             </Button>
             <ModalLayout size={"md"} open={open} close={setOpen} title={"Add Gadget"} >
-                <Gadgetform close={setOpen} />
+                <Gadgetform open={open} close={setOpen} />
             </ModalLayout>
         </>
     )

@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Text, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { RightArrow } from '../../components/shared_components/svg'
+import { RightArrow, ScanIcon } from '../../components/shared_components/svg'
 import { focusManager, useQuery } from 'react-query'
 import actionService from '../../connections/getdataaction'
 import LoadingAnimation from '../../components/shared_components/loading_animation'
@@ -9,8 +9,10 @@ import LoadingAnimation from '../../components/shared_components/loading_animati
 import { useNavigate } from 'react-router-dom'
 import { ILibrary } from '../../models'
 import Recordborrowhistory from '../../components/library_components/recordborrowhistory'
-import Returnbtn from '../../components/library_components/returnbtn' 
+import Returnbtn from '../../components/library_components/returnbtn'
 import DeleteRecords from '../../components/library_components/delete_records'
+import ModalLayout from '../../components/shared_components/modal_layout'
+import Qrcode from '../../components/shared_components/qrcode'
 
 interface Props { }
 
@@ -18,6 +20,7 @@ function LibraryInfo(props: Props) {
     const { } = props
 
     const toast = useToast()
+    const [open, setOpen] = useState(false)
     const [data, setData] = useState({} as ILibrary)
 
     const userId = localStorage.getItem("library")
@@ -40,7 +43,7 @@ function LibraryInfo(props: Props) {
         onSuccess: (data: any) => {
             setData(data?.data?.data);
             console.log(data?.data?.data);
-            
+
         }
     })
 
@@ -48,9 +51,7 @@ function LibraryInfo(props: Props) {
         if (!userId) {
             navigate("/dashboard/user")
         }
-    }, [])
-
- 
+    }, []) 
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
@@ -66,13 +67,18 @@ function LibraryInfo(props: Props) {
                     </Box>
                     <Flex flexDir={"column"} >
                         <Flex gap={"3"} pt={"6"} alignItems={"center"} >
-                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text> 
+                            <Text fontSize={"40px"} lineHeight={"48.41px"} fontWeight={"600"} >{data?.name}</Text>
                         </Flex>
-                            <Text mt={"2"} ><span style={{ fontWeight: "bold" }} >Total books:</span> {data?.totalCount} <span style={{ fontWeight: "bold" }} >No.books available:</span> {data?.count} <span style={{ fontWeight: "bold" }} >No. Books borrowed:</span> {Number(data?.totalCount) - Number(data?.count)}</Text>
-                        <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ?  data?.publicationYear : data?.projectYear}</Text>
+                        <Text fontSize={"16px"} mt={"2"} lineHeight={"32.4px"} >by {data?.author} -  {data?.publicationYear ? data?.publicationYear : data?.projectYear}</Text>
 
-                        <Flex mt={"auto"} alignItems={"center"} justifyItems={"center"} gap={"4"} > 
-                            <Returnbtn {...data} />
+                        <Flex as={"button"} alignItems={"center"} gap={"2"} my={"auto"} onClick={() => setOpen(true)} >
+                            <ScanIcon />
+                            <Text as={"button"} textAlign={"left"}lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
+                        </Flex>
+                        <Flex mt={"auto"} alignItems={"center"} justifyItems={"center"} gap={"4"} >
+                            <Box w={"200px"} >
+                                <Returnbtn {...data} />
+                            </Box>
                             <DeleteRecords id={data?.id} />
                         </Flex>
                     </Flex>
@@ -96,6 +102,12 @@ function LibraryInfo(props: Props) {
                     <Recordborrowhistory info={data} data={data?.Borrowing ? data?.Borrowing : []} />
                 </Flex>
             </Flex>
+
+            <ModalLayout size={"md"} open={open} close={setOpen} title={""} >
+
+                <Qrcode setOpen={setOpen} type={data?.name ? data?.name : ""} id={data?.id+""} />
+
+            </ModalLayout>
 
         </LoadingAnimation>
     )

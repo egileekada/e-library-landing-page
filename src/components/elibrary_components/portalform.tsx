@@ -235,10 +235,7 @@ function Portalform(props: Props) {
             formik.setFieldValue("partnerResourceUrl", data?.partnerResourceUrl)
             setImageName(data?.imageUrl ? data?.imageUrl : "")
         }
-    }, [data])
-
-    console.log(formik?.values);
-    
+    }, [data])    
 
     return (
         <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >

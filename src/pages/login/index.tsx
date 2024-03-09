@@ -87,6 +87,7 @@ export default function LoginPage() {
                     localStorage.setItem("phone", data?.data?.data?.details?.phone);
                     localStorage.setItem("id", data?.data?.data?.details?.id);
                     localStorage.setItem("name", data?.data?.data?.details?.name);
+                    localStorage.setItem("role", data?.data?.data?.details?.role);
                     localStorage.setItem("notoken", "");
                     navigate("/dashboard/home")
                 }  

@@ -5,8 +5,9 @@ import InputComponent from '../shared_components/custom_input'
 import ImageSelector from '../shared_components/image_selector'
 import { useAddEquipmentCallback, useUpdateEquipmentCallback, useUploaderCallback } from '../../connections/useaction'
 import { useMutation, useQueryClient } from 'react-query';
-import { ICreateEquipment } from '../../models';
+import { ICreateEquipment, IGadgetData } from '../../models';
 import { useEffect, useState } from 'react';
+import Qrcode from '../shared_components/qrcode';
 
 interface Props {
     edit?: boolean,
@@ -21,9 +22,7 @@ function Equipmentform(props: Props) {
         close
     } = props
 
-
-    console.log(data);
-
+    const [index, setIndex] = useState({} as IGadgetData)
 
     const queryClient = useQueryClient()
 
@@ -33,7 +32,7 @@ function Equipmentform(props: Props) {
     const { handleUploader } = useUploaderCallback()
     const [imageFile, setImageFile] = useState("");
     const loginSchema = yup.object({
-        type: yup.string().required('required'), 
+        type: yup.string().required('required'),
         count: yup.number().required('required'),
         state: yup.string().required('required'),
     })
@@ -41,7 +40,7 @@ function Equipmentform(props: Props) {
     // formik
     const formik = useFormik({
         initialValues: {
-            type: "", 
+            type: "",
             count: 0,
             state: ""
         },
@@ -64,6 +63,10 @@ function Equipmentform(props: Props) {
 
             queryClient.invalidateQueries(['equipmenttable'])
 
+            console.log(response);
+            
+
+            setIndex({ ...index, id: response?.data?.data?.id, type: response?.data?.data?.type });
             return response;
         } else if (response?.data?.statusCode === 400) {
             toast({
@@ -79,8 +82,7 @@ function Equipmentform(props: Props) {
 
     useEffect(() => {
         if (edit) {
-            console.log(data);
-
+            
             formik.setFieldValue("count", data?.count)
             formik.setFieldValue("state", data?.state)
             formik.setFieldValue("type", data?.type)
@@ -133,7 +135,7 @@ function Equipmentform(props: Props) {
             addEquipmentMutation.mutateAsync({ ...userdata, picture: response?.data?.data }, {
                 onSuccess: (data: any) => {
                     if (data) {
-                        close(false)
+                        // close(false)
                     }
                 },
             })
@@ -228,65 +230,77 @@ function Equipmentform(props: Props) {
 
     }
 
+    const clickHandler =(item: boolean)=> {
+        close(item)
+        setIndex({} as IGadgetData)
+    }
+
     return (
-        <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
-            <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Equipment</Text>
-                    <InputComponent
-                        name="type"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("type", true, true)
-                        }
-                        value={formik?.values?.type}
-                        touch={formik.touched.type}
-                        error={formik.errors.type}
-                        type='text' />
-                </Box>
-                <Flex gap={"4"} >
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Qty</Text>
-                        <InputComponent
-                            name="count"
-                            onChange={formik.handleChange}
-                            onFocus={() =>
-                                formik.setFieldTouched("count", true, true)
-                            }
-                            value={formik?.values?.count}
-                            touch={formik.touched.count}
-                            error={formik.errors.count} type='number' />
-                    </Box>
-                    {/* {edit && ( */}
+        <>
+            {!index?.id && ( 
+                <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
+                    <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
                         <Box w={"full"} >
-                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
-                            <Select
-                                name="state"
-                                value={formik?.values?.state}
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Equipment</Text>
+                            <InputComponent
+                                name="type"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
-                                    formik.setFieldTouched("state", true, true)
-                                } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                                <option>ACTIVE</option>
-                                <option>TEMPORARILY_DISABLED</option>
-                                <option>PERMANENTLY_DISABLED</option>
-                            </Select>
+                                    formik.setFieldTouched("type", true, true)
+                                }
+                                value={formik?.values?.type}
+                                touch={formik.touched.type}
+                                error={formik.errors.type}
+                                type='text' />
                         </Box>
-                    {/* )} */}
-                </Flex>
-                
-                {!edit && ( 
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
-                        <ImageSelector setImage={setImageFile} />
-                    </Box>
-                )}
+                        <Flex gap={"4"} >
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Qty</Text>
+                                <InputComponent
+                                    name="count"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("count", true, true)
+                                    }
+                                    value={formik?.values?.count}
+                                    touch={formik.touched.count}
+                                    error={formik.errors.count} type='number' />
+                            </Box>
+                            {/* {edit && ( */}
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
+                                <Select
+                                    name="state"
+                                    value={formik?.values?.state}
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("state", true, true)
+                                    } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                    <option>ACTIVE</option>
+                                    <option>TEMPORARILY_DISABLED</option>
+                                    <option>PERMANENTLY_DISABLED</option>
+                                </Select>
+                            </Box>
+                            {/* )} */}
+                        </Flex>
 
-                <Button type="submit" isLoading={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} isDisabled={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
-                    Add Equipment
-                </Button>
-            </Flex>
-        </form>
+                        {!edit && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
+                                <ImageSelector setImage={setImageFile} />
+                            </Box>
+                        )}
+
+                        <Button type="submit" isLoading={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} isDisabled={addEquipmentMutation?.isLoading || uploaderMutation?.isLoading || updateEquipmentMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+                            Add Equipment
+                        </Button>
+                    </Flex>
+                </form>
+            )}
+            {index?.id && (
+                <Qrcode setOpen={clickHandler} type={index?.type} id={index?.id} />
+            )}
+        </>
     )
 }
 

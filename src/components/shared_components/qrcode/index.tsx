@@ -14,15 +14,8 @@ interface Props {
 function Qrcode(props: Props) {
     const { 
         type,
-        id,
-        // setOpen,
-        // setTab
-    } = props
-
-    // const closeHandler = () => {
-    //     setOpen(false)
-    //     setTab(true) 
-    // }
+        id, 
+    } = props 
 
     const componentRef: any = useRef(null)
 
@@ -39,7 +32,7 @@ function Qrcode(props: Props) {
                 <Flex w={"full"} alignItems={"center"} justifyItems={"center"} flexDir={"column"} gap={"6"} pb={"2"} pt={"5"} >
                     <QRCode
                         style={{ height: "143px", maxWidth: "100%", width: "143px", zIndex: 20 }}
-                        value={id ? id : ""}
+                        value={id}
                         viewBox={`0 0 256 256`}
                     />
                 </Flex>

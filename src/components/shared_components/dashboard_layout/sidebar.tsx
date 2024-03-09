@@ -56,6 +56,7 @@ function Sidebar(props: Props) {
         navigate("/")
     }
 
+    const role = localStorage.getItem("role");
 
 
     return (
@@ -74,7 +75,10 @@ function Sidebar(props: Props) {
                         </Flex>
                     </Flex>
                     <Flex w={"full"} py={"8"} flexDir={"column"} gap={"3"} >
-                        {menulist?.map((item: { name: string, router: string }, index: number) => {
+                        {menulist?.filter((item: { name: string }) => 
+                            role !== "SUPER_ADMIN" && 
+                                item?.name !== "Personnel" 
+                        )?.map((item: { name: string, router: string }, index: number) => {
                             return (
                                 <Flex onClick={() => clickHandler(item?.router)} as={"button"} key={index} w={"full"} h={"45px"} px={"4"} gap={"2"} alignItems={"center"} bgColor={item?.router.includes(activeTab) ? "#1F7CFF1A" : ""} rounded={"3px"} >
                                     <Box width={"25px"}>

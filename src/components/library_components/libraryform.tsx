@@ -9,6 +9,7 @@ import { useQueryClient, useMutation } from 'react-query';
 import { useAddBookCallback, useAddJornalCallback, useAddReportCallback, useUploaderCallback } from '../../connections/useaction';
 import { ILibrary } from '../../models';
 import Yearselector from '../../models/yearselector';
+import Qrcode from '../shared_components/qrcode';
 
 interface Props {
     close: (by: boolean) => void
@@ -22,6 +23,9 @@ function Libraryform(props: Props) {
     const [imageFile, setImageFile] = useState("");
     const [type, setType] = useState("Journal");
 
+    const [index, setIndex] = useState({} as ILibrary)
+
+
     const [otherData, setOtherData] = useState({} as {
         IDNumber?: string,
         projectYear?: string,
@@ -30,7 +34,7 @@ function Libraryform(props: Props) {
         ISSN?: string,
         DOI?: string
     })
-    
+
     const queryClient = useQueryClient()
 
     const toast = useToast()
@@ -56,7 +60,7 @@ function Libraryform(props: Props) {
             name: "",
             description: "",
             author: "",
-            count: "",
+            count: "1",
             publicationYear: "",
             language: "",
             category: "",
@@ -67,8 +71,8 @@ function Libraryform(props: Props) {
     });
 
     //API call to handle adding user
-    const addMutation = useMutation(async (formData: ILibrary) => { 
-        
+    const addMutation = useMutation(async (formData: ILibrary) => {
+
         let response: any
 
         if (type === "Journal") {
@@ -92,6 +96,10 @@ function Libraryform(props: Props) {
             });
 
             queryClient.invalidateQueries(['librarytable'])
+            setIndex({...index, id: response?.data?.data?.id, name: response?.data?.data?.name});
+
+            console.log(response);
+            
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -118,7 +126,7 @@ function Libraryform(props: Props) {
             addMutation.mutateAsync({ ...literaturedata, thumbnail: response?.data?.data }, {
                 onSuccess: (data: any) => {
                     if (data) {
-                        close(false)
+                        // close(false)
                     }
                 },
             })
@@ -151,33 +159,30 @@ function Libraryform(props: Props) {
         const literatureData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author,
-            count: formik.values.count,
+            author: formik.values.author, 
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
-            category: formik.values.category, 
-            ISSN: otherData?.ISSN, 
+            category: formik.values.category,
+            ISSN: otherData?.ISSN,
             DOI: otherData?.DOI
         };
 
         const BookData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author,
-            count: formik.values.count,
+            author: formik.values.author, 
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
             category: formik.values.category,
-            ISBN: otherData?.ISBN, 
+            ISBN: otherData?.ISBN,
         };
 
         const reportData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author,
-            count: formik.values.count,
+            author: formik.values.author, 
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
@@ -216,175 +221,175 @@ function Libraryform(props: Props) {
 
     }
 
+    const clickHandler =(item: boolean)=> {
+        close(item)
+        setIndex({} as ILibrary)
+    }
 
     return (
-        <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
-            <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
+        <>
+            {!index?.name && (
+                <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
+                    <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Name</Text>
+                            <InputComponent
+                                name="name"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("name", true, true)
+                                }
+                                touch={formik.touched.name}
+                                error={formik.errors.name} placeholder="Name" type='text' />
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Literature Type</Text>
+                            <Select onChange={(e) => setType(e.target.value)} fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                <option>Journal</option>
+                                <option>Book</option>
+                                <option>Report</option>
+                            </Select>
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Value</Text>
+                            <InputComponent
+                                name="value"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("value", true, true)
+                                }
+                                touch={formik.touched.value}
+                                error={formik.errors.value} placeholder="" type='text' />
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Category</Text>
+                            <InputComponent
+                                name="category"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("category", true, true)
+                                }
+                                touch={formik.touched.category}
+                                error={formik.errors.category} placeholder="" type='text' />
+                        </Box>
+                        {type === "Book" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISBN / DOI</Text>
+                                <InputComponent onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    ISBN: e.target.value
+                                })} placeholder="" type='text' />
+                            </Box>
+                        )}
+                        {type === "Journal" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISSN</Text>
+                                <InputComponent onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    ISSN: e.target.value
+                                })} placeholder="" type='text' />
+                            </Box>
+                        )}
+                        {/* {type === "Journal" && (
                 <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Name</Text>
-                    <InputComponent
-                        name="name"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("name", true, true)
-                        }
-                        touch={formik.touched.name}
-                        error={formik.errors.name} placeholder="Name" type='text' />
+                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
+                    <InputComponent onChange={(e: any) => setOtherData({
+                        ...otherData,
+                        DOI: e.target.value
+                    })} placeholder="" type='text' />
                 </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Literature Type</Text>
-                    <Select onChange={(e) => setType(e.target.value)} fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                        <option>Journal</option>
-                        <option>Book</option>
-                        <option>Report</option>
-                    </Select>
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Value</Text>
-                    <InputComponent
-                        name="value"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("value", true, true)
-                        }
-                        touch={formik.touched.value}
-                        error={formik.errors.value} placeholder="" type='text' />
-                </Box>
-                {/* <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Number of Books</Text>
-                    <InputComponent
-                        name="count"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("count", true, true)
-                        }
-                        touch={formik.touched.count}
-                        error={formik.errors.count} placeholder="" type='number' />
-                </Box> */}
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Category</Text>
-                    <InputComponent
-                        name="category"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("category", true, true)
-                        }
-                        touch={formik.touched.category}
-                        error={formik.errors.category} placeholder="" type='text' /> 
-                </Box>
-                {type === "Book" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISBN</Text>
-                        <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            ISBN: e.target.value
-                        })} placeholder="" type='text' />
-                    </Box>
-                )}
-                {type === "Journal" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISSN</Text>
-                        <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            ISSN: e.target.value
-                        })} placeholder="" type='text' />
-                    </Box>
-                )}
-                {type === "Journal" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
-                        <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            DOI: e.target.value
-                        })} placeholder="" type='text' />
-                    </Box>
-                )}
-                {type === "Report" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ID Number</Text>
-                        <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            IDNumber: e.target.value
-                        })} placeholder="" type='text' />
-                    </Box>
-                )}
-                {type === "Report" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter Project Year</Text>
-                         
-                        <Yearselector onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            projectYear: e.target.value
-                        })}  />
-                    </Box>
-                )}
-                {type === "Report" && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter Project Location</Text>
-                        <InputComponent onChange={(e: any) => setOtherData({
-                            ...otherData,
-                            projectLocation: e.target.value
-                        })} placeholder="" type='text' />
-                    </Box>
-                )}
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Publication Year</Text>
-                    <Yearselector
-                        name="publicationYear"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("publicationYear", true, true)
-                        }
-                        touch={formik.touched.publicationYear}
-                        error={formik.errors.publicationYear} />
+            )} */}
+                        {type === "Report" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ID Number</Text>
+                                <InputComponent onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    IDNumber: e.target.value
+                                })} placeholder="" type='text' />
+                            </Box>
+                        )}
+                        {type === "Report" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter Project Year</Text>
 
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Author</Text>
-                    <InputComponent
-                        name="author"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("author", true, true)
-                        }
-                        touch={formik.touched.author}
-                        error={formik.errors.author} placeholder="Author Name" type='text' />
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Language</Text>
-                    <Select
-                        name="language"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("language", true, true)
-                        } fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                        <option value={""} >Select Language</option>
-                        <option>English</option>
-                    </Select>
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
-                    <ImageSelector setImage={setImageFile} />
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Description</Text>
-                    <InputComponent
-                        name="description"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("description", true, true)
-                        }
-                        textarea={true}
-                        placeholder="Enter short description"
-                        touch={formik.touched.description}
-                        error={formik.errors.description} type='text' />
-                </Box>
+                                <Yearselector onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    projectYear: e.target.value
+                                })} />
+                            </Box>
+                        )}
+                        {type === "Report" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter Project Location</Text>
+                                <InputComponent onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    projectLocation: e.target.value
+                                })} placeholder="" type='text' />
+                            </Box>
+                        )}
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Publication Year</Text>
+                            <Yearselector
+                                name="publicationYear"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("publicationYear", true, true)
+                                }
+                                touch={formik.touched.publicationYear}
+                                error={formik.errors.publicationYear} />
 
-                <Button isLoading={uploaderMutation?.isLoading || addMutation?.isLoading} isDisabled={uploaderMutation?.isLoading || addMutation?.isLoading} type="submit" h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
-                    Create
-                </Button>
-            </Flex>
-        </form>
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Author</Text>
+                            <InputComponent
+                                name="author"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("author", true, true)
+                                }
+                                touch={formik.touched.author}
+                                error={formik.errors.author} placeholder="Author Name" type='text' />
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Language</Text>
+                            <Select
+                                name="language"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("language", true, true)
+                                } fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                <option value={""} >Select Language</option>
+                                <option>English</option>
+                            </Select>
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
+                            <ImageSelector setImage={setImageFile} />
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Description</Text>
+                            <InputComponent
+                                name="description"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("description", true, true)
+                                }
+                                textarea={true}
+                                placeholder="Enter short description"
+                                touch={formik.touched.description}
+                                error={formik.errors.description} type='text' />
+                        </Box>
+
+                        <Button isLoading={uploaderMutation?.isLoading || addMutation?.isLoading} isDisabled={uploaderMutation?.isLoading || addMutation?.isLoading} type="submit" h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+                            Create
+                        </Button>
+                    </Flex>
+                </form>
+            )} 
+            {index?.name && (
+                <Qrcode setOpen={clickHandler} type={index?.name} id={index?.id ? index?.id : ""} />
+            )}
+        </>
     )
 }
 

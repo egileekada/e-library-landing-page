@@ -13,8 +13,8 @@ function Returnbtn(props: ILibrary) {
     const {
         name,
         ISBN,
-        IDNumber,
-        borrowId,
+        IDNumber, 
+        id,
         table
     } = props
 
@@ -72,7 +72,7 @@ function Returnbtn(props: ILibrary) {
     const [qrCode, setQrCode] = useState("")
 
     useEffect(() => {
-        formik?.setFieldValue("recordId", borrowId)
+        formik?.setFieldValue("recordId", id)
     }, [])
 
 
@@ -92,6 +92,8 @@ function Returnbtn(props: ILibrary) {
             });
 
             queryClient.invalidateQueries(['libraryinfo'])
+            queryClient.invalidateQueries(['librarytable'])
+            
             setOpen(false)
 
             return response;
@@ -215,7 +217,7 @@ function Returnbtn(props: ILibrary) {
                                     formik.setFieldTouched("recordId", true, true)
                                 }
                                 value={formik?.values?.recordId}
-                                disabled={(borrowId || qrCode) ? true : false}
+                                disabled={(id || qrCode) ? true : false}
                                 touch={formik.touched.recordId}
                                 error={formik.errors.recordId} type='text' />
                             <Text mt={"3"} mb={"1"} color={"#101928"} fontSize={"14px"} fontWeight={"500"} lineHeight={"20.3px"} >Select Condition</Text>

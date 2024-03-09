@@ -186,12 +186,15 @@ export function PrintIcon() {
     )
 }
 
-export function PinIcon() {
+export function PinIcon(props: Props) {
+    const {
+        color
+    } = props
 
     return (
         <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_71_9961)">
-                <path d="M17.417 8.22617L15.3519 11.281C14.8893 11.9652 14.6858 12.7534 14.7238 13.5268L11.0581 11.0488C11.8104 10.7918 12.4537 10.3009 12.9081 9.62889L14.9731 6.5741L17.417 8.22617ZM20.0759 8.2433L13.9663 4.11314C13.6303 3.88598 13.1695 3.97506 12.9423 4.31108C12.7152 4.64711 12.8042 5.1079 13.1403 5.33506L13.7512 5.74807L11.6861 8.80286C11.0005 9.81705 9.62842 10.0823 8.61423 9.39669L7.7882 10.6186L11.4356 13.0843L8.54451 17.361L8.74245 18.385L9.76642 18.187L12.6575 13.9103L16.3416 16.4008L17.1676 15.1789C16.1535 14.4933 15.8882 13.1212 16.5738 12.107L18.6389 9.0522L19.2498 9.46521C19.5859 9.69237 20.0467 9.6033 20.2738 9.26727C20.501 8.93124 20.4119 8.47045 20.0759 8.2433Z" fill="#ADADAD" />
+                <path d="M17.417 8.22617L15.3519 11.281C14.8893 11.9652 14.6858 12.7534 14.7238 13.5268L11.0581 11.0488C11.8104 10.7918 12.4537 10.3009 12.9081 9.62889L14.9731 6.5741L17.417 8.22617ZM20.0759 8.2433L13.9663 4.11314C13.6303 3.88598 13.1695 3.97506 12.9423 4.31108C12.7152 4.64711 12.8042 5.1079 13.1403 5.33506L13.7512 5.74807L11.6861 8.80286C11.0005 9.81705 9.62842 10.0823 8.61423 9.39669L7.7882 10.6186L11.4356 13.0843L8.54451 17.361L8.74245 18.385L9.76642 18.187L12.6575 13.9103L16.3416 16.4008L17.1676 15.1789C16.1535 14.4933 15.8882 13.1212 16.5738 12.107L18.6389 9.0522L19.2498 9.46521C19.5859 9.69237 20.0467 9.6033 20.2738 9.26727C20.501 8.93124 20.4119 8.47045 20.0759 8.2433Z" fill={color ? "#3C41F0" : "#ADADAD" } />
             </g>
             <defs>
                 <clipPath id="clip0_71_9961">
@@ -323,6 +326,23 @@ export function CircleChart() {
         </svg>
 
     )
+} 
+
+export const ScanIcon = ( ) => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="vuesax/linear/scan">
+        <g id="scan">
+          <path id="Vector" d="M2 9V6.5C2 4.01 4.01 2 6.5 2H9" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Vector_2" d="M15 2H17.5C19.99 2 22 4.01 22 6.5V9" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Vector_3" d="M22 16V17.5C22 19.99 19.99 22 17.5 22H16" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Vector_4" d="M9 22H6.5C4.01 22 2 19.99 2 17.5V15" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Vector_5" d="M17 9.5V14.5C17 16.5 16 17.5 14 17.5H10C8 17.5 7 16.5 7 14.5V9.5C7 7.5 8 6.5 10 6.5H14C16 6.5 17 7.5 17 9.5Z" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path id="Vector_6" d="M19 12H5" stroke="#3C41F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      </g>
+    </svg>
+  )
 }
 
 export function AreaChart() {

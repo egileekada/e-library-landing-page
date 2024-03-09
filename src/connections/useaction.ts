@@ -236,6 +236,23 @@ export function useUploaderCallback() {
   return { handleUploader }
 }
 
+export function usePinCallback() {
+  const handlePin = async (postData: any): Promise<any> => {
+    try {
+      const response = await axios.put('/partner/pin/'+postData, {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      return response
+    } catch (err: any) {
+      return err?.response
+    }
+  }
+  return { handlePin }
+}
+
 export function useGetDataCallback() {
   const handleGetData = async (url: string, params?: any): Promise<any> => {
     try {
@@ -250,4 +267,4 @@ export function useGetDataCallback() {
     }
   }
   return { handleGetData }
-}
+} 

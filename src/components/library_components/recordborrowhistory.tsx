@@ -2,14 +2,14 @@
 // import { useQuery } from 'react-query'
 // import { useNavigate } from 'react-router-dom'
 // import actionService from '../../connections/getdataaction'
-import { Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { BorrowData, ILibrary } from '../../models'
 import { dateFormat } from '../../util/dateFormat'
 import LoadingAnimation from '../shared_components/loading_animation'
 import Returnbtn from './returnbtn'
-import { useState } from 'react'
-import ModalLayout from '../shared_components/modal_layout'
-import Qrcode from '../shared_components/qrcode'
+// import { useState } from 'react'
+// import ModalLayout from '../shared_components/modal_layout'
+// import Qrcode from '../shared_components/qrcode'
 
 interface Props {
     info: ILibrary
@@ -23,7 +23,7 @@ function Recordborrowhistory(props: Props) {
     } = props
 
 
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
 
     const statuscomponent = (item: string) => {
         if (item === "RETURNED") {
@@ -110,18 +110,13 @@ function Recordborrowhistory(props: Props) {
                                                 <Returnbtn table={true} {...info} borrowId={item?.id} />
                                             )}
 
-                                            {item?.status !== "RETURNED" && (
-                                                <Text as={"button"} onClick={()=> setOpen(true)} ml={"3"} lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
-                                            )}
-
-
                                         </Flex>
 
-                                        <ModalLayout size={"md"} open={open} close={setOpen} title={""} >
+                                        {/* <ModalLayout size={"md"} open={open} close={setOpen} title={""} >
 
                                             <Qrcode setOpen={setOpen} type={info?.name ? info?.name : ""} id={item?.id ? item?.id : "" as any} />
 
-                                        </ModalLayout>
+                                        </ModalLayout> */}
                                     </Td>
                                 </Tr>
                             )

@@ -48,7 +48,7 @@ function Tiles(props: ILibrary) {
 
                 <Flex w={"full"} gap={"2"} alignItems={"end"} >
                     <Box w={"80px"} h={"auto"} bgColor="gray" borderWidth={"3px"} rounded={"12px"}  >
-                        <Image w={"full"} h={"full"} rounded={"12px"} src={thumbnail} objectFit={"contain"} alt='parnter' />
+                        <Image w={"full"} h={"auto"} rounded={"12px"} src={thumbnail} objectFit={"contain"} alt='parnter' />
                     </Box>
                 </Flex> 
                 {statuscomponent(status ? status : "")}

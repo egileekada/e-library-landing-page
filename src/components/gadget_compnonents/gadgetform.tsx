@@ -5,17 +5,19 @@ import InputComponent from '../shared_components/custom_input'
 import ImageSelector from '../shared_components/image_selector'
 import { useAddGadgetCallback, useUpdateGadgetCallback, useUploaderCallback } from '../../connections/useaction'
 import { useMutation, useQueryClient } from 'react-query';
-import { ICreateGadget } from '../../models';
+import { ICreateGadget, IGadgetData } from '../../models';
 import { useEffect, useState } from 'react';
+import Qrcode from '../shared_components/qrcode';
 
 interface Props {
+    open?: boolean
     edit?: boolean,
     data?: ICreateGadget
     close: (by: boolean) => void
 }
 
 function Gadgetform(props: Props) {
-    const {
+    const { 
         edit,
         data,
         close
@@ -23,6 +25,8 @@ function Gadgetform(props: Props) {
 
 
     const queryClient = useQueryClient()
+
+    const [index, setIndex] = useState({} as IGadgetData)
 
     const toast = useToast()
     const { handleAddGadget } = useAddGadgetCallback();
@@ -61,13 +65,12 @@ function Gadgetform(props: Props) {
             setImageFile(data?.picture ? data?.picture : "")
 
         }
-    }, [])
+    }, []) 
 
     //API call to handle adding user
     const addGadgetMutation = useMutation(async (formData: ICreateGadget) => {
         const response = await handleAddGadget(formData);
 
-        console.log(response);
 
         if (response?.status === 201 || response?.status === 200) {
 
@@ -79,6 +82,7 @@ function Gadgetform(props: Props) {
             });
 
             queryClient.invalidateQueries(['gadgettable'])
+            setIndex({...index, id: response?.data?.data?.id, type: response?.data?.data?.type});
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -234,79 +238,92 @@ function Gadgetform(props: Props) {
 
     }
 
-    return (
-        <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
-            <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Equipment</Text>
-                    <InputComponent
-                        name="type"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("type", true, true)
-                        }
-                        value={formik?.values.type}
-                        isDisabled={edit}
-                        touch={formik.touched.type}
-                        error={formik.errors.type}
-                        type='text' />
-                </Box>
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Manufacturer</Text>
-                    <InputComponent
-                        name="manufacturer"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("manufacturer", true, true)
-                        }
-                        value={formik?.values.manufacturer}
-                        isDisabled={edit}
-                        touch={formik.touched.manufacturer}
-                        error={formik.errors.manufacturer} type='text' />
-                </Box>
-                <Flex gap={"4"} >
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Serial Number</Text>
-                        <InputComponent
-                            name="serialNumber"
-                            onChange={formik.handleChange}
-                            onFocus={() =>
-                                formik.setFieldTouched("serialNumber", true, true)
-                            }
-                            isDisabled={edit}
-                            value={formik?.values.serialNumber}
-                            touch={formik.touched.serialNumber}
-                            error={formik.errors.serialNumber} type='text' />
-                    </Box>
-                    {edit && ( 
-                        <Box w={"full"} >
-                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
-                            <Select
-                                name="state"
-                                onChange={formik.handleChange}
-                                value={formik?.values.state}
-                                onFocus={() =>
-                                    formik.setFieldTouched("state", true, true)
-                                } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
-                                <option>ACTIVE</option>
-                                <option>TEMPORARILY_DISABLED</option>
-                                <option>PERMANENTLY_DISABLED</option>
-                            </Select>
-                        </Box>
-                    )}
-                </Flex>
-                {!edit && (
-                    <Box w={"full"} >
-                        <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
-                        <ImageSelector image={data?.picture} setImage={setImageFile} />
-                    </Box>
-                )}
+    const clickHandler =(item: boolean)=> {
+        close(item)
+        setIndex({} as IGadgetData)
+    }
 
-                <Button type="submit" isLoading={addGadgetMutation?.isLoading || updateGadgetMutation?.isLoading || uploaderMutation?.isLoading} isDisabled={addGadgetMutation?.isLoading || updateGadgetMutation?.isLoading || uploaderMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
-                    {edit ? "Update Gadget" : "Add Gadget"}
-                </Button>
-            </Flex>
-        </form>
+    return (
+        <>
+            {!index?.id && (
+
+                <form style={{ width: "full" }} onSubmit={(e) => submit(e)} >
+                    <Flex w={"full"} gap={"4"} flexDir={"column"} pb={"4"} >
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Equipment</Text>
+                            <InputComponent
+                                name="type"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("type", true, true)
+                                }
+                                value={formik?.values.type}
+                                isDisabled={edit}
+                                touch={formik.touched.type}
+                                error={formik.errors.type}
+                                type='text' />
+                        </Box>
+                        <Box w={"full"} >
+                            <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Manufacturer</Text>
+                            <InputComponent
+                                name="manufacturer"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("manufacturer", true, true)
+                                }
+                                value={formik?.values.manufacturer}
+                                isDisabled={edit}
+                                touch={formik.touched.manufacturer}
+                                error={formik.errors.manufacturer} type='text' />
+                        </Box>
+                        <Flex gap={"4"} >
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Serial Number</Text>
+                                <InputComponent
+                                    name="serialNumber"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("serialNumber", true, true)
+                                    }
+                                    isDisabled={edit}
+                                    value={formik?.values.serialNumber}
+                                    touch={formik.touched.serialNumber}
+                                    error={formik.errors.serialNumber} type='text' />
+                            </Box>
+                            {edit && (
+                                <Box w={"full"} >
+                                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Status</Text>
+                                    <Select
+                                        name="state"
+                                        onChange={formik.handleChange}
+                                        value={formik?.values.state}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("state", true, true)
+                                        } placeholder='Select Status' fontSize={"14px"} bgColor="#FCFCFC" borderColor="#BDBDBD" _hover={{ borderColor: "#BDBDBD" }} _focus={{ backgroundColor: "#FCFCFC" }} focusBorderColor="#BDBDBD" height={"45px"}>
+                                        <option>ACTIVE</option>
+                                        <option>TEMPORARILY_DISABLED</option>
+                                        <option>PERMANENTLY_DISABLED</option>
+                                    </Select>
+                                </Box>
+                            )}
+                        </Flex>
+                        {!edit && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Image</Text>
+                                <ImageSelector image={data?.picture} setImage={setImageFile} />
+                            </Box>
+                        )}
+
+                        <Button type="submit" isLoading={addGadgetMutation?.isLoading || updateGadgetMutation?.isLoading || uploaderMutation?.isLoading} isDisabled={addGadgetMutation?.isLoading || updateGadgetMutation?.isLoading || uploaderMutation?.isLoading} h={"45px"} gap={"2"} rounded={"5px"} width={"full"} mt={"4"} bgColor={"#1F7CFF"} _hover={{ backgroundColor: "#1F7CFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"white"} >
+                            {edit ? "Update Gadget" : "Add Gadget"}
+                        </Button>
+                    </Flex>
+                </form>
+            )}
+            {index?.id && ( 
+                <Qrcode setOpen={clickHandler} type={index?.type} id={index?.id} />
+            )}
+        </>
     )
 }
 

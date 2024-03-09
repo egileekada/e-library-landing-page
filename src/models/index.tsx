@@ -62,7 +62,8 @@ export interface IAdmin {
     id?: string | number,
     createdAt?: string,
     password?: string,
-    staffId?: string
+    staffId?: string,
+    role?: string
 } 
 
 export interface IPartner {
@@ -71,7 +72,8 @@ export interface IPartner {
     partnerResourceUrl?: string,
     imageUrl?: string, 
     id?: string | number,
-    createdAt?: string
+    createdAt?: string,
+    pinned?: boolean
 }  
 
 export interface IBorrow {
@@ -96,7 +98,7 @@ export interface ILibrary {
     projectYear?: string,  
     projectLocation?: string,  
     value?: string | number,
-    id?: string | number,
+    id?: string,
     status?: string,
     Borrowing?: Array<BorrowData>
     borrowId?: string | number,
