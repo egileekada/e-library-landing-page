@@ -7,6 +7,7 @@ import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata';
 import MoreOption from '../shared_components/more_options';
 import { cleanup } from '../../util/cleanup';
+import { capitalizeFLetter } from '../../util/capitalLetter';
 // import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -110,8 +111,8 @@ function GadgetTable(props: Props) {
                                                 <Image w={"full"} h={"full"} rounded={"4px"} src={item?.picture ? item?.picture : "/placeholder.png"} objectFit={"cover"} alt='image' />
                                             </Box> 
                                     </Td>
-                                    <Td>{item?.type?.length > 12 ? item?.type.slice(0, 12) + "..." : item?.type}</Td>
-                                    <Td>{item?.manufacturer?.length > 12 ? item?.manufacturer.slice(0, 12) + "..." : item?.manufacturer}</Td>
+                                    <Td>{item?.type?.length > 12 ? capitalizeFLetter(item?.type.slice(0, 12) + "...") : capitalizeFLetter(item?.type)}</Td>
+                                    <Td>{item?.manufacturer?.length > 12 ? capitalizeFLetter(item?.manufacturer.slice(0, 12) + "...") : capitalizeFLetter(item?.manufacturer)}</Td>
                                     <Td>{item?.serialNumber}</Td>
                                     <Td>
                                         <Flex gap={"3"} alignItems={"center"} >

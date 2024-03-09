@@ -5,6 +5,7 @@ import { IAdmin } from '../../models';
 import LoadingAnimation from '../shared_components/loading_animation';
 import actionService from '../../connections/getdataaction';
 import filterdata from '../../store/filterdata'; 
+import { capitalizeFLetter } from '../../util/capitalLetter';
 
 interface Props {
     tableRef: any
@@ -88,7 +89,7 @@ function Admintable(props: Props) {
                                             </Box>
                                         {/* // )}  */}
                                     </Td>
-                                    <Td>{item?.name?.length > 12 ? item?.name.slice(0, 12) + "..." : item?.name}</Td>
+                                    <Td>{item?.name?.length > 12 ? capitalizeFLetter(item?.name.slice(0, 12) + "..." ): capitalizeFLetter(item?.name)}</Td>
                                     {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td> */}
                                     <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
                                     <Td>{item?.staffId}</Td>
