@@ -6,7 +6,7 @@ import LoadingAnimation from '../shared_components/loading_animation'
 
 interface Props {
     tableRef?: any,
-    data: any
+    data: any 
 }
 
 function Borrowtable(props: Props) {

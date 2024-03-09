@@ -6,7 +6,9 @@ export interface IUserData {
     name: string;
     phone: string;
     staffId: string;
-    profilePicture?: string
+    profilePicture?: string;
+    Borrowing?: Array<BorrowData>;
+    createdAt?: string
 } 
 
 export interface ICreateUser {

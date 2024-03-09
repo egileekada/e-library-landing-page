@@ -132,7 +132,7 @@ function Borrowbtn(props: ILibrary) {
                                 <Text textAlign={"center"} fontSize={"14px"} lineHeight={"20.3px"} color={"#828282"} >ID Number: {IDNumber}</Text>
                             )}
                             {/* <Text textAlign={"center"} fontSize={"14px"} lineHeight={"20.3px"} color={"#828282"} >ID Number: 125678</Text> */}
-                            <Text mt={"3"} mb={"1"} color={"#101928"} fontSize={"14px"} fontWeight={"500"} lineHeight={"20.3px"} >Start Date</Text>
+                            <Text mt={"3"} mb={"1"} color={"#101928"} fontSize={"14px"} fontWeight={"500"} lineHeight={"20.3px"} >Borrow Date</Text>
                             <InputComponent
                                 name="startDate"
                                 onChange={formik.handleChange}
