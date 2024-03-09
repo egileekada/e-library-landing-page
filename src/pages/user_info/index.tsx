@@ -6,7 +6,7 @@ import actionService from '../../connections/getdataaction'
 import LoadingAnimation from '../../components/shared_components/loading_animation'
 import Borrowtable from '../../components/user_components/borrowtable'
 import { dateFormat } from '../../util/dateFormat'
-import { useNavigate } from 'react-router-dom' 
+import { useNavigate } from 'react-router-dom'
 
 interface Props { }
 
@@ -14,7 +14,7 @@ function UserInfo(props: Props) {
     const { } = props
 
     const toast = useToast()
-    const [data, setData] = useState({} as any) 
+    const [data, setData] = useState({} as any)
 
     const userId = localStorage.getItem("currentuser")
 
@@ -32,7 +32,7 @@ function UserInfo(props: Props) {
             console.log(error);
 
         },
-        onSuccess: (data: any) => { 
+        onSuccess: (data: any) => {
             setData(data?.data?.data);
         }
     })
@@ -42,6 +42,9 @@ function UserInfo(props: Props) {
             navigate("/dashboard/user")
         }
     }, [])
+
+    console.log(data);
+
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
@@ -63,8 +66,16 @@ function UserInfo(props: Props) {
                             </Box>
                         </Flex>
                         <Text fontSize={"16px"} mt={"3"} lineHeight={"32.4px"} >Joined: <span style={{ fontWeight: "600" }} >{dateFormat(data?.createdAt)}</span></Text>
-                        <Text fontSize={"16px"} lineHeight={"32.4px"} >Borrowed: <span style={{ fontWeight: "600" }} >{data?.Borrowing[0]?.record?.name}</span></Text>
-                        <Text fontSize={"16px"} lineHeight={"32.4px"} >To Be Returned: <span style={{ fontWeight: "600" }} >{dateFormat(data?.Borrowing[0]?.endDate)}</span></Text>
+                        {data?.Borrowing?.length > 0 && (
+                            <>
+                                {data?.Borrowing[0]?.record?.status === "NOT_AVAILABLE" && (
+                                    <> 
+                                        <Text fontSize={"16px"} lineHeight={"32.4px"} >Borrowed: <span style={{ fontWeight: "600" }} >{data?.Borrowing[0]?.record?.name}</span></Text>
+                                        <Text fontSize={"16px"} lineHeight={"32.4px"} >To Be Returned: <span style={{ fontWeight: "600" }} >{dateFormat(data?.Borrowing[0]?.endDate)}</span></Text>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </Box>
                 </Flex>
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} borderColor={"#BDBDBD"} >
@@ -73,7 +84,7 @@ function UserInfo(props: Props) {
                 </Flex>
                 <Flex w={"full"} py={"6"} flexDir={"column"} gap={"4"} >
                     <Text fontSize={"18px"} lineHeight={"26.1px"} fontWeight={"600"} >Borrow History</Text>
-                    <Borrowtable  data={data?.Borrowing} />
+                    <Borrowtable data={data?.Borrowing} />
                 </Flex>
             </Flex>
         </LoadingAnimation>
