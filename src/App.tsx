@@ -10,8 +10,9 @@ import GadgetsPage from './pages/gadgets';
 import EquipmentPage from './pages/equipment';
 import AdminPage from './pages/personnel';
 import LibraryPage from './pages/library';
-import LibraryInfo from './pages/library_info'; 
+import LibraryInfo from './pages/library_info';
 import PartnerInfo from './pages/partner_info';
+import Home from './pages/home';
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
     createRoutesFromElements(
       <Route path="/">
         <Route index element={<LoginPage />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/home/info' element={<PartnerInfo />} />
         <Route path='/dashboard' element={<DashboardLayout />} >
           <Route path='/dashboard/home' element={<DashboardPage />} />
           <Route path='/dashboard/elibrary' element={<Elibrary />} />

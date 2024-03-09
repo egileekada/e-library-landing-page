@@ -387,7 +387,7 @@ function Libraryform(props: Props) {
                 </form>
             )} 
             {index?.name && (
-                <Qrcode setOpen={clickHandler} type={index?.name} id={index?.id ? index?.id : ""} />
+                <Qrcode setOpen={clickHandler} type={index?.name} id={index?.id+""} />
             )}
         </>
     )
