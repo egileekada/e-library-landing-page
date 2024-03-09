@@ -96,10 +96,10 @@ function Libraryform(props: Props) {
             });
 
             queryClient.invalidateQueries(['librarytable'])
-            setIndex({...index, id: response?.data?.data?.id, name: response?.data?.data?.name});
+            setIndex({ ...index, id: response?.data?.data?.id, name: response?.data?.data?.name });
 
             console.log(response);
-            
+
 
             return response;
         } else if (response?.data?.statusCode === 400) {
@@ -159,7 +159,7 @@ function Libraryform(props: Props) {
         const literatureData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author, 
+            author: formik.values.author,
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
@@ -171,7 +171,7 @@ function Libraryform(props: Props) {
         const BookData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author, 
+            author: formik.values.author,
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
@@ -182,7 +182,7 @@ function Libraryform(props: Props) {
         const reportData = {
             name: formik.values.name,
             description: formik.values.description,
-            author: formik.values.author, 
+            author: formik.values.author,
             value: formik.values.value,
             publicationYear: formik.values.publicationYear,
             language: formik.values.language,
@@ -221,7 +221,7 @@ function Libraryform(props: Props) {
 
     }
 
-    const clickHandler =(item: boolean)=> {
+    const clickHandler = (item: boolean) => {
         close(item)
         setIndex({} as ILibrary)
     }
@@ -274,7 +274,7 @@ function Libraryform(props: Props) {
                         </Box>
                         {type === "Book" && (
                             <Box w={"full"} >
-                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISBN / DOI</Text>
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ISBN</Text>
                                 <InputComponent onChange={(e: any) => setOtherData({
                                     ...otherData,
                                     ISBN: e.target.value
@@ -290,15 +290,15 @@ function Libraryform(props: Props) {
                                 })} placeholder="" type='text' />
                             </Box>
                         )}
-                        {/* {type === "Journal" && (
-                <Box w={"full"} >
-                    <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
-                    <InputComponent onChange={(e: any) => setOtherData({
-                        ...otherData,
-                        DOI: e.target.value
-                    })} placeholder="" type='text' />
-                </Box>
-            )} */}
+                        {type === "Journal" && (
+                            <Box w={"full"} >
+                                <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter DOI</Text>
+                                <InputComponent onChange={(e: any) => setOtherData({
+                                    ...otherData,
+                                    DOI: e.target.value
+                                })} placeholder="" type='text' />
+                            </Box>
+                        )}
                         {type === "Report" && (
                             <Box w={"full"} >
                                 <Text color={"#101928"} fontSize={"14px"} fontWeight={"500"} mb={"1"} >Enter ID Number</Text>
@@ -385,9 +385,9 @@ function Libraryform(props: Props) {
                         </Button>
                     </Flex>
                 </form>
-            )} 
+            )}
             {index?.name && (
-                <Qrcode setOpen={clickHandler} type={index?.name} id={index?.id+""} />
+                <Qrcode setOpen={clickHandler} type={index?.name} id={index?.id + ""} />
             )}
         </>
     )
