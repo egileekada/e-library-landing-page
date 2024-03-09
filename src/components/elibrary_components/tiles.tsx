@@ -14,7 +14,7 @@ function Tiles(props: IPartner) {
         partnerName,
         partnerResourceName,
         pinned,
-        id
+        id, 
     } = props
 
     const navigate = useNavigate()

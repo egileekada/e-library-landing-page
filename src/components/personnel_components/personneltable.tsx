@@ -89,9 +89,9 @@ function Admintable(props: Props) {
                                             </Box>
                                         {/* // )}  */}
                                     </Td>
-                                    <Td>{item?.name?.length > 12 ? capitalizeFLetter(item?.name.slice(0, 12) + "..." ): capitalizeFLetter(item?.name)}</Td>
+                                    <Td>{item?.name?.length > 13 ? capitalizeFLetter(item?.name.slice(0, 12) + "..." ): capitalizeFLetter(item?.name)}</Td>
                                     {/* <Td>{item?.staffId ? "Staff" : "Guest"}</Td> */}
-                                    <Td>{item?.email?.length > 12 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
+                                    <Td>{item?.email?.length > 13 ? item?.email.slice(0, 12) + "..." : item?.email}</Td>
                                     <Td>{item?.staffId}</Td>
                                     <Td>{item?.phone}</Td>
                                 </Tr>

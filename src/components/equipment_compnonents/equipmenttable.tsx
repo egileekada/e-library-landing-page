@@ -116,7 +116,7 @@ function EquipmentTable(props: Props) {
                                             <Box w={"48px"} h={"48px"} rounded={"4px"} bgColor={"grey"} />
                                         )} */}
                                     </Td>
-                                    <Td>{item?.type?.length > 12 ? capitalizeFLetter(item?.type.slice(0, 12) + "...") : capitalizeFLetter(item?.type)}</Td> 
+                                    <Td>{item?.type?.length > 13 ? capitalizeFLetter(item?.type.slice(0, 12)) + "..." : capitalizeFLetter(item?.type)}</Td> 
                                     <Td>{item?.count}</Td>
                                     <Td>
                                         <Flex gap={"3"} alignItems={"center"} >
