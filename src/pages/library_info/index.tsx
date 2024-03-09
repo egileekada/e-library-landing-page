@@ -51,7 +51,10 @@ function LibraryInfo(props: Props) {
         if (!userId) {
             navigate("/dashboard/user")
         }
-    }, []) 
+    }, [])
+
+    console.log(data);
+
 
     return (
         <LoadingAnimation loading={isLoading} refeching={isRefetching} >
@@ -73,12 +76,14 @@ function LibraryInfo(props: Props) {
 
                         <Flex as={"button"} alignItems={"center"} gap={"2"} my={"auto"} onClick={() => setOpen(true)} >
                             <ScanIcon />
-                            <Text as={"button"} textAlign={"left"}lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
+                            <Text as={"button"} textAlign={"left"} lineHeight={"19.36px"} fontWeight={"500"} >Qr_code</Text>
                         </Flex>
                         <Flex mt={"auto"} alignItems={"center"} justifyItems={"center"} gap={"4"} >
-                            <Box w={"200px"} >
-                                <Returnbtn {...data} />
-                            </Box>
+                            {data?.status === "NOT_AVAILABLE" && (
+                                <Box w={"200px"} >
+                                    <Returnbtn {...data} />
+                                </Box>
+                            )}
                             <DeleteRecords id={data?.id} />
                         </Flex>
                     </Flex>
@@ -96,7 +101,6 @@ function LibraryInfo(props: Props) {
                     <Text fontSize={"16px"} lineHeight={"24px"} fontWeight={"400"} color={"#333333"} >{data?.description}</Text>
                     <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Category: <span style={{ fontWeight: "400" }} >{data?.category}</span></Text>
                     <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Author: <span style={{ fontWeight: "400" }} >{data?.author}</span></Text>
-                    <Text fontSize={"14px"} fontWeight={"600"} lineHeight={"20.3px"} >Total Number Of Copies: <span style={{ fontWeight: "400" }} >{data?.totalCount}</span></Text>
                 </Flex>
                 <Flex w={"full"} borderBottomWidth={"0.5px"} gap={"2"} py={"6"} flexDir={"column"} color={"#4F4F4F"} borderColor={"#BDBDBD"} >
                     <Recordborrowhistory info={data} data={data?.Borrowing ? data?.Borrowing : []} />
@@ -105,7 +109,7 @@ function LibraryInfo(props: Props) {
 
             <ModalLayout size={"md"} open={open} close={setOpen} title={""} >
 
-                <Qrcode setOpen={setOpen} type={data?.name ? data?.name : ""} id={data?.id+""} />
+                <Qrcode setOpen={setOpen} type={data?.name ? data?.name : ""} id={data?.id + ""} />
 
             </ModalLayout>
 

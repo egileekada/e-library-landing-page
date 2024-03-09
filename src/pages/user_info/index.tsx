@@ -32,10 +32,7 @@ function UserInfo(props: Props) {
             console.log(error);
 
         },
-        onSuccess: (data: any) => {
-
-            console.log(data?.data)
-
+        onSuccess: (data: any) => { 
             setData(data?.data?.data);
         }
     })
