@@ -34,7 +34,7 @@ function Home(props: Props) {
 
     return (
         <Flex height={"100vh"} w={"full"} flexDirection={"column"} h={"100vh"} >
-            <Flex px={"6"} bgColor={"white"} alignItems={"center"} justifyContent={"space-between"} shadow={"lg"} h={"130px"} position={"sticky"} top={"0px"} width={"full"} >
+            <Flex px={"6"} bgColor={"white"} alignItems={"center"} justifyContent={"space-between"} shadow={"lg"} py={"4"} position={"sticky"} top={"0px"} width={"full"} >
                 <Flex fontWeight={"600"} fontSize={"xl"} alignItems={"center"} gap={"3"} width={"fit-content"} >
                     <Logo w={"60"} />
                     NDDC
