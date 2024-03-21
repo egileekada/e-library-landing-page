@@ -13,8 +13,7 @@ function Tiles(props: IPartner) {
 
     return (
         <Flex w={"full"} h={"full"} textAlign={"left"} flexDir={"column"} pos={"relative"} p={"4"} >
-            <Flex w={"full"} gap={"2"} alignItems={"end"} >
-
+            <Flex w={"full"} gap={"2"} alignItems={"end"} > 
                 <Box w={"80px"} h={"auto"} bgColor="gray" borderWidth={"3px"} rounded={"12px"}  >
                     <Image w={"full"} h={"full"} rounded={"12px"} src={imageUrl} objectFit={"contain"} alt='parnter' />
                 </Box>

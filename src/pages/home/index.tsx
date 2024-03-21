@@ -1,36 +1,21 @@
-import { Button, Flex, Grid, GridItem } from '@chakra-ui/react'
+import { Button, Flex, Grid, GridItem, Spinner } from '@chakra-ui/react'
 import { useState } from 'react'
-import actionService from '../../connections/getdataaction'
-import { focusManager, useQuery } from 'react-query'
 import { IPartner } from '../../models'
 import LoadingAnimation from '../../components/shared_components/loading_animation'
 import Tiles from './tiles'
 import { Logo } from '../../components/shared_components/svg'
+import PinData from '../pinneddata'
+import InfiniteScrollerComponent from '../../util/infiniteScrollerComponent'
 
 interface Props { }
 
 function Home(props: Props) {
     const { } = props
     const [data, setData] = useState([] as Array<any>)
+    const [loading, setLoading] = useState(false)
 
-    focusManager.setFocused(false)
 
-    const { isLoading } = useQuery(['partnertable'], () => actionService.getservicedata(`/partner/filter`,
-        {
-            // page: page,
-            limit: 100,
-            // keyword: search ? search : null
-        }), {
-        onError: (error: any) => {
-            console.log(error);
-
-        },
-        onSuccess: (data: any) => {
-            setData(data?.data?.data);
-            console.log(data);
-
-        }
-    })
+    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/partner/filter`, limit: 7, filter: "id" })
 
     return (
         <Flex height={"100vh"} w={"full"} flexDirection={"column"} h={"100vh"} >
@@ -43,23 +28,43 @@ function Home(props: Props) {
                     Login
                 </Button>
             </Flex>
-            {/* <Box pos={"fixed"}  opacity={"30%"} inset={"0px"} bgColor={"#CACAFC"} zIndex={"10"} />
-            <Image pos={"fixed"} inset={"0px"} zIndex={"0"} src='map.svg' alt='map' /> */}
-            <LoadingAnimation loading={isLoading} >
+            <LoadingAnimation loading={isLoading && loading} >
                 <Flex zIndex={"20"} flexDirection={"column"} w={"full"} py={"6"} overflowY={"auto"} >
                     {/* <Text color={"#000096"} textAlign={"center"} fontSize={"40px"} fontWeight={"700"} >NDDC Global Resource Partners</Text> */}
                     <Flex justifyContent={"center"} pt={"8"} >
                         <Grid templateColumns='repeat(4, 1fr)' gap={4} pt={"6"} w={["full", "full", "full", "full", "85%", "75%", "70%"]} px={"12"} py={"4"}>
                             {data?.map((item: IPartner, index: number) => {
                                 return (
-                                    <GridItem key={index} maxW={"400px"} w={"full"} borderWidth={"0.5px"} rounded={"10px"} bgColor={"#FCFCFC"} borderColor={"#BDBDBD"} >
+                                    <GridItem key={index} w={"full"} borderWidth={"0.5px"} rounded={"10px"} bgColor={"#FCFCFC"} borderColor={"#BDBDBD"} >
                                         <Tiles id={item?.id} imageUrl={item?.imageUrl} partnerName={item?.partnerName} partnerResourceName={item?.partnerResourceName} partnerResourceUrl={item?.partnerResourceUrl} pinned={item?.pinned} />
                                     </GridItem>
                                 )
                             })}
+                            {results?.map((item: IPartner, index: number) => {
+                                if (results.length === index + 1) {
+                                    return (
+                                        <GridItem key={index} w={"full"} borderWidth={"0.5px"} rounded={"10px"} bgColor={"#FCFCFC"} borderColor={"#BDBDBD"} ref={ref} >
+                                            <Tiles id={item?.id} imageUrl={item?.imageUrl} partnerName={item?.partnerName} partnerResourceName={item?.partnerResourceName} partnerResourceUrl={item?.partnerResourceUrl} pinned={item?.pinned} />
+                                        </GridItem>
+                                    )
+                                } else {
+                                    return (
+                                        <GridItem key={index} w={"full"} borderWidth={"0.5px"} rounded={"10px"} bgColor={"#FCFCFC"} borderColor={"#BDBDBD"} >
+                                            <Tiles id={item?.id} imageUrl={item?.imageUrl} partnerName={item?.partnerName} partnerResourceName={item?.partnerResourceName} partnerResourceUrl={item?.partnerResourceUrl} pinned={item?.pinned} />
+                                        </GridItem>
+                                    )
+                                }
+                            })}
+
+                            {isRefetching && (
+                                <GridItem display={"flex"} justifyContent={"center"} alignItems={"center"} >
+                                    <Spinner />
+                                </GridItem>
+                            )}
                         </Grid>
                     </Flex>
                 </Flex>
+                <PinData setLoading={setLoading} setdata={setData} />
             </LoadingAnimation>
         </Flex>
     )
