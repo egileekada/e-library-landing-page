@@ -4,10 +4,10 @@ interface Props {
     color?: string
 }
 
-export function Logo() {
+export function Logo(props: any) {
 
     return (
-        <svg width="109" height="109" viewBox="0 0 109 109" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg width={props?.w ? props?.w : "109"} height={props?.w ? props?.w : "109"}  viewBox="0 0 109 109" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <rect width="109" height="109" fill="url(#pattern0)" />
             <defs>
                 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
