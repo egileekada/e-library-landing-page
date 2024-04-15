@@ -15,7 +15,7 @@ function Home(props: Props) {
     const [loading, setLoading] = useState(false)
 
 
-    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/partner/filter`, limit: 7, filter: "id" })
+    const { results, isLoading, ref, isRefetching } = InfiniteScrollerComponent({ url: `/partner/filter`, limit: 20, filter: "id" })
 
     return (
         <Flex height={"100vh"} w={"full"} flexDirection={"column"} h={"100vh"} >
