@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, GridItem, Spinner } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Spinner } from '@chakra-ui/react'
 import { useState } from 'react'
 import { IPartner } from '../../models'
 import LoadingAnimation from '../../components/shared_components/loading_animation'
@@ -23,10 +23,7 @@ function Home(props: Props) {
                 <Flex fontWeight={"600"} fontSize={"xl"} alignItems={"center"} gap={"3"} width={"fit-content"} >
                     <Logo w={"60"} />
                     NDDC
-                </Flex>
-                <Button h={"45px"} w={"150px"} border={"1px solid #1F7CFF"} gap={"2"} rounded={"5px"} bgColor={"#FFF"} _hover={{ backgroundColor: "#FFF" }} display={"flex"} alignItems={"center"} justifyContent={"center"} color={"#1F7CFF"} >
-                    Login
-                </Button>
+                </Flex> 
             </Flex>
             <LoadingAnimation loading={isLoading && loading} >
                 <Flex zIndex={"20"} flexDirection={"column"} w={"full"} py={"6"} overflowY={"auto"} >
