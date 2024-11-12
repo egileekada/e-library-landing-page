@@ -20,8 +20,7 @@ function Tiles(props: IPartner) {
                 </Box>
             </Flex>
             <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{textLimit(capitalizeFLetter(partnerName), 20)}</Text>
-            <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {textLimit(partnerResourceName, 25)}</Text>
-            {/* <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >PID Number: {id}</Text> */}
+            <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {textLimit(partnerResourceName, 25)}</Text> 
             <Flex w={"full"} pt={"3"} gap={"4"} mt={"auto"}  >
 
                 <a href={partnerResourceUrl} style={{ width: "100%" }} target="_blank" >
