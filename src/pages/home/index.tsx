@@ -5,7 +5,7 @@ import LoadingAnimation from '../../components/shared_components/loading_animati
 import Tiles from './tiles'
 import { Logo } from '../../components/shared_components/svg'
 import PinData from '../pinneddata'
-import InfiniteScrollerComponent from '../../util/infiniteScrollerComponent'
+// import InfiniteScrollerComponent from '../../util/infiniteScrollerComponent'
 import { useQuery } from 'react-query'
 import { cleanup } from '../../util/cleanup'
 import actionService from '../../connections/getdataaction'
