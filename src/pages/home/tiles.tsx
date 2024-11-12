@@ -1,6 +1,7 @@
 import { Box, Flex, Image, Text, Button } from '@chakra-ui/react'
 import { IPartner } from '../../models'
 import { capitalizeFLetter } from '../../util/capitalLetter'
+import { textLimit } from '../../util/textlimit'
 // import React from 'react' 
 
 function Tiles(props: IPartner) {
@@ -13,13 +14,13 @@ function Tiles(props: IPartner) {
 
     return (
         <Flex w={"full"} h={"full"} textAlign={"left"} flexDir={"column"} pos={"relative"} p={"4"} >
-            <Flex w={"full"} gap={"2"} alignItems={"end"} > 
+            <Flex w={"full"} gap={"2"} alignItems={"end"} >
                 <Box w={"80px"} h={"auto"} bgColor="gray" borderWidth={"3px"} rounded={"12px"}  >
                     <Image w={"full"} h={"full"} rounded={"12px"} src={imageUrl} objectFit={"contain"} alt='parnter' />
                 </Box>
             </Flex>
-            <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{capitalizeFLetter(partnerName)}</Text>
-            <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {partnerResourceName}</Text>
+            <Text color={"#1E1B39"} lineHeight={"21.7px"} fontSize={"18px"} fontWeight={"600"} mt={"4"} >{textLimit(capitalizeFLetter(partnerName), 20)}</Text>
+            <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >Partner: {textLimit(partnerResourceName, 25)}</Text>
             {/* <Text fontSize={"14px"} lineHeight={"23.2px"} color={"#828282"} >PID Number: {id}</Text> */}
             <Flex w={"full"} pt={"3"} gap={"4"} mt={"auto"}  >
 
