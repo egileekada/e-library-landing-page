@@ -2,20 +2,29 @@
 
 import { useQuery } from "react-query";  
 import actionService from "../connections/getdataaction";
+import { cleanup } from "../util/cleanup";
 
 interface IProps { 
     setdata?: any
-    setLoading?: any
+    setLoading?: any,
+    type: string
 }
 
 export default function PinData(props: IProps) {
 
     const{
         setdata,
-        setLoading
+        setLoading,
+        type
     } = props
 
-    const { isLoading } = useQuery(['partnertable'], () => actionService.getservicedata( `${"/partner/pinned"}`), {
+    const { isLoading } = useQuery(['partnertable'], () => actionService.getservicedata( `${"/partner/pinned"}`,
+    {
+        ...cleanup({ 
+            limit: 10,
+            category: type
+        }),
+    }), {
         onError: (error: any) => { 
             console.log(error); 
         },

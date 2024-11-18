@@ -134,7 +134,7 @@ function Home(props: Props) {
                     <Pagination setLimit={setLimit} setPage={setPage} setTotal={setTotal} limit={limit} page={page} totalItem={totalItem} />
                 </Box>
             </Flex>
-            <PinData setLoading={setLoading} setdata={setData} />
+            <PinData type={type} setLoading={setLoading} setdata={setData} />
         </Flex>
     )
 }
